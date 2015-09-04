@@ -19,11 +19,23 @@ public class CountWordsMain {
 		System.out.println("ID: " + Thread.currentThread().getId() + " ------:" + value);	
 	}
 	
+	static private int m = 0;
+	
+	// Jerry 2015-09-03 10:44PM for debugging
+	private static void debug(){
+		int j = 0;
+		for(int i = 0; i < 10; i++) {
+			m++;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		/* Jerry: unremoved "TODO"
 		/TODO Auto-generated method stub*/
 		{
 			// Jerry why define instance as Static?
+			debug();
 			instance = new FindWordsImp();
 			utilityPrint("Jerry I am in main thread******************");
 			instance.FindAndPrintWords("c:\\temp\\test", 3);
