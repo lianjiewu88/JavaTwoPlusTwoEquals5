@@ -1,10 +1,15 @@
 package web;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
 public class two {
 	
+	final public int MAX1 = 10;
+	public final int MAX2 = 10;
 	// touch .gitignore
 	// Jerry 2015-08-30 13:29PM if one .class file is already added to repository via commit,
 	// you have to use git rm to remove it first, in order to avoid it displayed in 
@@ -37,5 +42,12 @@ public class two {
 	
 	public static void main(String[] args) throws Exception {
 		jsonTest();
+		final Pattern SPACE = Pattern.compile(" ");
+		Iterable<String> result = Arrays.asList(SPACE.split("Hello world Jerry"));
+		Iterator<String> iterator = result.iterator();
+		while(iterator.hasNext()){
+			  String str = (String) iterator.next();
+			  System.out.println(str);
+		}
 	}
 }
