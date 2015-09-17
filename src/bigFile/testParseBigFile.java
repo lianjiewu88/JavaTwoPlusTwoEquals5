@@ -12,6 +12,12 @@ public class testParseBigFile {
 		byte[] temp = ",".getBytes();
 		byte comma = temp[0];
 		TextRowDecoder decoder = new TextRowDecoder(4, comma);
+		/* source code of big 
+		 * 	EUR/US1,20120102 00:01:30.420,1.29451,1.2949
+			EUR/US2,20120103 00:01:30.420,1.29451,1.2949
+			EUR/US3,20120103 00:01:30.420,1.29451,1.2949
+			EUR/US4,20120103 00:01:30.420,1.29451,1.2949
+		 */
 		File file = new File("C:\\temp\\big");
 		
 		FileReader<byte[][]> reader = FileReader.create(decoder, file.listFiles());

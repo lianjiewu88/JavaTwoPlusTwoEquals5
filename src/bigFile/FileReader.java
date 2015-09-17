@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 
 
@@ -105,6 +107,22 @@ public class FileReader<T> implements Iterable<List<T>> {
 	      public void remove() {
 	        throw new UnsupportedOperationException();
 	      }
+
+		@Override
+		public void forEachRemaining(Consumer<? super List<T>> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	    };
 	  }
+	@Override
+	public void forEach(Consumer<? super List<T>> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Spliterator<List<T>> spliterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	}
