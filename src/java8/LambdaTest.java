@@ -3,8 +3,9 @@ package java8;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class Lambda {
+public class LambdaTest {
 
 	/* (params) -> expression
 		(params) -> statement
@@ -15,7 +16,7 @@ private static void startThread() {
 	}
 	
 	private static void listOperation() {
-		List features = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API");
+		List<String> features = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API");
 		features.forEach(n -> System.out.println(n));
 		// 使用Java 8的方法引用更方便，方法引用由::双冒号操作符标示，
 		// 看起来像C++的作用域解析运算符
@@ -23,7 +24,7 @@ private static void startThread() {
 		features.forEach(System.out::println);
 	}
 	
-	private static void filter(List<String> names, Predicate condition) {
+	private static void filter(List<String> names, Predicate<String> condition) {
 		for(String name: names) {
 			if(condition.test(name)) {
 				System.out.println(name + " ");
@@ -57,21 +58,40 @@ private static void startThread() {
 		.forEach((n) -> System.out.println("Most Powerful ! nName, which starts with 'J' and four letter long is : " + n));
 		
 		// Method reference, if the argument is directly output
-		List features = Arrays.asList("StarLambdas", "Star Default Method", "Stream API", "Date and Time API");
+		List<String> features = Arrays.asList("StarLambdas", "Star Default Method", "Stream API", "Date and Time API");
 		features.forEach(System.out::println);
 	}
 	
 	// 为每个订单加上12%的税
 	private static void map() {
-		List costBeforeTax = Arrays.asList(100, 200, 300, 400, 500);
+		List<Integer> costBeforeTax = Arrays.asList(100, 200, 300, 400, 500);
 		// costBeforeTax.stream().map((cost) -> cost + 2*cost).forEach(System.out::println);
 		costBeforeTax.stream().map( (cost) -> {
+			// in debugger cost is Integer
+			System.out.println("Instance of? : " + cost instanceof Object);
+			System.out.println(cost);
 			System.out.println("Hello there");
 			
-			return 2 + (int)cost * 1.1f;
+			return (int)cost + (int)cost * .12f;
 			
 		}
 		).forEach(System.out::println);
+	}
+	
+	private static void reduceTest() {
+		// specify concrete type here!!!
+		List<Integer> costBeforeTax = Arrays.asList(100, 200, 300, 400, 500);
+
+		double bill = (double) costBeforeTax.stream().map( (cost) -> { 
+			return (int)cost + (int)cost * .12f;
+		}).reduce((a, b) -> a + b).get();
+		System.out.println("Total : " + bill);
+	}
+	
+	private static void concatenate() {
+		List<String> G7 = Arrays.asList("USA", "Japan", "France", "Germany", "Italy", "U.K.","Canada");
+		String G7Countries = G7.stream().map(x -> x.toUpperCase()).collect(Collectors.joining(", "));
+		System.out.println(G7Countries);
 	}
 	
 	public static void main(String[] args) {
@@ -80,6 +100,8 @@ private static void startThread() {
 		System.out.println("Start FilterTest.............");
 		filterTest();
 		map();
+		reduceTest();
+		concatenate();
 	}
 
 }
