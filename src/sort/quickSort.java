@@ -56,6 +56,7 @@ public class quickSort {
 	public static void main(String[] args) {
 		int a[] = {3,2,4,1};
 		quickSort tool = new quickSort(a);
+		System.out.println("ok");
 	}
 
 }
