@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8">
+<city>Chengdu</city>
+<state>China</state>
+<product>
+<item name="mcf1" unit="EA"/>
+<item name="mcf2" unit="PA"/>
+</product>
