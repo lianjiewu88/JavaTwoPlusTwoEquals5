@@ -12,12 +12,18 @@ public class LambdaTest {
 		(params) -> { statements } */
 	
 private static void startThread() {
-		new Thread( () -> System.out.println("In Java8, Lambda expression rocks !!") ).start();
+		new Thread( () -> System.out.println("In Java8, Lambda expression rocks !!,thread id: " + 
+				Thread.currentThread().getId()) ).start();
+	}
+	
+	private static void printThreadId(String name) {
+		System.out.println("Current Thread id:" + Thread.currentThread().getId() + " - " + name);
 	}
 	
 	private static void listOperation() {
+		printThreadId("listOperation()");
 		List<String> features = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API");
-		features.forEach(n -> System.out.println(n));
+		features.forEach(n -> System.out.println("ListOperation: " + n));
 		// 使用Java 8的方法引用更方便，方法引用由::双冒号操作符标示，
 		// 看起来像C++的作用域解析运算符
 		System.out.println("after....");
@@ -27,7 +33,7 @@ private static void startThread() {
 	private static void filter(List<String> names, Predicate<String> condition) {
 		for(String name: names) {
 			if(condition.test(name)) {
-				System.out.println(name + " ");
+				System.out.println(name + "....Filter passed()");
 			}
 		}
 	}
