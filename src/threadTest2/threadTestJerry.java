@@ -5,6 +5,8 @@ class ThreadTest2 implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("before sleep");
+		boolean test = false;
+		System.out.println("test: " + !test);
           try {
              Thread.sleep(5000);
           } catch (InterruptedException e) {
