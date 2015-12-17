@@ -64,6 +64,23 @@ public class BitTest {
 	    return ret;
 	}
 	
+	public static int test4(int[] nums) {
+		if(nums==null || nums.length == 0){
+			return Integer.MIN_VALUE;
+		}
+		
+		int []result = new int[32];
+		int ans = 0;
+		for(int i=0; i<32; i++){
+			for(int j=0; j<nums.length; j++){
+				result[i] += ((nums[j]>>i)&0x01);
+			}
+			ans |= ((result[i]%3)<<i);
+		}
+		
+		return ans;
+	}
+	
 	public static int test3(int[] A) {
 		int ones = 0, twos = 0;
 		for(int i = 0; i < A.length; i++){
@@ -84,6 +101,7 @@ public class BitTest {
 		index = test3(a);
 		System.out.println("Index: " + index);
 		System.out.println("Third: " + a[index]); */
+		System.out.println("fourth:" + test4(a));
 		
 	}
 }
