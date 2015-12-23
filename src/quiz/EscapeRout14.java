@@ -6,7 +6,7 @@ public class EscapeRout14 {
 		// 编译器首先将Unicode转义字符转换成它们所表示的字符，对\u0022,转换成"",
 		// <=>于"a".length() + "b".length() = 2
 		
-		/* from F:\ units // syntax error: invalid unicode \ u 后面必须跟四个十六进制的数字。
+		/* from Funi t s // syntax error: invalid unicode \ u 后面必须跟四个十六进制的数字。
 		*/
 		
 		System.out.println("a\u0022.length()+\u0022b".length()); // 2
