@@ -12,14 +12,17 @@ public class NestedConstructor40 {
 	at quiz.NestedConstructor40.<init>(NestedConstructor40.java:5)
 	StackOverflowError是Error的子类型而不是Exception的子类型，因此catch无法捕获
 	*/
+	class Car {
+	}
 	public static void main(String[] args) {
-		try {
+		/*try {
 			   NestedConstructor40 b = new NestedConstructor40();
 			   System.out.println("Surprise!");
 			} catch ( Exception ex) {
 			  System.out.println("I told you so");
 			}
-
+		 */
+		System.out.println("solution");
 	}
 
 }
