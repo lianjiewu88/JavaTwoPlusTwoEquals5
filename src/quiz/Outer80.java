@@ -29,6 +29,8 @@ Outer.Inner没有空构造器。
     		System.out.println(e.getLocalizedMessage());
     	}
     }
+    // 如果Inner实例不需要一个外围的outer实例，可以将其声明为静态的。
+    // public static class Inner {}
     public class Inner{
       public String toString(){
         return "Hello";
