@@ -1,5 +1,6 @@
 package quiz;
 
+// 每一个静态field在声明它的类及其所有子类中共享一份单一的拷贝。
 public class Confusing46 {
     private Confusing46( Object o ) {
          System.out.println("Object");
