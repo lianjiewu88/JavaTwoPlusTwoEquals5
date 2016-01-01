@@ -68,7 +68,8 @@ public class FileReader<T> implements Iterable<List<T>> {
 	        }
 	      }
 	 
-	      private MappedByteBuffer nextBuffer(long position) {
+	      @SuppressWarnings("resource")
+		private MappedByteBuffer nextBuffer(long position) {
 	        try {
 	          if (channel == null || channel.size() == position) {
 	            if (channel != null) {

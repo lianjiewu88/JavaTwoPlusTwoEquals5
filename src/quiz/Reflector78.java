@@ -25,7 +25,8 @@ public class Reflector78 {
 	  public static void main(String[] args) throws Exception {
 	     Set<String> s = new HashSet<String>();
 	     s.add("foo");
-	     Iterator it = s.iterator();
+	     @SuppressWarnings("rawtypes")
+		Iterator it = s.iterator();
 	     
 	     Object a = it.getClass();
 	     System.out.println("GetClass: " + a.toString()); // class java.util.HashMap$KeyIterator
