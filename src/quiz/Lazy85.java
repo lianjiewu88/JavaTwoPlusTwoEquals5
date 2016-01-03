@@ -57,7 +57,39 @@ public class Lazy85{
 		try{
 			System.out.println(" in main thread, call t.join()");
 		     t.join();
+		     int a = -1;
+		     int b = -(2);
+		     // int类型的负数常量都是由正数十进制字面常量前加一元负操作符-构成。
+		     int c = Integer.MAX_VALUE;
+		     int d = -c;
+		     int e = -2147483648;
+		     // int f = -(2147483648); // literal out of range
 		     System.out.println("status: " + initialized);
+		     /* 等价关系：自反，传递，对称。
+				==不是自反。Double.NaN == Double.NaN不成立。
+				
+				等价关系：自反，传递，对称。
+==不是自反。Double.NaN == Double.NaN不成立。
+
+当比较两个原始类型数值时，==首先进行二进制数据类型提升 - binary numeric promotion, 会导致
+
+两个数值中有一个会进行拓宽原始类型转换 - widening primitive conversion. 将int或者long转换
+
+成float，或者long转换成double时，会导致精度丢失。
+
+实现不可传递性：
+
+选择两个较大的但不相同的long型数值赋给x和z，将一个与前面两个long型数值相近的double型数值赋
+
+给y。==作用于原始类型时具有不可传递性。
+
+		     */
+		     long x = Long.MAX_VALUE;
+		     double y = (double)Long.MAX_VALUE;
+		     long z = Long.MAX_VALUE - 1;
+		     System.out.println( ( x==y) + ""); // true
+		     System.out.println( ( y==z) + ""); // true
+		     System.out.println( ( x==z) + ""); // false
 		   } catch(InterruptedException e){
 		     throw new AssertionError(e);
 		      }
