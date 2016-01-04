@@ -1,7 +1,5 @@
 package quiz;
 
-import static java.util.Arrays.toString;
-
 import java.util.Arrays;
 
 class ImportDuty71 {
@@ -11,6 +9,11 @@ class ImportDuty71 {
 
    // The method toString() in the type object is not applicable for the arguments( Object[] )
    /* 
+    * 
+    * Quiz 72: final修饰符对于方法和域而言，完全不同。对于方法，final意味着该实例方法不能被覆写
+
+，或者静态方法不能被隐藏。对于域，final意味着其不能被赋值超过一次，但是可以被隐藏。
+
 编译器尝试去应用Object.toString().
 编译器在选择运行期将要被调用的方法时，所做的第一件事就是在肯定能找到该方法的范围内挑选。将
 
