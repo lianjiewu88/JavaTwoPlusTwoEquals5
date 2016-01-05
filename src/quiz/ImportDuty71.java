@@ -1,10 +1,12 @@
 package quiz;
 
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 
 class ImportDuty71 {
    public static void main(String[] args ) {
         printArgs(1,2,3,4);
+        CountDownLatch countDownLatch = new CountDownLatch(1);
    }
 
    // The method toString() in the type object is not applicable for the arguments( Object[] )
