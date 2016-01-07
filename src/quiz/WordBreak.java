@@ -39,9 +39,7 @@ public class WordBreak {
 		dict.add("World");
 		
 		WordBreak tool = new WordBreak();
-		boolean result = tool.wordBreak("HelloWorld!",dict );
+		boolean result = tool.wordBreak("HelloaWorld",dict );
 		System.out.println(result);
-
 	}
-
 }
