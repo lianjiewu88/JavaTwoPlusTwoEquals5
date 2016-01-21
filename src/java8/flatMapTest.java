@@ -10,7 +10,8 @@ import java.util.stream.Stream;
 
 class Developer {
 
-    private String name;
+    @SuppressWarnings("unused")
+	private String name;
     private Set<String> languages;
 
     public Developer(String name) {

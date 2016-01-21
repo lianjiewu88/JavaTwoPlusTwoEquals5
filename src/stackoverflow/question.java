@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class question {
 
+	@SuppressWarnings("unused")
 	private static void dateTest() throws ParseException {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String str3 = "1927-12-31 23:54:07";
