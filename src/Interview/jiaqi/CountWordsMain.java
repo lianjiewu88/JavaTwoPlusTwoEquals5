@@ -1,7 +1,5 @@
 package Interview.jiaqi;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 
 // Jerry 2015-09-01 18:41PM unused import

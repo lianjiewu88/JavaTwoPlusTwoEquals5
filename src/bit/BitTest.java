@@ -92,7 +92,7 @@ public class BitTest {
 	public static void main(String[] args) {
 		// int a[] = {1,1,2,2,5,4,4};
 		// System.out.println("Twice: " + twiceNumber(a));
-		int a[] = {1,5,1,1,2,2,2,4,4,4,6,6,6};
+		int a[] = {1,999,1,1,2,2,2,4,4,4,6,6,6};
 		int index = ThirdNumber(a);
 		System.out.println("Index: " + index); // 5 , 第0位和第2位为1，所以为5
 		/*
