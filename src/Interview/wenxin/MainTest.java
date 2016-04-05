@@ -12,9 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
 /**
- *
  * @author WenxinChen
- *
  */
 
 public class MainTest {
