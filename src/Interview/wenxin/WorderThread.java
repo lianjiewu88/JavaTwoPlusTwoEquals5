@@ -13,18 +13,23 @@ public class WorderThread extends Thread {
 	private CountDownLatch cdl;
 	private TaskQueue queue;
 	private List<File> fileList;
-	private ConcurrentHashMap<String,Integer> hMap,maps ;
-	//private static ReadWriteLock lock = new ReentrantReadWriteLock();
+	private ConcurrentHashMap<String, Integer> hMap, maps;
+	// private static ReadWriteLock lock = new ReentrantReadWriteLock();
 	private static Object lockObj = new Object();
-	public WorderThread(ThreadGroup group, TaskQueue queue, List<File> fileList,CountDownLatch cdl){
-		super(group,"worker-"+count);
+
+	public WorderThread(ThreadGroup group, TaskQueue queue,
+			List<File> fileList, CountDownLatch cdl) {
+		super(group, "worker-" + count);
 		count++;
 		this.queue = queue;
 		this.fileList = fileList;
 		this.cdl = cdl;
-		//this.maps = (TreeMap<String, Integer>) maps;
+		// this.maps = (TreeMap<String, Integer>) maps;
+		System.out.println("Worker Thread generated, current file count: "
+				+ fileList.size());
 	}
-	public void shutDown(){
+
+	public void shutDown() {
 		stop = true;
 		this.interrupt();
 		try {
@@ -33,44 +38,42 @@ public class WorderThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	public  boolean isIdle(){
+
+	public boolean isIdle() {
 		return !busy;
 	}
-	
-	public void run(){
+
+	public void run() {
 
 		maps = (ConcurrentHashMap<String, Integer>) MainTest.maps;
-		while(!stop){
+		while (!stop) {
 			Task task = queue.getTask();
-			if (task!= null){
+			if (task != null) {
 				busy = true;
-				for(Iterator<File> it = this.fileList.iterator();it.hasNext();){
-					File file = (File)it.next();
+				for (Iterator<File> it = this.fileList.iterator(); it.hasNext();) {
+					File file = (File) it.next();
 					hMap = task.execute(file);
 					synchronized (WorderThread.lockObj) {
-					Iterator it0 = maps.keySet().iterator();
-					while(it0.hasNext()){
-						String key1 = (String) it0.next();//maps��keyֵ
-						if(hMap.containsKey(key1)){
-							int v1 = maps.get(key1);
-							int v2 = hMap.get(key1);
-							maps.put(key1, v1+v2);
-							hMap.remove(key1);
+						Iterator it0 = maps.keySet().iterator();
+						while (it0.hasNext()) {
+							String key1 = (String) it0.next();// maps��keyֵ
+							if (hMap.containsKey(key1)) {
+								int v1 = maps.get(key1);
+								int v2 = hMap.get(key1);
+								maps.put(key1, v1 + v2);
+								hMap.remove(key1);
+							}
+						} // end of while
+						if (hMap != null) {
+							maps.putAll(hMap);
+							hMap.clear();
 						}
-					
-					}
-					if(hMap != null){
-						maps.putAll(hMap);
-						hMap.clear();
-					}
-					}
-				}
+					} // end of synchronization
+				}// end of for - FileList
 				busy = false;
 				cdl.countDown();
 				return;
 			}
-			
 		}
-			
 	}
 }
