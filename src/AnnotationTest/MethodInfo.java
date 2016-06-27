@@ -11,6 +11,5 @@ public @interface MethodInfo {
     String version() default "1.0";
     String date();
     String comment();
-
 }
 

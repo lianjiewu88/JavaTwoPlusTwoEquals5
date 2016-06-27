@@ -13,6 +13,8 @@ public class CountWordsMain {
 
 	static FindWordsImp instance;
 	
+	Object object;
+	
 	private static void utilityPrint(String value) {
 		System.out.println("ID: " + Thread.currentThread().getId() + " ------:" + value);	
 	}
