@@ -35,7 +35,7 @@ public class SwingGui  extends JFrame{
 	private JButton searchButton;
 	
 	//进度条控件
-	private JProgressBar searchProcessBar;
+	public JProgressBar searchProcessBar;
 	
 	//是否开启大小写敏感
 	private boolean isCaseSensitive;
@@ -60,6 +60,7 @@ public class SwingGui  extends JFrame{
 		
 		//搜索控件初始化
 		searchButton = new JButton("Search");
+		searchButton.setEnabled(false);
 		searchButton.addActionListener(new searchButtonHandler());
 		
 		//进度条控件初始化
@@ -106,6 +107,7 @@ public class SwingGui  extends JFrame{
 			File file=jfc.getSelectedFile();
 			if(file.isDirectory()){
 				baseText.setText(file.getAbsolutePath());
+				searchButton.setEnabled(true);
 				System.out.println("Directory:"+file.getAbsolutePath());
 				
 			}else if(file.isFile()){
@@ -168,23 +170,21 @@ public class SwingGui  extends JFrame{
 			ArrayList<FileProperty> fileList = new ArrayList<FileProperty>();
 			fileSearch.searchFile(basePath, keyWords, fileList);
 			// System.out.println("before remove:"+resultList.size());
-			for (int i = 0; i < fileList.size(); i++) {
-				if (fileSearch.fileNameMatch(keyWords, fileList.get(i).getFileName())) {
+			for (int i = 0; i < fileList.size(); i++) {				
+				if (fileSearch.fileContentMatch(fileList.get(i).getFilePath(), keyWords)) {
 					resultList.add(fileList.get(i));
 				}
-
-				double totalFiles = fileList.size() - 1;
-				double proportion = ((double) i / totalFiles) * 100;
+				double totalFiles = fileList.size();
+				double proportion = ((double) (i+1) / totalFiles) * 100;
 				Double tempDouble = new Double(proportion);
 
 				publish(tempDouble.intValue());
 			}
-
 			return true;
 			// return null;
 		}
 		
-
+		//显示进度条
 		protected void process(List<Integer> chunks) {
 			Integer value = chunks.get(chunks.size() - 1);
 
@@ -194,7 +194,7 @@ public class SwingGui  extends JFrame{
 		@Override
 		protected void done() {
 			
-			ListViewGui listView = new ListViewGui(resultList);
+			ListViewGui listView = new ListViewGui(resultList,SwingGui.this);
 			listView.setVisible(true);
 			//searchProcessBar.setValue(0);
 		}
