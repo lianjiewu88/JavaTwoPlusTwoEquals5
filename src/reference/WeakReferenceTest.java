@@ -23,22 +23,14 @@ public class WeakReferenceTest {
 		}
 	}
 
-	public static void hello(Person person){
-		if( person == null)
-			return;
-		System.out.println("hello: " + person.getName());
-	}
 	public static void main(String[] args) {
 		Person jerry = null;
 		WeakReference<Person> person = new WeakReference<Person>(new Person("Jerry")); 
 		jerry = new Person("Ben");
+		
+		// if you comment out this line, Reference will be available
+		System.gc();
 		Person restore = person.get();
 		check(restore);
-		
-		System.gc();
-		restore = person.get();
-		check(restore);
-		hello(restore);
 	}
-
 }
