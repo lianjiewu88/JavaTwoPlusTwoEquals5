@@ -1,5 +1,6 @@
 package constructor;
 
+// test case1: Parent has public constructor, and child has private constructor
 class ctrPerson{
 	private String name;
 	public ctrPerson(String name){
@@ -21,6 +22,8 @@ class ctrSubPerson extends ctrPerson{
 	}
 }
 
+
+// test case 2: parent has protected constructor, and child has public constructor
 class revertPerson{
 	private String name;
 	protected revertPerson(String name){
