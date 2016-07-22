@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 class Country{
 	private String mCountryCode;
@@ -102,6 +103,10 @@ public class MapTest{
 		
 		Map<String, Country> result1 = maptest.getCountryDataMap(testdata);
 		Map<String, Country> result2 = maptest.getCountryDataMap(testdata);
+		
+		List<Country> filterResult = testdata.stream().filter((country) -> country.getCode().equals("US")).collect(Collectors.toList());
+		System.out.println("size: " + filterResult.size());
+		filterResult.forEach(System.out::println);
 		System.out.println(maptest.assertEqual2(result1, result2));
 	}
 }
