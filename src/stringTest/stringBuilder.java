@@ -8,5 +8,10 @@ public class stringBuilder {
 		for(int i = 0; i < values.length;i++){
 			result.append(values[i]);
 		}
+		
+		result.insert( 1, "a");
+		System.out.println(result.toString());
+		result.insert( 2, "b" + " ");
+		System.out.println(result.toString());
 	}
 }
