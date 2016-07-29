@@ -18,5 +18,4 @@ public class PerformanceTraceDecorator implements Command{
 		this.cmd.execute();
 		logger.log(Level.INFO, "end performance trace");
 	}
-
 }
