@@ -29,6 +29,12 @@ str.substring(m, n) + ""
 		splitSpace("Jerry is a");
 		convertDate("Sep 17, 2013");
 		
+		String[] a = {"1", "2"};
+		String[] b = new String[]{"1","2"};
+		
+		System.out.println(a.equals(b));
+		System.out.println(a);
+		System.out.println(b);
 		return;
 	}
 	
