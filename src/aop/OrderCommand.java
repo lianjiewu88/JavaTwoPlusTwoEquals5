@@ -1,13 +1,14 @@
 package aop;
 
-public class OrderCommand extends BaseCommand {
+public class OrderCommand implements Command {
 
 	public static void main(String[] args) {
-		new OrderCommand().execute();
+		Command cmd = new LoggerDecorator( new PerformanceTraceDecorator( new OrderCommand()));
+		cmd.execute();
 	}
 
 	@Override
-	protected void doBusiness() {
-		  System.out.println("Do business here");
+	public void execute() {
+		System.out.println("Do business here");
 	}
 }
