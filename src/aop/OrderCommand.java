@@ -3,7 +3,7 @@ package aop;
 public class OrderCommand implements Command {
 
 	public static void main(String[] args) {
-		Command cmd = new LoggerDecorator( new PerformanceTraceDecorator( new OrderCommand()));
+		Command cmd = new PerformanceTraceDecorator( new OrderCommand());
 		cmd.execute();
 	}
 
