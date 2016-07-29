@@ -1,10 +1,13 @@
 package aop;
 
-public class OrderCommand {
+public class OrderCommand extends BaseCommand {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		new OrderCommand().execute();
 	}
 
+	@Override
+	protected void doBusiness() {
+		  System.out.println("Do business here");
+	}
 }
