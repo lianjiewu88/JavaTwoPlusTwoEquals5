@@ -1,7 +1,6 @@
 package aop;
 
 import java.util.logging.Level;
-
 import com.sun.istack.internal.logging.Logger;
 
 public class LoggerDecorator implements Command{
