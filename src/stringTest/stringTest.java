@@ -38,6 +38,8 @@ str.substring(m, n) + ""
 		return;
 	}
 	
+	private native int aa();
+	
 	// String str = "Sep 17, 2013";
 	private static void convertDate(String d) {
 		Date date = null;
