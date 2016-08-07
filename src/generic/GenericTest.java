@@ -1,5 +1,8 @@
 package generic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // http://stackoverflow.com/questions/5207115/java-generics-t-vs-object
 
 public class GenericTest {
@@ -25,20 +28,38 @@ public class GenericTest {
 		System.out.println("Generic: " + x); 
 	} */
 	
+	public static void printList(List<Object> l) { 
+		for (Object o : l) 
+			System.out.println(o); 
+	}
+	
+	public static void printList2(List<?> l) { 
+		for (Object o : l) 
+			System.out.println(o); 
+	} 
+	
 	public static void main(String[] args) {
 		
 		foo2("Test");
 		String a = "a";
 		
 		try {
-		String result = GenericTest.requireNonNull(a);
-		System.out.println(result);
+			String result = GenericTest.requireNonNull(a);
+			System.out.println(result);
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 		
-
+		List<Integer> iList = new ArrayList<Integer>();
+		iList.add(1);
+		
+		// The method printList(List<Object>) in the type GenericTest is not applicable 
+		// for the arguments (List<Integer>)
+		// printList(iList);
+		// 上面代码中的问号是一个类型通配符。它读作“问号”。List<?>是任何泛型List的父类型，所以您完全可以将 List<Object>、
+		// List<Integer>或 List<List<List<Flutzpah>>>传递给printList()。 
+		printList2(iList);
 	}
 
 }
