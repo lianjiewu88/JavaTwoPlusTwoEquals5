@@ -2,7 +2,9 @@ package stringTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import com.google.zxing.common.StringUtils;
@@ -35,6 +37,12 @@ str.substring(m, n) + ""
 		System.out.println(a.equals(b));
 		System.out.println(a);
 		System.out.println(b);
+		
+		List<String> array = new ArrayList<String>(1);
+		System.out.println("size: " + array.size());
+		Boolean a1 = new Boolean(true);
+		Boolean a2 = Boolean.valueOf(true);
+		System.out.println("equal:? " + a1.equals(a2));
 		return;
 	}
 	
