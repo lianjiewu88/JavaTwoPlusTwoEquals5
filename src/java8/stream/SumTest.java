@@ -41,11 +41,19 @@ public class SumTest {
             new User(3,"王五", 32),  
             new User(4, "赵六", 32));
 	
+	public static String covert2SnakeCase(final String camelCase)
+	{
+		final String regex = "([a-z])([A-Z])";
+		final String replacement = "$1_$2";
+		return camelCase.replaceAll(regex, replacement).toLowerCase();
+	}
+	
 	public static void main(String[] args) {
 		//double sum = users.parallelStream().mapToInt(User::getAge().getAgeValue()).reduce(0, (x, y) -> x + y); 
 		double sum2 = users.parallelStream().mapToInt(User::getAgeWrapper).sum(); 
 		//System.out.println("sum1: " + sum);
 		System.out.println(" sum2: " + sum2);
+		System.out.println(covert2SnakeCase("helloJerry"));
 
 	}
 
