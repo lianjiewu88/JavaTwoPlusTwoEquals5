@@ -1,0 +1,37 @@
+package java8.stream;
+
+import java.util.Arrays;
+import java.util.List;
+
+class User{
+	private int id;
+	private String name;
+	private int age;
+	
+	public User(int id, String name, int age){
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+	
+	public int getAge(){
+		return this.age;
+	}
+}
+public class SumTest {
+
+	private static List<User> users = Arrays.asList( 
+            new User(1, "张三", 12),  
+            new User(2, "李四", 21),  
+            new User(3,"王五", 32),  
+            new User(4, "赵六", 32));
+	
+	public static void main(String[] args) {
+		double sum = users.parallelStream().mapToInt(User::getAge).reduce(0, (x, y) -> x + y); 
+		double sum2 = users.parallelStream().mapToInt(User::getAge).sum(); 
+		System.out.println("sum1: " + sum + " sum2: " + sum2);
+ 
+
+	}
+
+}
