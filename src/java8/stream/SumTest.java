@@ -3,20 +3,35 @@ package java8.stream;
 import java.util.Arrays;
 import java.util.List;
 
+class Age{
+	private int age;
+	public Age(int age){
+		this.age = age;
+	}
+	
+	public int getAgeValue(){
+		return this.age;
+	}
+}
 class User{
 	private int id;
 	private String name;
-	private int age;
+	private Age age;
 	
 	public User(int id, String name, int age){
 		this.id = id;
 		this.name = name;
-		this.age = age;
+		this.age = new Age(age);
 	}
 	
-	public int getAge(){
+	public Age getAge(){
 		return this.age;
 	}
+	
+	public int getAgeWrapper(){
+		return this.age.getAgeValue();
+	}
+	
 }
 public class SumTest {
 
@@ -27,10 +42,10 @@ public class SumTest {
             new User(4, "赵六", 32));
 	
 	public static void main(String[] args) {
-		double sum = users.parallelStream().mapToInt(User::getAge).reduce(0, (x, y) -> x + y); 
-		double sum2 = users.parallelStream().mapToInt(User::getAge).sum(); 
-		System.out.println("sum1: " + sum + " sum2: " + sum2);
- 
+		//double sum = users.parallelStream().mapToInt(User::getAge().getAgeValue()).reduce(0, (x, y) -> x + y); 
+		double sum2 = users.parallelStream().mapToInt(User::getAgeWrapper).sum(); 
+		//System.out.println("sum1: " + sum);
+		System.out.println(" sum2: " + sum2);
 
 	}
 
