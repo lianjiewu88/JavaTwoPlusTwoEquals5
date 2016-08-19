@@ -44,5 +44,13 @@ ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 	public static void main(String[] args) {
 		// asListTest();
 		removeInLoop();
+		String[] a = {"A", "B"};
+		// internal implementation: return new ArrayList<>(a);
+		List<String> list1 = Arrays.asList(a);
+		List<String> list2 = Arrays.asList(a);
+		List<String> list3 = Arrays.asList(a);
+		System.out.println(list1);
+		System.out.println(list2);
+		System.out.println(list3);
 	}
 }
