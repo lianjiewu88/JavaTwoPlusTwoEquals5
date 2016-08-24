@@ -47,7 +47,9 @@ public class InheritanceTest {
 		ctrPerson p1 = new ctrPerson("Jerry");
 		ctrSubPerson p2 = ctrSubPerson.getInstance("Jerry", 34);
 		
-		revertSubPerson p3 = new revertSubPerson("Jerry", 34);
+		// syntax error
+		//ctrSubPerson p3 = new ctrSubPerson("Jerry");
+		//revertSubPerson p3 = new revertSubPerson("Jerry", 34);
 	}
 
 }

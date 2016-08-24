@@ -28,6 +28,10 @@ str.substring(m, n) + ""
 	看看这张图就会明白substring()方法在JDK6和JDK7中的区别。
 	 */
 	public static void main(String[] args) {
+		final String[] files1 = new String[]
+				{ "essentialdata_usergroups.impex", "essentialdata_personalization.impex" };
+		final String[] files2 = { "essentialdata_usergroups.impex", "essentialdata_personalization.impex" };
+		System.out.println("Equal? " + files1.equals(files2));
 		splitSpace("Jerry is a");
 		convertDate("Sep 17, 2013");
 		
