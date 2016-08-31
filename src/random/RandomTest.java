@@ -1,5 +1,10 @@
 package random;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /*
@@ -23,6 +28,9 @@ Random(-147909649).nextInt(27)
  */
 public class RandomTest {
 
+	public void hello(){
+		System.out.println("Hello");
+	}
 	public static String randomString(int i) {
 		Random ran = new Random(i);
 		StringBuilder sb = new StringBuilder();
@@ -39,7 +47,51 @@ public class RandomTest {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+	public static void main(String[] args) throws ParseException {
+		// System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+		
+		// strangeTime();
+		String clazz = "random.RandomTest";  
+		try {
+			Object o = Class.forName(clazz).newInstance();
+			RandomTest r = (RandomTest)o;
+			r.hello();
+			Method m = o.getClass().getMethod("hello");
+			m.invoke(o);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
-}
+	
+	private static void strangeTime() throws ParseException{
+
+		    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		    String str3 = "1927-12-31 23:54:07";  
+		    String str4 = "1927-12-31 23:54:08";  
+		    Date sDt3 = sf.parse(str3);  
+		    Date sDt4 = sf.parse(str4);  
+		    long ld3 = sDt3.getTime() /1000;  
+		    long ld4 = sDt4.getTime() /1000;
+		    System.out.println(ld4-ld3);
+		}
+	}
+
