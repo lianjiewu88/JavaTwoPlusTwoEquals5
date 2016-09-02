@@ -48,7 +48,7 @@ public class RandomTest {
 	}
 
 	public static void main(String[] args) throws ParseException {
-		// System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+		System.out.println(randomString(-229985452) + " " + randomString(-147909649));
 		
 		// strangeTime();
 		String clazz = "random.RandomTest";  
