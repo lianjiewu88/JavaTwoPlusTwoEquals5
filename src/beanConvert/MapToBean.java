@@ -3,13 +3,17 @@ package beanConvert;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapToBean {
     private String name;
     private String sex;
 
+    // Jerry: get this attribute's type via reflection
     private List<InnerBean> innerList;
+    private Map<String, InnerBean> innerMap;
     public String getName() {
         return name;
     }
@@ -27,6 +31,10 @@ public class MapToBean {
     }
     public void setInnerList(ArrayList<InnerBean> innerList) {
         this.innerList = innerList;
+    }
+    
+    public void setInnerMap(HashMap<String, InnerBean> innerMap) {
+        this.innerMap = innerMap;
     }
     @Override
     public String toString() {

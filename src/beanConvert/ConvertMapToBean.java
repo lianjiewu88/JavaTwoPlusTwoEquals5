@@ -39,14 +39,41 @@ public class ConvertMapToBean {
             Iterator iter = ((List) value).iterator();
             while (iter.hasNext()) {
                 // innerbean map
+            	// Jerry: here you assume that the list contains Map as item
                 Map innerMap = (Map) iter.next();
                 ParameterizedType actualType = (ParameterizedType) type;
                 // get the actualTypes:generic
                 Type[] types = actualType.getActualTypeArguments();
+                System.out.println("try to load class: " + types[0].getTypeName());
                 Object innerBean = doConvertMapToBean(innerMap, Class.forName(types[0].getTypeName()));
                 valueCopy.add(innerBean);
             }
             value = valueCopy;
+        }
+        
+        if( value instanceof Map){
+        	System.out.println("Map found!");
+        	//ParameterizedType actualType = (ParameterizedType) type;
+            // get the actualTypes:generic
+            //Type[] types = actualType.getActualTypeArguments();
+        	//Object innerBean = doConvertMapToBean((Map)value, Class.forName(types[0].getTypeName()));
+        	// Object innerBean = doConvertMapToBean((Map)value, Class.forName(type.getTypeName()));
+        	Map valuecopy = (Map)value.getClass().newInstance();
+        	Iterator iter = ((Map)value).entrySet().iterator();
+        	while (iter.hasNext()){
+        		Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
+        		Object key1 = entry.getKey();
+        		Object value1 = entry.getValue(); // HashMap here
+        		System.out.println("Jerry key: " + key1 + " value: " + value1);
+        		ParameterizedType actualType = (ParameterizedType) type;
+                // get the actualTypes:generic
+                Type[] types = actualType.getActualTypeArguments();
+                System.out.println("try to load class: " + types[0].getTypeName());
+                System.out.println("try to load class: " + types[1].getTypeName());
+        		Object parsedBean = doConvertMapToBean((Map)value1, Class.forName(types[1].getTypeName()));
+        		valuecopy.put(key1, parsedBean);
+        	}
+        	value = valuecopy;
         }
         method.invoke(bean, value);
     }
@@ -80,6 +107,20 @@ public class ConvertMapToBean {
         innerList.add(beanMap1);
 
         valueMap.put("innerList", innerList);
+        
+        Map duridMap = new HashMap();
+        duridMap.put("beanName", "Durid");
+        duridMap.put("beanNo", "01");
+
+        Map sorMap = new HashMap();
+        sorMap.put("beanName", "Sor");
+        sorMap.put("beanNo", "02");
+        
+        Map innerMap = new HashMap();
+        innerMap.put("Durid", duridMap);
+        innerMap.put("Sor", sorMap);
+        
+        valueMap.put("innerMap", innerMap);
         return valueMap;
     }
 }
