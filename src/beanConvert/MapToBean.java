@@ -38,7 +38,8 @@ public class MapToBean {
     }
     @Override
     public String toString() {
-        return "MapToBean [name=" + name + ", sex=" + sex + ", innerList=" + innerList + "]";
+        return "MapToBean [name=" + name + ", sex=" + sex + ", innerList=" + innerList + "]"
+        		+ ", innerMap=" + innerMap;
     }
 
 }

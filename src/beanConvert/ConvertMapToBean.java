@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,53 +28,44 @@ public class ConvertMapToBean {
         return expectBean;
     }
 
+    private static List parseList(Object value, String className) throws ClassNotFoundException, Throwable{
+    	List valueCopy = ArrayList.class.newInstance();
+        Iterator iter = ((List)value).iterator();
+        while (iter.hasNext()) {
+            // innerbean map
+        	// Jerry: here you assume that the list contains Map as item
+            Map innerMap = (Map) iter.next();
+            Object innerBean = doConvertMapToBean(innerMap, Class.forName(className));
+            valueCopy.add(innerBean);
+        }
+        return valueCopy;
+    }
+    
+    private static Map parseMap(Object value, String className) throws ClassNotFoundException, Throwable{
+    	Map valuecopy = (Map) value.getClass().newInstance();
+    	Iterator iter = ((Map)value).entrySet().iterator();
+    	while (iter.hasNext()){
+    		Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
+    		Object key1 = entry.getKey();
+    		Object value1 = entry.getValue(); // HashMap here
+    		Object parsedBean = doConvertMapToBean((Map)value1, Class.forName(className));
+    		valuecopy.put(key1, parsedBean);
+    	}
+        return valuecopy;
+    }
     private static void setProperty(String key, Object value, Type type, Object bean) throws Throwable {
         String methodName = "set" + key.substring(0, 1).toUpperCase() + key.substring(1, key.length());
-        // for list, if the setList arg is not ArrayList: NoSuchMethodException
-        // lookUp
         Method method = bean.getClass().getMethod(methodName, value.getClass());
-
-        // collectionAdapterFactory
-        if (value instanceof List) {
-            List valueCopy = ArrayList.class.newInstance();
-            Iterator iter = ((List) value).iterator();
-            while (iter.hasNext()) {
-                // innerbean map
-            	// Jerry: here you assume that the list contains Map as item
-                Map innerMap = (Map) iter.next();
-                ParameterizedType actualType = (ParameterizedType) type;
-                // get the actualTypes:generic
-                Type[] types = actualType.getActualTypeArguments();
-                System.out.println("try to load class: " + types[0].getTypeName());
-                Object innerBean = doConvertMapToBean(innerMap, Class.forName(types[0].getTypeName()));
-                valueCopy.add(innerBean);
+        if ( value instanceof Collection){
+        	ParameterizedType actualType = (ParameterizedType) type;
+            Type[] types = actualType.getActualTypeArguments();
+            String className = types[types.length -1].getTypeName();
+        	if (value instanceof List) {
+                value = parseList(value, className);
             }
-            value = valueCopy;
-        }
-        
-        if( value instanceof Map){
-        	System.out.println("Map found!");
-        	//ParameterizedType actualType = (ParameterizedType) type;
-            // get the actualTypes:generic
-            //Type[] types = actualType.getActualTypeArguments();
-        	//Object innerBean = doConvertMapToBean((Map)value, Class.forName(types[0].getTypeName()));
-        	// Object innerBean = doConvertMapToBean((Map)value, Class.forName(type.getTypeName()));
-        	Map valuecopy = (Map)value.getClass().newInstance();
-        	Iterator iter = ((Map)value).entrySet().iterator();
-        	while (iter.hasNext()){
-        		Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
-        		Object key1 = entry.getKey();
-        		Object value1 = entry.getValue(); // HashMap here
-        		System.out.println("Jerry key: " + key1 + " value: " + value1);
-        		ParameterizedType actualType = (ParameterizedType) type;
-                // get the actualTypes:generic
-                Type[] types = actualType.getActualTypeArguments();
-                System.out.println("try to load class: " + types[0].getTypeName());
-                System.out.println("try to load class: " + types[1].getTypeName());
-        		Object parsedBean = doConvertMapToBean((Map)value1, Class.forName(types[1].getTypeName()));
-        		valuecopy.put(key1, parsedBean);
-        	}
-        	value = valuecopy;
+        	else if( value instanceof Map){
+            	value = parseMap(value, className);
+            }
         }
         method.invoke(bean, value);
     }
