@@ -26,7 +26,11 @@ public class ConstantFolding {
 		 * 更早版本的JRE的兼容性。
 		 */
 		
-		List<String> myList = new ArrayList<String>(10);
+		// List<String> myList = new ArrayList<String>(10);
+		String aa1 = "i042416jerrywang";
+		String aa2 = "jerrywang";
+		String aa3 = "i042416" + "jerrywang";
+		System.out.println(aa1 == aa3);
 	}
 
 }
