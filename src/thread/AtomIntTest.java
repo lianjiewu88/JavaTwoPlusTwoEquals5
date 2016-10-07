@@ -11,7 +11,7 @@ public class AtomIntTest {
 	
 	public static void main(String[] args) {
 		final AtomIntTest cas = new AtomIntTest();
-		final int TOTAL_THREAD_NUM = 200;
+		final int TOTAL_THREAD_NUM = 1;
 		List<Thread> ts = new ArrayList<Thread>();
 
 		long start = System.currentTimeMillis();
@@ -19,11 +19,12 @@ public class AtomIntTest {
 			Thread t = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					// System.out.println(" I am thread: " + Thread.currentThread().getId());
+					Thread.currentThread().setName(AtomIntTest.class.getName() + Thread.currentThread().getId());
 					for (int i = 0; i < 1000; i++) {
 						cas.count(); // i++
 						cas.safeCount();
 					}
+					System.out.println("Thread name: " + Thread.currentThread().getName());
 				}
 			});
 			ts.add(t);
