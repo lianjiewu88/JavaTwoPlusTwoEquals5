@@ -50,10 +50,11 @@ public class NullableTest {
 	    .map(Inner::getFoo)
 	    .ifPresent(System.out::println);
 	}
+	
 	public static void main(String[] args) {
 		//way0();
-		way1();
-		//way2();
+		//way1();
+		way2();
 	}
 
 }
