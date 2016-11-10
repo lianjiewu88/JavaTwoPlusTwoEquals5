@@ -8,6 +8,8 @@ package Interview.Zengyang;
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
+import javax.swing.JProgressBar;
+
 
 
 /**
@@ -21,6 +23,8 @@ public class SearchByKeyWord {
 	private String keyword;
 	/*store files*/
 	private Vector<File> fileSearchedList = null;
+	/*total number of files*/
+	private int totalNum = 0;
 	
 	public SearchByKeyWord(String folderRoute, String keyword)
 	{
@@ -29,7 +33,48 @@ public class SearchByKeyWord {
 		this.fileSearchedList = new Vector<File>();
 		//fileList = new File(folderRoute).listFiles();
 		File[] currentFolder = new File(this.folderRoute).listFiles();
+		totalNum = currentFolder.length;
 		doSearch(currentFolder);
+	}
+	
+	public SearchByKeyWord(String folderRoute, String keyword, JProgressBar progressbar, SearchResultScollPane scollPane)
+	{
+		this.folderRoute = folderRoute;
+		this.keyword = keyword;
+		this.fileSearchedList = new Vector<File>();
+		//fileList = new File(folderRoute).listFiles();
+		File[] currentFolder = new File(this.folderRoute).listFiles();
+		totalNum = currentFolder.length;
+		doSearch(currentFolder, true, progressbar, scollPane);
+	}
+	
+	/*search all the files in the folder with progress bar*/
+	private void doSearch(File[] folder, boolean isRootFolder, JProgressBar j, SearchResultScollPane scollPane)
+	{
+		int count;
+		if(folder == null)
+		{
+			count = 0;
+		}
+		else
+		{
+			count = folder.length;
+		}
+		for(int i = 0; i < count; i++)
+		{
+			if(isRootFolder)
+			{
+				j.setValue( (i + 1) * 100 / totalNum );
+			}
+			if(folder[i].isDirectory())
+			{
+				doSearch(new File(folder[i].getPath()).listFiles(), false, j, scollPane);
+			}
+			else
+			{
+				addFileToResult(folder[i], scollPane);
+			}
+		}
 	}
 	
 	/*search all the files in the folder*/
@@ -60,8 +105,23 @@ public class SearchByKeyWord {
 		}
 	}
 	
+	private void addFileToResult(File file, SearchResultScollPane scollPane)
+	{
+		
+		Pattern pattern = Pattern.compile(".*" + keyword + ".*");
+		Matcher matcher = pattern.matcher(file.getName());
+		if(matcher.matches())
+		{
+			fileSearchedList.addElement(file);
+			scollPane.addRowToTable(file.getName(), file.getParent());
+		}
+	}
+	
+	
 	public Vector<File> getSearchResult()
 	{
 		return fileSearchedList;
 	}
+
 }
+

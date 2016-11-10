@@ -5,16 +5,18 @@ package Interview.Zengyang;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.*;
 
+
 /**
  * @author Yang
  *
  */
-public class SearchUI extends JFrame implements UserInterface {
+public class SearchUI extends JFrame implements Runnable {
 
 	/**
 	 * 
@@ -26,78 +28,95 @@ public class SearchUI extends JFrame implements UserInterface {
 	/*HEIGHT is the height of window*/
 	private static final int HEIGHT = 600;
 	
-	/*the column names of search result, including "filename" and "folder"*/
-	private static final Object[] COLUMNNAMES = {"Filename","Folder"};
-	
-	private JTable filelistview;
-	private DefaultTableModel tablemode;
-	
 	private String folderRoute;
 	private String keyWord;
 	private SearchByKeyWord searchbykeyword;
+	private ExactSearch exactSearch;
+	
+	private boolean isCreateAllTime;
+	private boolean isAccessAllTime;
+	private boolean isModifyAllTime;
+	private Vector<Date> dates;
+	private boolean isKeySearch;
 	
 	public SearchUI(String folderRoute, String keyWord)
 	{
 		this.folderRoute = folderRoute;
 		this.keyWord = keyWord;
+		this.isKeySearch = true;
+		System.out.println("Jerry search keyword: " + keyWord + " on folder: " + folderRoute);
 	}
 	
-	public void createUI()
+	public SearchUI(String folderRoute, boolean isCreateAllTime, boolean isModifyAllTime, boolean isAccessAllTime, Vector<Date> dates)
+	{
+		this.folderRoute = folderRoute;
+		this.isCreateAllTime = isCreateAllTime;
+		this.isAccessAllTime = isAccessAllTime;
+		this.isModifyAllTime = isModifyAllTime;
+		this.dates = new Vector<Date>(dates);
+		this.isKeySearch = false;
+		this.keyWord = "";
+	}
+	
+	private void createUI()
 	{	
-		JScrollPane content = new JScrollPane();
+		System.out.println("Jerry in runnable createUI thread:" + Thread.currentThread().getId());
+		SearchResultScollPane scollPane = new SearchResultScollPane(folderRoute, keyWord);
+		ProgressBar progressBar = new ProgressBar();
+		JPanel contentPane = new JPanel();
 		
-		tablemode = new DefaultTableModel(COLUMNNAMES,0){
-			public boolean isCellEditable(int row, int column)
-			{
-				return false;
-			}
-		};
+
+		//contentPane.setSize(this.getSize());
 		
-		filelistview = new JTable(tablemode);
-		initialTableStyle(filelistview);
-		filelistview.doLayout();
-		initialTable();
+		Box verBox = Box.createVerticalBox();
+		//BoxLayout boxlayout = new BoxLayout(contentPane, BoxLayout.Y_AXIS);
+		verBox.add(scollPane);
+		verBox.add(progressBar);
+		contentPane.add(verBox);
+		//contentPane.add(progressBar);
+		this.setContentPane(contentPane);
+		//this.setContentPane(progressbarPane);
 		
-		content.setViewportView(filelistview);
-		content.add(filelistview);
-		
-		
-		JScrollPane jp = new JScrollPane(filelistview);
-		//this.add(content);
-		this.setContentPane(jp);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(WIDTH, HEIGHT);
 		this.setVisible(true);
 		
+		searchbykeyword = new SearchByKeyWord(folderRoute, keyWord, progressBar, scollPane);
 	}
 	
-	/*initial the data of table*/
-	private void initialTable()
-	{
-		searchbykeyword = new SearchByKeyWord(folderRoute, keyWord);
-		Vector<File> searchresults = searchbykeyword.getSearchResult();
-		for(int i = 0; i < searchresults.size(); i++)
+	private void createUI1()
+	{	
+		SearchResultScollPane scollPane = new SearchResultScollPane(folderRoute, keyWord);
+		ProgressBar progressBar = new ProgressBar();
+		JPanel contentPane = new JPanel();
+		
+
+		//contentPane.setSize(this.getSize());
+		
+		Box verBox = Box.createVerticalBox();
+		//BoxLayout boxlayout = new BoxLayout(contentPane, BoxLayout.Y_AXIS);
+		verBox.add(scollPane);
+		verBox.add(progressBar);
+		contentPane.add(verBox);
+		//contentPane.add(progressBar);
+		this.setContentPane(contentPane);
+		//this.setContentPane(progressbarPane);
+		
+		this.setSize(WIDTH, HEIGHT);
+		this.setVisible(true);
+		
+		exactSearch = new ExactSearch(folderRoute, isCreateAllTime, isAccessAllTime, isModifyAllTime, dates, progressBar, scollPane);
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if(isKeySearch)
 		{
-			Object[] rowData = new Object[2];
-			rowData[1] = searchresults.get(i).getPath();
-			rowData[0] = searchresults.get(i).getName();
-			tablemode.addRow(rowData);
+			createUI();
 		}
-	}
-	
-	/**/
-	private void initialTableStyle(JTable j)
-	{
-		j.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		j.setRowSelectionAllowed(true);
-		j.setGridColor(Color.BLACK);
-		j.setShowGrid(true);
-		j.setShowHorizontalLines(true);
-		j.setShowVerticalLines(true);
-		j.setFillsViewportHeight(true);
-		DefaultTableCellRenderer dc = new DefaultTableCellRenderer();
-		dc.setHorizontalAlignment(JTextField.LEFT);
-		j.setDefaultRenderer(Object.class, dc);
-		//j.setColumnWidth(0, 50);
+		else
+		{
+			createUI1();
+		}
 	}
 }

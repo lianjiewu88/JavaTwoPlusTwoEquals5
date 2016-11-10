@@ -7,18 +7,11 @@
  */
 package Interview.Zengyang;
 
-import java.awt.event.*;
 
-/**
- * @author Yang
- *
- */
 public class Main {
 	
 	private static UserInterface mainUI;
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		mainUI = new OriginalMainUI();

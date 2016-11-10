@@ -7,6 +7,12 @@
 package Interview.Zengyang;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
 import javax.swing.*;
 
 /**
@@ -27,6 +33,7 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 	//private String folderRoute = new String();
 	private JTextField keywordText;
 	
+	private ExactSearchPane exactSearchPane;
 	
 	@Override
 	public void createUI() {
@@ -37,6 +44,7 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 		setLayout(layout);
 		mainFrame.add(this, BorderLayout.NORTH);
 		mainFrame.setSize(WIDTH, HEIGHT);
+		//mainFrame.setContentPane(this,BorderLayout.NORTH);
 		
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -74,7 +82,9 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 		constraints.anchor = GridBagConstraints.CENTER;
 		add(btnSearch,constraints,0,4,2,1);
 		buildKeyWordPane(searchAreaPan);
+		//buildExactSearchPane(searchAreaPan1);
 		add(searchAreaPan, constraints,0,3,2,1);
+		//add(searchAreaPan1, constraints,0,4,2,1);
 		constraints.anchor = GridBagConstraints.WEST;
 		add(routeinput, constraints,1,0,1,1);
 		add(conditions, constraints,1,1,1,1);
@@ -84,9 +94,28 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 		btnSearch.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event)
 			{
-				String folderRoute = routeinput.getText(); 
-				SearchUI sUI = new SearchUI(folderRoute, keywordText.getText());
-				sUI.createUI();
+				if(checkRouteFormat(routeinput.getText()))
+				{
+					if(conditions.getSelectedIndex() == 0)
+					{
+						String folderRoute = routeinput.getText(); 
+						System.out.println("Jerry in button clicked thread:" + Thread.currentThread().getId());
+						SearchUI sUI = new SearchUI(folderRoute, keywordText.getText());
+						Thread t = new Thread(sUI);
+						t.start();
+					}
+					else
+					{
+						String folderRoute = routeinput.getText();
+						boolean create = checkAllTime(exactSearchPane.createTimeCombo.getSelectedItem().toString());
+						boolean modify = checkAllTime(exactSearchPane.modifyTimeCombo.getSelectedItem().toString());
+						boolean access = checkAllTime(exactSearchPane.accessTimeCombo.getSelectedItem().toString());
+						Vector<Date> dates = generateDates(create, modify, access);
+						SearchUI sUI = new SearchUI(folderRoute, create, modify, access, dates);
+						Thread t = new Thread(sUI);
+						t.start();
+					}
+				}
 			}
 		});
 		
@@ -100,20 +129,15 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 				{
 					if(e.getItem().toString().equals("Key Word"))
 					{
-					//	removeAll();
-						remove(searchAreaPan);
-					//	searchAreaPan.removeAll();
+						searchAreaPan.removeAll();
 						buildKeyWordPane(searchAreaPan);
-					//	searchAreaPan.add(new JTextField(5));
-						add(searchAreaPan,constraints,0,3,2,1);
-						repaint();
+						mainFrame.setVisible(true);
 					}
-					else{
-//						removeAll();
-						remove(searchAreaPan);
+					else
+					{
+						searchAreaPan.removeAll();
 						buildExactSearchPane(searchAreaPan);
-						//add(searchAreaPan,constraints,0,3,2,1);
-						repaint();
+						mainFrame.setVisible(true);
 					}
 					//System.out.println(ItemEvent.SELECTED);
 				}
@@ -149,6 +173,7 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 		JLabel jl = new JLabel("Please input key word:");
 		j.add(jl);
 		j.add(keywordText);
+		j.repaint();
 	}
 	
 	/**
@@ -157,11 +182,121 @@ public class OriginalMainUI extends JPanel implements UserInterface {
 	 */
 	private void buildExactSearchPane(JPanel j)
 	{
+		exactSearchPane = new ExactSearchPane();
+		//JLabel jl = new JLabel("test");
+		//j.add(jl);
+		j.add(exactSearchPane);
+		j.repaint();
 		//j.remove(0);
 		//j.removeAll();
 		//j.repaint();
 		//JLabel jl = new JLabel("Please input key word:");
 		//j.add(jl);
 		
+	}
+	
+	private boolean checkAllTime(String str)
+	{
+		if(str.equals("All Time"))
+			return true;
+		else
+			return false;
+	}
+	
+	private Vector<Date> generateDates(boolean c, boolean m, boolean a)
+	{
+		Vector<Date> dates = new Vector<Date>();
+		if(c)
+		{
+			Date tempdate = null;
+			dates.add(tempdate);
+			dates.add(tempdate);
+		}
+		else
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date tempdate = sdf.parse(exactSearchPane.jftofcreatestart.getText());
+				dates.add(tempdate);
+				tempdate = sdf.parse(exactSearchPane.jftofcreateend.getText());
+				dates.add(tempdate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				dates.add(null);
+				dates.add(null);
+			}
+		}
+		
+		if(m)
+		{
+			Date tempdate = null;
+			dates.add(tempdate);
+			dates.add(tempdate);
+		}
+		else
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date tempdate = sdf.parse(exactSearchPane.jftofmodifystart.getText());
+				dates.add(tempdate);
+				tempdate = sdf.parse(exactSearchPane.jftofmodifyend.getText());
+				dates.add(tempdate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				dates.add(null);
+				dates.add(null);
+			}
+		}
+		if(a)
+		{
+			Date tempdate = null;
+			dates.add(tempdate);
+			dates.add(tempdate);
+		}
+		else
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date tempdate = sdf.parse(exactSearchPane.jftofaccessstart.getText());
+				dates.add(tempdate);
+				tempdate = sdf.parse(exactSearchPane.jftofaccessend.getText());
+				dates.add(tempdate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				dates.add(null);
+				dates.add(null);
+			}
+		}
+		return dates;
+	}
+	
+	private boolean checkRouteFormat(String route)
+	{
+		File tempfile = new File(route);
+		if(tempfile.isDirectory())
+		{
+			return true;
+		}
+		else
+		{
+			JDialog jd = new JDialog();
+			jd.getContentPane().add(new JLabel("Please input the right folder route."));
+			
+			Toolkit kit = Toolkit.getDefaultToolkit();
+			Dimension screenSize = kit.getScreenSize();
+			
+			int width = screenSize.width;
+			int height = screenSize.height;
+			
+			int x = (width - WIDTH) / 2;
+			int y = (height - HEIGHT) / 2;
+			jd.setLocation(x, y);
+			jd.setSize(250, 100);
+			jd.setVisible(true);
+			return false;
+		}
 	}
 }
