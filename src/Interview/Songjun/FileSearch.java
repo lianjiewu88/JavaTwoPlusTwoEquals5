@@ -14,17 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -32,11 +26,7 @@ import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JSeparator;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JProgressBar;
-import javax.swing.event.ChangeEvent;
 
 
 public class FileSearch {
