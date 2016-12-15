@@ -39,12 +39,17 @@ public class InvoicingTest_09 {
 							  { 2, 100, 50, 100 }});
 	}
 	
+	private void printThreadId(String method){
+		System.out.println("in Method: " + method + " Current Thread ID: " + Thread.currentThread().getId());
+	}
+	
 	public InvoicingTest_09(double quantity, double price, double discount, double expected)
 	{
 		this._quantity = quantity;
 		this._price = price;
 		this._discount = discount;
 		this._expected = expected;
+		printThreadId("constructor");
 	}
 	
 	@Before
@@ -52,11 +57,13 @@ public class InvoicingTest_09 {
 		testObjects = new ArrayList<Object>();
 		
 		// Set up Fixture                
-	    customer = createCustomer();         
+	    customer = createCustomer();  
+	    printThreadId("setup");
 	}
 	
 	@After
-	public void tearDown() {      
+	public void tearDown() {
+		printThreadId("tearDown");
 		for(Object item : testObjects) {
 			deleteObject(item);         
 		}   
@@ -64,6 +71,7 @@ public class InvoicingTest_09 {
 	
 	@Test
 	public void testAddItemQuantity(){      
+		printThreadId("testAddItemQuantity");
    
 	  // Set up Fixture 
 	  book = createBook(this._price);
@@ -82,7 +90,8 @@ public class InvoicingTest_09 {
 	}
 	
 	@Test
-	public void testRemoveItemQuantity(){      
+	public void testRemoveItemQuantity(){    
+		printThreadId("testRemoveItemQuantity");
    
 	  // Set up Fixture 
 	  book = createBook(this._price);
