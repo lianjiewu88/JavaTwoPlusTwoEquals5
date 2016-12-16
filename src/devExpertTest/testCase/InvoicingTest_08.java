@@ -1,9 +1,13 @@
 package  devExpertTest.testCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.*;
+
 import devExpertTest.model.*;
 
 
@@ -51,15 +55,21 @@ public class InvoicingTest_08 {
       assertDocumentItemEquals(docItemExpected, docItemActual);
 	}
 	
-	@Test
+	@Test(expected=java.lang.IndexOutOfBoundsException.class)
 	public void testRemoveItemQuantity(){      
-   
       // Exercise SUT
-      invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
       invoice.removeItem(0);
-
-      // Verify outcome
-      assertEquals("number of items" , 0, invoice.getItems().size());
+	}
+	
+	// instead of 
+	@Test
+	public void testRemoveItemQuantity_BadExample(){      
+      try {
+    	  invoice.removeItem(0);
+      }
+      catch (java.lang.IndexOutOfBoundsException e){
+    	  org.junit.Assert.assertNotNull(e);
+      }
 	}
 	
 	
