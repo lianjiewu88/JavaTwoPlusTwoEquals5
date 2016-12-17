@@ -64,7 +64,13 @@ private static final double VAL_QUANTITY = 5, VAL_DISCOUNT = 30, VAL_UNIT_PRICE 
       assertEquals("number of items" , 0, invoice.getItems().size());
 	}
 	
-	
+	@Test(expected=java.lang.IndexOutOfBoundsException.class)
+	@Category(CategoryRemoveData.class)
+	public void testRemoveItemQuantityExceptionExpected(){      
+   
+      invoice.removeItem(0);
+
+	}
 	private Address createBillingAddress() {
 		billingAddress = new Address("Heidelbergerstrasse 16", "69190", "Walldorf", "BW", "Germany");      
 		registerTestObject(billingAddress);
