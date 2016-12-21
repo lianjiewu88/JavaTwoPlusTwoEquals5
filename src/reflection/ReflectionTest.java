@@ -1,10 +1,44 @@
 package reflection;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.Arrays;
+
+
+class Person {   
+    public String name;   
+    private int age;   
+
+    public Person(String name, int age) {   
+        this.name = name;   
+        this.age = age;   
+    }   
+}  
 
 public class ReflectionTest {
 
+	private static void changePrivate() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		Person p = new Person("zhangsan",12);   
+
+        Class<?> c = p.getClass();   
+
+        //获取公共属性的值   
+        Field f1 = c.getField("name");   
+        //get(p)表明要获取是哪个对象的值   
+        String str = (String) f1.get(p);   
+        System.out.println("姓名： " + str);   
+
+        //获取私有属性的值   
+        Field f2 = c.getDeclaredField("age");   
+        //age是私有属性，所以要设置安全检查为true  
+        /*
+         * Jerry 2016-12-21 9:45AM - if commented out - Class reflection.ReflectionTest can not access a member of class 
+         * reflection.Person with modifiers "private"
+         */
+        // f2.setAccessible(true);   
+        int age = (int) f2.get(p);   
+        System.out.println("年龄： " + age);   
+	}
 	private static void printClassMethod() {
 		Class<?> c = null;
 		try {
@@ -37,5 +71,6 @@ public class ReflectionTest {
 	public static void main(String[] args) throws Exception {
 		constructNew();
 		printClassMethod();
+		changePrivate();
 	}
 }
