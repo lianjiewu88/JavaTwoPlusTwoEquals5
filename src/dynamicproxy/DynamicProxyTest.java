@@ -65,6 +65,7 @@ public class DynamicProxyTest implements Serializable
         String fileDir = System.getProperty("user.dir");
         String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\StaticProxy.java";
         File javaFile = new File(fileName);
+        Boolean a = true;
         Writer writer = new FileWriter(javaFile);
         writer.write(src);
         writer.close();
@@ -92,6 +93,11 @@ public class DynamicProxyTest implements Serializable
         File classFile = new File(fileDir + "\\src\\com\\xrq\\proxy\\StaticProxy.class");
         javaFile.delete();
         classFile.delete();
+        
+        // Unicode转义字符处理的非常早，在解析程序之前。例如：
+
+        // char c1 = 'u00a';
+        // char c2 = 'u00d';
  
         return helloWorld;
     }
