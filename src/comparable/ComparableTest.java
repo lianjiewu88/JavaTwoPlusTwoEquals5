@@ -3,6 +3,7 @@ package comparable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 class ComparableObject implements Serializable, Comparable {
     private String name;
@@ -109,5 +110,25 @@ public class ComparableTest{
 			System.out.println(object);
 			
 		}
+		
+		Comparator comparator = new Comparator() {
+		    @Override
+		    public int compare(Object object1, Object object2) {
+		        if (object1 instanceof ComparableObject && object2 instanceof ComparableObject){
+		            ComparableObject ComparableObject = (ComparableObject) object1;
+		            ComparableObject ComparableObject1 = (ComparableObject) object2;
+		            //具体比较方法参照 自然排序的 compareTo 方法，这里只举个栗子
+		            return ComparableObject1.getCount() - ComparableObject.getCount();
+		        }
+		        return 0;
+		    }
+		};
+		
+		treeSet.sort(comparator);
+		for( ComparableObject object : treeSet){
+			System.out.println(object);
+			
+		}
+		
 	}
 }
