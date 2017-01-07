@@ -34,3 +34,6 @@ cleaned up generically.
 # InvoicingTest_07
 test a new method: testRemoveItemQuantity
 
+# InvoicingTest_08
+new approach @Test(expected=java.lang.IndexOutOfBoundsException.class)
+
