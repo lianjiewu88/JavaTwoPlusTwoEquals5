@@ -18,17 +18,15 @@ public class InvoicingTest_00 {
 		Customer customer = null; Book book = null; Invoice invoice = null;      
 
 	   try {         
-	      // Set up Fixture         
+       
 	      billingAddress = new Address("Heidelbergerstrasse 16", "69190", "Walldorf", "BW", "Germany");         
 	      shippingAddress = new Address("Hauptstrasse 5", "69190", "Walldorf", "BW", "Germany");         
 	      customer = new Customer(99, "Astor Books Store",  billingAddress, shippingAddress);         
 	      book = new Book("978-0321146533", "Test Driven Development: By Example", VAL_UNIT_PRICE);
 	      invoice = new Invoice(customer);
 
-	      // Exercise SUT
 	      invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
 
-	      // Verify outcome
 	      if(!invoice.isEmpty()) {
 	    	 DocumentItem docItemActual = invoice.getItems().get(0);
 	    	 assertEquals("book", book, docItemActual.getItem());
