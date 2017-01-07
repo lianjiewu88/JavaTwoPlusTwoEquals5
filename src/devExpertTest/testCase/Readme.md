@@ -31,5 +31,6 @@ add a new member attribute private List<Object> testObjects;
 when instance is created, add instance to this list. So in @after, the instance could be 
 cleaned up generically.
 
-
+# InvoicingTest_07
+test a new method: testRemoveItemQuantity
 

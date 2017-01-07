@@ -21,8 +21,7 @@ public class InvoicingTest_07 {
 	@Before
 	public void setUp() throws Exception {      
 		testObjects = new ArrayList<Object>();
-		
-		// Set up Fixture                
+		           
 	    customer = createCustomer();         
 	    book 	 = createBook(VAL_UNIT_PRICE);
 	    invoice  = createInvoice(customer);
@@ -38,10 +37,8 @@ public class InvoicingTest_07 {
 	@Test
 	public void testAddItemQuantity(){      
    
-      // Exercise SUT
       invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
 
-      // Verify outcome
       assertEquals("number of items" , 1, invoice.getItems().size());
       
       DocumentItem docItemExpected = new DocumentItem(invoice, book, VAL_QUANTITY, VAL_DISCOUNT);
@@ -53,11 +50,9 @@ public class InvoicingTest_07 {
 	@Test
 	public void testRemoveItemQuantity(){      
    
-      // Exercise SUT
       invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
       invoice.removeItem(0);
 
-      // Verify outcome
       assertEquals("number of items" , 0, invoice.getItems().size());
 	}
 	
@@ -107,5 +102,4 @@ public class InvoicingTest_07 {
 		assertEquals("unit price", expected.getItem().getPrice(), actual.getItem().getPrice(), 0);
 		assertEquals("extended price", expected.getExtendedPrice(), actual.getExtendedPrice(), 0);
 	}
-	
 }
