@@ -18,3 +18,7 @@ method extraction: add a new method assertDocumentItemEquals
 add some cleanup logic in finally block
 
 # InvoicingTest_04
+
+method extraction: instance initialization is done in createXXX method
+
+# InvoicingTest_05

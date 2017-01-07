@@ -14,16 +14,13 @@ public class InvoicingTest_04 {
 		Book book = null; 
 		Invoice invoice = null;      
 
-	   try {         
-	      // Set up Fixture                
+	   try {                     
 	      customer = createCustomer();         
 	      book = createBook(VAL_UNIT_PRICE);
 	      invoice = createInvoice(customer);
 
-	      // Exercise SUT
 	      invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
 
-	      // Verify outcome
 	      assertEquals("number of items" , 1, invoice.getItems().size());
 	      
 	      DocumentItem docItemExpected = new DocumentItem(invoice, book, VAL_QUANTITY, VAL_DISCOUNT);
