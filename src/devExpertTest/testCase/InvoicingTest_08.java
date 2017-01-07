@@ -50,7 +50,6 @@ public class InvoicingTest_08 {
 	
 	@Test(expected=java.lang.IndexOutOfBoundsException.class)
 	public void testRemoveItemQuantity(){      
-      // Exercise SUT
       invoice.removeItem(0);
 	}
 	

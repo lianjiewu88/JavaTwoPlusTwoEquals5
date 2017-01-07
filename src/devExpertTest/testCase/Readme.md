@@ -36,4 +36,7 @@ test a new method: testRemoveItemQuantity
 
 # InvoicingTest_08
 new approach @Test(expected=java.lang.IndexOutOfBoundsException.class)
+How does it work:
+set breakpoint in class ExpectException, method @Override evaluate, line 24 fExpected.isAssignableFrom
+
 
