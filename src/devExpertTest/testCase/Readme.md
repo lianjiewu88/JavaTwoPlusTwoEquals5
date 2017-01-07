@@ -12,3 +12,9 @@ only difference:
 # InvoicingTest_02
 
 method extraction: add a new method assertDocumentItemEquals
+
+# InvoicingTest_03
+
+add some cleanup logic in finally block
+
+# InvoicingTest_04
