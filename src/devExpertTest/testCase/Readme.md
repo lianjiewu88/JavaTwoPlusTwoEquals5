@@ -22,3 +22,5 @@ add some cleanup logic in finally block
 method extraction: instance initialization is done in createXXX method
 
 # InvoicingTest_05
+
+move initialization logic to @before, and cleanup in @after
