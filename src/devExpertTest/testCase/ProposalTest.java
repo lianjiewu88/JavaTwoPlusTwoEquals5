@@ -22,8 +22,7 @@ private static final double VAL_QUANTITY = 5, VAL_DISCOUNT = 30, VAL_UNIT_PRICE 
 	@Before
 	public void setUp() throws Exception {      
 		testObjects = new ArrayList<Object>();
-		
-		// Set up Fixture                
+		              
 	    customer = createCustomer();         
 	    book 	 = createBook(VAL_UNIT_PRICE);
 	    invoice  = createInvoice(customer);
@@ -40,10 +39,8 @@ private static final double VAL_QUANTITY = 5, VAL_DISCOUNT = 30, VAL_UNIT_PRICE 
 	@Category(CategoryAddData.class)
 	public void testAddItemQuantity(){      
    
-      // Exercise SUT
       invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
 
-      // Verify outcome
       assertEquals("number of items" , 1, invoice.getItems().size());
       
       DocumentItem docItemExpected = new DocumentItem(invoice, book, VAL_QUANTITY, VAL_DISCOUNT);
@@ -56,11 +53,9 @@ private static final double VAL_QUANTITY = 5, VAL_DISCOUNT = 30, VAL_UNIT_PRICE 
 	@Category(CategoryRemoveData.class)
 	public void testRemoveItemQuantity(){      
    
-      // Exercise SUT
       invoice.addItemQuantity(book, VAL_QUANTITY, VAL_DISCOUNT);
       invoice.removeItem(0);
 
-      // Verify outcome
       assertEquals("number of items" , 0, invoice.getItems().size());
 	}
 	
