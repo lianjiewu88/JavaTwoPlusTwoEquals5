@@ -39,4 +39,26 @@ new approach @Test(expected=java.lang.IndexOutOfBoundsException.class)
 How does it work:
 set breakpoint in class ExpectException, method @Override evaluate, line 24 fExpected.isAssignableFrom
 
+# InvoicingTest_09
+
+* all test methods are run in the same thread
+* add new method to compare expected price
+* more human readable format in junit display result, not pure method name now
+
+When a class is annotated with RunWith, JUnit will invoke the class it references to run the
+tests in that class instead of the runner built into JUnit.
+ 
+Check the source code of class Parameterized:
+public class Parameterized extends Suite
+There is an annotation:
+Annotation for a method which provides parameters to be injected into the **test class constructor** 
+by **Parameterized**
+
+```Java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public static @interface Parameters
+```
+
+
 

@@ -29,41 +29,33 @@ public class InvoicingTest_09 {
 	private double _discount;
 	private double _expected;
 	
-	
 	@Parameters(name = "{index}: (Quantity {0} * Price {1}) * (Discount{2}/100) = {3}")
 	public static Collection<Object[]> generateData()
 	{
 		return Arrays.asList(new Object[][] {
-							  { 5, 10, 10, 45 },
-							  { 10, 20, 20, 160 },
-							  { 2, 100, 50, 100 }});
+							  { 5, 10, 90, 45 },
+							  { 10, 20, 80, 160 },
+							  { 2, 100, 90, 180 }});
 	}
-	
-	private void printThreadId(String method){
-		System.out.println("in Method: " + method + " Current Thread ID: " + Thread.currentThread().getId());
-	}
-	
+
 	public InvoicingTest_09(double quantity, double price, double discount, double expected)
 	{
+		// injected by @Parameters
 		this._quantity = quantity;
 		this._price = price;
 		this._discount = discount;
 		this._expected = expected;
-		printThreadId("constructor");
 	}
 	
 	@Before
 	public void setUp() throws Exception {      
 		testObjects = new ArrayList<Object>();
-		
-		// Set up Fixture                
+            
 	    customer = createCustomer();  
-	    printThreadId("setup");
 	}
 	
 	@After
 	public void tearDown() {
-		printThreadId("tearDown");
 		for(Object item : testObjects) {
 			deleteObject(item);         
 		}   
@@ -71,37 +63,30 @@ public class InvoicingTest_09 {
 	
 	@Test
 	public void testAddItemQuantity(){      
-		printThreadId("testAddItemQuantity");
    
-	  // Set up Fixture 
 	  book = createBook(this._price);
 	  invoice = createInvoice(customer);
 	    
-      // Exercise SUT
       invoice.addItemQuantity(book, this._quantity, this._discount);
 
-      // Verify outcome
       assertEquals("number of items" , 1, invoice.getItems().size());
       
       DocumentItem docItemExpected = new DocumentItem(invoice, book, this._quantity, this._discount);
       DocumentItem docItemActual = invoice.getItems().get(0);
       
       assertDocumentItemEquals(docItemExpected, docItemActual);
+      assertEquals("extended price", this._expected, docItemActual.getExtendedPrice(), 0);
 	}
 	
 	@Test
 	public void testRemoveItemQuantity(){    
-		printThreadId("testRemoveItemQuantity");
    
-	  // Set up Fixture 
 	  book = createBook(this._price);
 	  invoice = createInvoice(customer);
 		  
-      // Exercise SUT
       invoice.addItemQuantity(book, this._quantity, this._discount);
       invoice.removeItem(0);
 
-      // Verify outcome
       assertEquals("number of items" , 0, invoice.getItems().size());
 	}
 	
