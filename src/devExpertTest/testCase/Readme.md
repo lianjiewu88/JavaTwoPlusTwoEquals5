@@ -24,3 +24,12 @@ method extraction: instance initialization is done in createXXX method
 # InvoicingTest_05
 
 move initialization logic to @before, and cleanup in @after
+
+# InvoicingTest_06
+
+add a new member attribute private List<Object> testObjects;
+when instance is created, add instance to this list. So in @after, the instance could be 
+cleaned up generically.
+
+
+
