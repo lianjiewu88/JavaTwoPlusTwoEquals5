@@ -60,5 +60,37 @@ by **Parameterized**
 public static @interface Parameters
 ```
 
+## Suite
+
+Parameterized is a Suite. Suite is a Runner.
+
+```Java
+/**
+ * Using Suite as a runner allows you to manually
+ * build a suite containing tests from many classes. It is the JUnit 4 equivalent of the JUnit 3.8.x
+ * static junit.framework.Test suite() method. To use it, annotate a class
+ * with **@RunWith(Suite.class)** and **@SuiteClasses({TestClass1.class, ...})**.
+ * When you run this class, it will run all the tests in all the suite classes.
+ *
+ * @since 4.0
+ */
+public class Suite extends ParentRunner<Runner> {
+    /**
+     * Returns an empty suite.
+     */
+    public static Runner emptySuite() {
+        try {
+            return new Suite((Class<?>) null, new Class<?>[0]);
+        } catch (InitializationError e) {
+            throw new RuntimeException("This shouldn't be possible");
+        }
+    }
+}
+```
+debugging could start by setting breakpoint in constructor of Parameterized and:
+
+* allParameters
+* createRunnersForParameters
+* @Override createTest
 
 
