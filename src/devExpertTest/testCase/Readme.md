@@ -93,4 +93,41 @@ debugging could start by setting breakpoint in constructor of Parameterized and:
 * createRunnersForParameters
 * @Override createTest
 
+# ProposalTest 
 
+```Java
+	@Test
+	@Category(CategoryAddData.class)
+	public void testAddItemQuantity(){ 
+```
+1. just mark method with a tag
+
+2. create a suite class, and run this class for testing.
+
+```Java
+@RunWith(Categories.class)  
+@IncludeCategory(CategoryAddData.class)  
+@SuiteClasses( { ProposalTest.class}) 
+
+public class AddDataSuite {
+
+}
+```
+
+## How does @RunWith(Categories.class) work
+
+check its source code:
+From a given set of test classes, runs only the classes and methods that are
+ * annotated with either the category given with the @IncludeCategory
+ * annotation, or a subtype of that category.
+ 
+ public class Categories extends Suite
+ 
+ debug this method:
+ ```Java
+ @Override
+ public boolean shouldRun(Description description) 
+ ```
+ 
+        
+ 
