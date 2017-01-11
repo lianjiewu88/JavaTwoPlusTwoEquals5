@@ -42,7 +42,8 @@ set breakpoint in class ExpectException, method @Override evaluate, line 24 fExp
 # InvoicingTest_09
 
 * all test methods are run in the same thread
-* add new method to compare expected price
+* add new method to compare expected price ( injected by @Parameter ) and actual price 
+calculated by docItemActual.getExtendedPrice() in line 78 
 * more human readable format in junit display result thanks to @parameter, not pure method name now
 
 When a class is annotated with RunWith, JUnit will invoke the class it references to run the
