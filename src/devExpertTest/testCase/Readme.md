@@ -43,7 +43,7 @@ set breakpoint in class ExpectException, method @Override evaluate, line 24 fExp
 
 * all test methods are run in the same thread
 * add new method to compare expected price
-* more human readable format in junit display result, not pure method name now
+* more human readable format in junit display result thanks to @parameter, not pure method name now
 
 When a class is annotated with RunWith, JUnit will invoke the class it references to run the
 tests in that class instead of the runner built into JUnit.
