@@ -23,7 +23,7 @@ method extraction: instance initialization is done in createXXX method
 
 # InvoicingTest_05
 
-move initialization logic to @before, and cleanup in @after
+SPLIT initialization logic to @before, and cleanup in @after
 
 # InvoicingTest_06
 

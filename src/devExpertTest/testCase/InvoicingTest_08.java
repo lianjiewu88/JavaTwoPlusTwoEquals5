@@ -1,18 +1,25 @@
 package  devExpertTest.testCase;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.*;
+import org.junit.internal.runners.statements.ExpectException;
+
 import devExpertTest.model.*;
 
 
 public class InvoicingTest_08 {
 
+	ExpectException a = null;
+	
+	
 	private static final double VAL_QUANTITY = 5, VAL_DISCOUNT = 30, VAL_UNIT_PRICE = 38.99;
 	
 	Address billingAddress = null; 
-	Address shippingAddress = null;      
+	Address shippingAddress = null;   
 	Customer customer = null; 
 	Book book = null; 
 	Invoice invoice = null;
