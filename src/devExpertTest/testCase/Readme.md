@@ -46,13 +46,19 @@ set breakpoint in class ExpectException, method @Override evaluate, line 24 fExp
 calculated by docItemActual.getExtendedPrice() in line 78 
 * more human readable format in junit display result thanks to @parameter, not pure method name now
 
+# How does @RunWith in test case 9 work
+
 When a class is annotated with RunWith, JUnit will invoke the class it references to run the
 tests in that class instead of the runner built into JUnit.
  
-Check the source code of class Parameterized:
+Check the source code of class Parameterized defined on top of class InvoicingTest_09:
+```Java
 public class Parameterized extends Suite
-There is an annotation:
-Annotation for a method which provides parameters to be injected into the **test class constructor** 
+```
+
+There is a comment there for @interface Parameters
+
+> Annotation for a method which provides parameters to be injected into the **test class constructor** 
 by **Parameterized**
 
 ```Java
@@ -88,9 +94,9 @@ public class Suite extends ParentRunner<Runner> {
     }
 }
 ```
-debugging could start by setting breakpoint in constructor of Parameterized and:
+debugging could start by setting breakpoint in constructor of Parameterized class ( line 279 ) and:
 
-* allParameters
+* allParameters ( line 282 )
 * createRunnersForParameters
 * @Override createTest
 
