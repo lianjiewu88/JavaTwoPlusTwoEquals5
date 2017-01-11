@@ -109,9 +109,14 @@ debugging could start by setting breakpoint in constructor of Parameterized clas
 ```
 1. just mark method with a tag
 
-2. create a suite class, and run this class for testing.
+2. How to run specific categorized class directly in Eclipse?
+
+* If integrated with Maven: mvn install -P SlowTests
+* else create a suite class, and run that suite class for testing.
+
 
 ```Java
+
 @RunWith(Categories.class)  
 @IncludeCategory(CategoryAddData.class)  
 @SuiteClasses( { ProposalTest.class}) 
@@ -123,7 +128,7 @@ public class AddDataSuite {
 
 ## How does @RunWith(Categories.class) work
 
-check its source code:
+check its source code ( Categories.class line 98 ) :
 From a given set of test classes, runs only the classes and methods that are
  * annotated with either the category given with the @IncludeCategory
  * annotation, or a subtype of that category.
