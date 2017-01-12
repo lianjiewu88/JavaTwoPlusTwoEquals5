@@ -150,4 +150,24 @@ From a given set of test classes, runs only the classes and methods that are
  
  > BlockJUnit4ClassRunner, line 365, getFilteredChildren
  
+ * Avoid writing test cases with side effects - each test case should be isolated from others.
+ 
+ * Avoid test smells: conditional branches in a single test method
+ 
+ * Consider locale when writing tests
+ 
+ DO NOT use:
+ 
+ ```Java
+ Date date = DateFormat.getInstance ().parse ("dd/mm/yyyy"); 
+ ```
+ 
+ Use:
+ 
+ ```Java
+ Calendar cal = Calendar.getInstance ();
+ Cal.set (yyyy, mm-1, dd);
+ Date date = Calendar.getTime ();
+ ```
+
  
