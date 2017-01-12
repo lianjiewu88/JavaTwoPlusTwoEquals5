@@ -141,5 +141,13 @@ From a given set of test classes, runs only the classes and methods that are
  public boolean shouldRun(Description description) 
  ```
  
-        
+ # JUnit best practice
+ 
+ * Do not use the test-case constructor to set up a test case
+ * Don't assume the order in which tests within a test case run.
+ There is no guarantee in the JUnit API documentation as to the order your tests 
+ will be called in, because JUnit employs an ArrayList to store tests. 
+ 
+ > BlockJUnit4ClassRunner, line 365, getFilteredChildren
+ 
  
