@@ -39,6 +39,8 @@ public class CallableTest {
 	                dataList.add(Math.random());
 	            }
 	            this.name = name;
+	            System.out.println("In CalcThread constructor, thread id: " + 
+	            Thread.currentThread().getId());
 	        }
 	 
 	        @Override
@@ -48,14 +50,23 @@ public class CallableTest {
 	            for(Double d : dataList) {
 	                total += d;
 	            }
+	            
+	            System.out.println("In CalcThread @Override call(), thread id: " + 
+	    	            Thread.currentThread().getId());
 	            return new CallableIndicator(this.name, total / dataList.size());
 	        }
 	 
 	    }
 	 
+	    public static void printThread(){
+	    	System.out.println("In main Thread? " + Thread.currentThread().getId());
+	    }
+	    
 	    public static void main(String[] args) {
 	        List<Future<CallableIndicator>> fList = new ArrayList<>();
 	        ExecutorService es = Executors.newFixedThreadPool(POOL_SIZE);
+	        
+	        printThread();
 	        for(int i = 0; i < POOL_SIZE; ++i) {
 	            fList.add(es.submit(new CalcThread("Jerry Thread: " + i)));
 	        }
