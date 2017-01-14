@@ -8,7 +8,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DeadlockDetector {
-	private final DeadlockHandler deadlockHandler;
+	private final DeadlockHandler deadlockHandler; // My own handler 
 	  private final long period;
 	  private final TimeUnit unit;
 	  private final ThreadMXBean mbean = ManagementFactory.getThreadMXBean();
@@ -18,6 +18,7 @@ public class DeadlockDetector {
 	  final Runnable deadlockCheck = new Runnable() {
 	    @Override
 	    public void run() {
+	    	// Jerry 2017-01-14 18:06PM - use this syntax to access outer class's member attribute
 	      long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads();
 	 
 	      if (deadlockedThreadIds != null) {
