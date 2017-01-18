@@ -40,7 +40,7 @@ public class MainTest {
 		 * return; }
 		 */
 
-		path = "C:\\temp\\abaptool";
+		path = "C:\\Code\\git\\ABAP";
 		num = 2;
 		flag = ReadFile.getFiles(path, type, files);
 		if (flag) {
