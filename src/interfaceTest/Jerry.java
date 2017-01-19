@@ -16,5 +16,13 @@ public class Jerry implements Employee {
 	public String getEmployeeName() {
 		return this.name;
 	}
+	
+	static public int getVersion(){
+		return 1;
+	}
+	
+	public static void main(String[] arg){
+		Jerry.getVersion();
+	}
 
 }
