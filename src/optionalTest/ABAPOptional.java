@@ -1,10 +1,12 @@
 package optionalTest;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ABAPOptional {
 
-    private static void test1(){
+    private static void OptionalTest(){
     	Optional<String> anotherName = Optional.of("Jerry's setting of springmvcDispatcherServlet and configure the mapping");
     	Optional<String> shortName = anotherName.filter((value) -> value.length() < 6);
     	
@@ -13,7 +15,7 @@ public class ABAPOptional {
     }
     
 	public static void main(String[] args) {
-		test1();
+		OptionalTest();
 	}
 
 }
