@@ -49,6 +49,7 @@ public class DynamicProxyDemo implements Serializable {
 	}
 
 	private static String createJavaFile(String sourceCode) {
+		// TODO: avoid using absolute file path in productive code
 		String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\DynamicProxy.java";
 		File javaFile = new File(fileName);
 		Writer writer;
@@ -65,12 +66,9 @@ public class DynamicProxyDemo implements Serializable {
 	private static void compile(String fileName) {
 		try {
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-			StandardJavaFileManager sjfm = compiler.getStandardFileManager(
-					null, null, null);
-			Iterable<? extends JavaFileObject> iter = sjfm
-					.getJavaFileObjects(fileName);
-			CompilationTask ct = compiler.getTask(null, sjfm, null, null, null,
-					iter);
+			StandardJavaFileManager sjfm = compiler.getStandardFileManager(null, null, null);
+			Iterable<? extends JavaFileObject> iter = sjfm.getJavaFileObjects(fileName);
+			CompilationTask ct = compiler.getTask(null, sjfm, null, null, null, iter);
 			ct.call();
 			sjfm.close();
 		} catch (IOException e) {
