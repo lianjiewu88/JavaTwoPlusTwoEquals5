@@ -14,12 +14,9 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-interface HelloWorld
-{
-    void print();
-}
 
-class HelloWorldImpl implements HelloWorld
+
+class HelloWorldImp implements IHelloWorld
 {
     public void print()
     {
@@ -28,16 +25,13 @@ class HelloWorldImpl implements HelloWorld
 }
 
 
-public class DynamicProxyTest implements Serializable
+public class DynamicProxyDemo implements Serializable
 {
     private static final long serialVersionUID = 1L;
  
     private static void test() throws Exception{
-    	long start = System.currentTimeMillis();
-        HelloWorld helloWorld = (HelloWorld) newProxyInstance();
-        System.out.println("动态生成代理耗时：" + (System.currentTimeMillis() - start) + "ms");
+        IHelloWorld helloWorld = (IHelloWorld) newProxyInstance();
         helloWorld.print();
-        System.out.println();
     }
     
     public static void main(String[] arg) throws Exception{
@@ -46,10 +40,10 @@ public class DynamicProxyTest implements Serializable
     public static Object newProxyInstance() throws Exception
     {
         String src = "package dynamicproxy;\n\n" + 
-                     "public class StaticProxy implements HelloWorld\n" + 
+                     "public class DynamicProxy implements IHelloWorld\n" + 
                      "{\n" + 
-                     "\tHelloWorld helloWorld;\n\n" + 
-                     "\tpublic StaticProxy(HelloWorld helloWorld)\n" + 
+                     "\tIHelloWorld helloWorld;\n\n" + 
+                     "\tpublic DynamicProxy(IHelloWorld helloWorld)\n" + 
                      "\t{\n" + 
                      "\t\tthis.helloWorld = helloWorld;\n" + 
                      "\t}\n\n" + 
@@ -61,9 +55,8 @@ public class DynamicProxyTest implements Serializable
                      "\t}\n" + 
                      "}";
  
-        /** 生成一段Java代码 */
         String fileDir = System.getProperty("user.dir");
-        String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\StaticProxyDemo.java";
+        String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\DynamicProxy.java";
         File javaFile = new File(fileName);
         Writer writer = new FileWriter(javaFile);
         writer.write(src);
@@ -76,18 +69,14 @@ public class DynamicProxyTest implements Serializable
         ct.call();
         sjfm.close();
  
-        URL[] urls = new URL[] {(new URL("file:\\" + "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\dynamicproxy\\src"))};
+        URL[] urls = new URL[] {(new URL("file:\\" + "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\"))};
         URLClassLoader ul = new URLClassLoader(urls);
-        System.out.println("class loader for url");
-        Class<?> c = ul.loadClass("dynamicproxy.StaticProxy");
+        Class<?> c = ul.loadClass("dynamicproxy.DynamicProxy");
+        System.out.println("Class loaded successfully: " + c.getName());
  
-        Constructor<?> constructor = c.getConstructor(HelloWorld.class);
-        HelloWorld helloWorldImpl = new HelloWorldImpl();
-        HelloWorld helloWorld = (HelloWorld)constructor.newInstance(helloWorldImpl);
- 
-        File classFile = new File(fileDir + "\\src\\com\\xrq\\proxy\\StaticProxy.class");
-        javaFile.delete();
-        classFile.delete();
+        Constructor<?> constructor = c.getConstructor(IHelloWorld.class);
+        IHelloWorld helloWorldImpl = new HelloWorldImp();
+        IHelloWorld helloWorld = (IHelloWorld)constructor.newInstance(helloWorldImpl);
  
         return helloWorld;
     }
