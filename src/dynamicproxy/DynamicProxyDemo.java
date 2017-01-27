@@ -17,102 +17,86 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 class HelloWorldImp implements IHelloWorld {
-    public void print()
-    {
-        System.out.println("Hello World");
-    }
+	public void print() {
+		System.out.println("Hello World");
+	}
 }
 
+public class DynamicProxyDemo implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-public class DynamicProxyDemo implements Serializable
-{
-    private static final long serialVersionUID = 1L;
- 
-    private static void test() throws Exception{
-        IHelloWorld helloWorld = (IHelloWorld) newProxyInstance();
-        helloWorld.print();
-    }
-    
-    public static void main(String[] arg) throws Exception{
-    	test();
-    }
-    
-    private static String getSourceCode(){
-    	String src = "package dynamicproxy;\n\n" + 
-                "public class DynamicProxy implements IHelloWorld\n" + 
-                "{\n" + 
-                "\tIHelloWorld helloWorld;\n\n" + 
-                "\tpublic DynamicProxy(IHelloWorld helloWorld)\n" + 
-                "\t{\n" + 
-                "\t\tthis.helloWorld = helloWorld;\n" + 
-                "\t}\n\n" + 
-                "\tpublic void print()\n" + 
-                "\t{\n" + 
-                "\t\tSystem.out.println(\"Before Hello World!\");\n" + 
-                "\t\thelloWorld.print();\n" + 
-                "\t\tSystem.out.println(\"After Hello World!\");\n" + 
-                "\t}\n" + 
-                "}";
-    	return src;
-    }
-    
-    private static String createJavaFile(String sourceCode){
-    	String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\DynamicProxy.java";
-        File javaFile = new File(fileName);
-        Writer writer;
+	public static void main(String[] arg) throws Exception {
+		Class<?> c = getProxyClass();
+		Constructor<?> constructor = c.getConstructor(IHelloWorld.class);
+		IHelloWorld helloWorldImpl = new HelloWorldImp();
+		IHelloWorld helloWorld = (IHelloWorld) constructor.newInstance(helloWorldImpl);
+
+		helloWorld.print();
+	}
+
+	private static String getSourceCode() {
+		String src = "package dynamicproxy;\n\n"
+				+ "public class DynamicProxy implements IHelloWorld\n" + "{\n"
+				+ "\tIHelloWorld helloWorld;\n\n"
+				+ "\tpublic DynamicProxy(IHelloWorld helloWorld)\n" + "\t{\n"
+				+ "\t\tthis.helloWorld = helloWorld;\n" + "\t}\n\n"
+				+ "\tpublic void print()\n" + "\t{\n"
+				+ "\t\tSystem.out.println(\"Before Hello World!\");\n"
+				+ "\t\thelloWorld.print();\n"
+				+ "\t\tSystem.out.println(\"After Hello World!\");\n" + "\t}\n"
+				+ "}";
+		return src;
+	}
+
+	private static String createJavaFile(String sourceCode) {
+		String fileName = "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\dynamicproxy\\DynamicProxy.java";
+		File javaFile = new File(fileName);
+		Writer writer;
 		try {
 			writer = new FileWriter(javaFile);
 			writer.write(sourceCode);
-	        writer.close();
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return fileName;
-    }
-    
-    private static void compile(String fileName){
-    	
-        try {
-        	JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-            StandardJavaFileManager sjfm = compiler.getStandardFileManager(null, null, null);
-            Iterable<? extends JavaFileObject> iter = sjfm.getJavaFileObjects(fileName);
-            CompilationTask ct = compiler.getTask(null, sjfm, null, null, null, iter);
-            ct.call();
+	}
+
+	private static void compile(String fileName) {
+		try {
+			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			StandardJavaFileManager sjfm = compiler.getStandardFileManager(
+					null, null, null);
+			Iterable<? extends JavaFileObject> iter = sjfm
+					.getJavaFileObjects(fileName);
+			CompilationTask ct = compiler.getTask(null, sjfm, null, null, null,
+					iter);
+			ct.call();
 			sjfm.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
-    
-    private static Class<?> loadClass(){
-    	URL[] urls;
-    	Class<?> c = null;
+	}
+
+	private static Class<?> loadClass() {
+		URL[] urls;
+		Class<?> c = null;
 		try {
-			urls = new URL[] {(new URL("file:\\" + "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\"))};
+			urls = new URL[] { (new URL("file:\\"
+					+ "C:\\Users\\i042416\\git\\JavaTwoPlusTwoEquals5\\src\\")) };
 			URLClassLoader ul = new URLClassLoader(urls);
-	        c = ul.loadClass("dynamicproxy.DynamicProxy");
-	        System.out.println("Class loaded successfully: " + c.getName());
+			c = ul.loadClass("dynamicproxy.DynamicProxy");
+			System.out.println("Class loaded successfully: " + c.getName());
 		} catch (MalformedURLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-        return c;
-    }
-    
-    private static Class<?> getProxyClass(){
-    	String sourceCode = getSourceCode();
-        String javaFile = createJavaFile(sourceCode);
-        compile(javaFile);
-        return loadClass();
-    }
-    
-    
-    public static Object newProxyInstance() throws Exception
-    {
-        Class<?> c = getProxyClass();
-        Constructor<?> constructor = c.getConstructor(IHelloWorld.class);
-        IHelloWorld helloWorldImpl = new HelloWorldImp();
-        IHelloWorld helloWorld = (IHelloWorld)constructor.newInstance(helloWorldImpl);
- 
-        return helloWorld;
-    }
+		return c;
+	}
+
+	private static Class<?> getProxyClass() {
+		String sourceCode = getSourceCode();
+		String javaFile = createJavaFile(sourceCode);
+		compile(javaFile);
+		return loadClass();
+	}
 }
