@@ -2,18 +2,18 @@ package overwriteTest;
 
 public class SubClass extends SuperClass {
 
-private int mSubX = 1;
+	private int mSubX = 1;
 
-public SubClass() {}
+	public SubClass() {}
 
-@Override
-public void setX(int x) {
-    super.setX(x);
-    mSubX = x;
-    System.out.println("SubX is assigned " + x);
-}
+	@Override
+	public void setX(int x) {
+		super.setX(x);
+		mSubX = x;
+		System.out.println("SubX is assigned " + x);
+	}
 
-public void printX() {
-    System.out.println("SubX = " + mSubX);
-}
+	public void printX() {
+		System.out.println("SubX = " + mSubX);
+	}
 }
