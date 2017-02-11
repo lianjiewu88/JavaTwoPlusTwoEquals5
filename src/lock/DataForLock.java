@@ -16,14 +16,14 @@ public class DataForLock {
         for (char c : buffer) {
             result.append(c);
         }
-        sleep(100);
+        sleep(1000);
         return result.toString();
     }
  
     public void write(char c) {
         for (int i = 0; i < buffer.length; i++) {
             buffer[i] = c;
-            sleep(100);
+            sleep(500);
         }
     }
  
