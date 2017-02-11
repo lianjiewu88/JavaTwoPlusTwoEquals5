@@ -11,16 +11,19 @@ public class DataForLock {
         }
     }
  
+    //synchronized 
     public String read() {
         StringBuilder result = new StringBuilder();
         for (char c : buffer) {
             result.append(c);
         }
-        sleep(1000);
+        sleep(500);
         return result.toString();
     }
  
+    // synchronized 
     public void write(char c) {
+    	System.out.println("Write Thread tries to write buffer with char: " + c);
         for (int i = 0; i < buffer.length; i++) {
             buffer[i] = c;
             sleep(500);

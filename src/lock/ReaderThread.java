@@ -12,7 +12,7 @@ public class ReaderThread extends Thread {
     public void run() {
         while (true) {
             String result = data.read();
-            System.out.println(Thread.currentThread().getName() + " => " + result);
+            System.out.println("Reader thread: " + Thread.currentThread().getName() + " read result " + result);
         }
     }
 }
