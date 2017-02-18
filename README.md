@@ -11,4 +11,8 @@ Stub和Mock
 
 不同点：而stub完全是模拟一个外部依赖，用来提供测试时所需要的测试数据。而mock对象用来判断测试是否能通过，
 也就是用来验证测试中依赖对象间的交互能否达到预期。在mocking框架中mock对象可以同时作为stub和mock对象
-使用，两者并没有严格区别。 更多信息：http://martinfowler.com/articles/mocksArentStubs.html
+使用，两者并没有严格区别。 更多信息：http://martinfowler.com/articles/mocksArentStubs.html·
+
+# 2017-02-18 9:33PM
+
+https://github.com/HalfStackDeveloper/ClassReader 
