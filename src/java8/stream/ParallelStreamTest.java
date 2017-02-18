@@ -27,5 +27,10 @@ public class ParallelStreamTest {
 		 */
 		System.out.println("Another");
 		strings.stream().parallel().forEach(str -> System.out.println(str));
+		
+		Object obj = strings.stream().parallel();
+		System.out.println(obj);
+		
+		// java.util.stream.ReferencePipeline $Head@2d6a9952
 	}
 }
