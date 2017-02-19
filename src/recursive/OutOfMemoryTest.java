@@ -1,5 +1,7 @@
 package recursive;
 
+// a good blog: http://epy.iteye.com/blog/1914455
+
 public class OutOfMemoryTest {
 
 	public static void calc(int arg1, int arg2){
