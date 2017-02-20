@@ -18,12 +18,20 @@ public class SingletonInnerClass {
 
 	public static SingletonInnerClass getInstance() {
 		System.out.println("GetInstance called...");
+		String trimTest = new String("i042416").trim();
 		return FileIOHolder.INSTANCE;
+	}
+	
+	private static void objectTest(){
+		Object obj = new Object();
+		Class<? extends Object> clas = obj.getClass();
+		System.out.println(clas.getClassLoader());
 	}
 	
 	public static void main(String arg[]){
 		Object obj1 = SingletonInnerClass.getInstance();
 		Object obj2 = SingletonInnerClass.getInstance();
 		System.out.println(obj1 == obj2);
+		objectTest();
 	}
 }
