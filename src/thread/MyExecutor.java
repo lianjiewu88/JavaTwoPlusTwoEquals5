@@ -11,11 +11,9 @@ import java.util.concurrent.Executors;
 class MyThread implements Runnable{
 
 	private List<Integer> myList;
-	private Vector<Integer> myVector;
 	private Object host;
-	public MyThread(List<Integer> list, Vector<Integer> vector, Object object){
+	public MyThread(List<Integer> list, Object object){
 		this.myList = list;
-		this.myVector = vector;
 		this.host = object;
 	}
 	
@@ -31,36 +29,25 @@ class MyThread implements Runnable{
 			myList.add(i);
 		}
 	}
-	
-	public void updateListSafe(int i){
-			myList.add(i);
-	}
-	private void updateVector(int i){
-		myVector.add(i);
-	}
-	
+
 	@Override
 	public void run() {
-		for( int i = 0; i < 10;i++){
-			updateListSafe(i);
-			// updateVector(i);
+		while(true){
+			updateList(1);
 		}
-		System.out.println("end: " + myList.size());
 	}
 	
 }
 public class MyExecutor {
 
 	private ArrayList<Integer> taskList = new ArrayList<Integer>();
-	private List<Integer> safe = Collections.synchronizedList(taskList);
-	private Vector<Integer> vector = new Vector<Integer>();
 	private Object object = new Object();
 	private void launch(){
 		
         ExecutorService executorService= Executors.newFixedThreadPool(10);
 
-        executorService.execute(new MyThread(safe, vector, object));
-        executorService.execute(new MyThread(safe, vector, object));
+        executorService.execute(new MyThread(taskList, object));
+        executorService.execute(new MyThread(taskList, object));
 	}
 	public static void main(String[] args) {
 		MyExecutor test = new MyExecutor();
