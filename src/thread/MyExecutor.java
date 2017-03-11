@@ -1,13 +1,11 @@
 package thread;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+// see this: http://www.jianshu.com/p/6690f7e92f27
 class MyThread implements Runnable{
 
 	private List<Integer> myList;
@@ -53,5 +51,4 @@ public class MyExecutor {
 		MyExecutor test = new MyExecutor();
 		test.launch();
 	}
-
 }
