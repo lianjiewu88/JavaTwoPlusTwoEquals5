@@ -1,5 +1,8 @@
 package AnnotationTest;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+
 @Description(author = "Jerry", desc = "Class annotation", age = 35)
 public class People {
 	
@@ -21,6 +24,32 @@ public class People {
 	            	Description d = (Description) c.getAnnotation(Description.class);
 	                System.out.println(d.desc());
 	            }
+	            
+	          //获取所有的方法
+	            Method[] ms = c.getMethods();
+	            // 遍历所有的方法
+	            for (Method m : ms) {
+	                boolean isExist1 = m.isAnnotationPresent(Description.class);
+	                if (isExist1) {
+	                    Description d1=m.getAnnotation(Description.class);
+	                    System.out.println(d1.desc());
+	                }
+	            }
+	            
+	          //另一种解析方法
+	            for (Method m : ms) {
+	                //拿到方法上的所有的注解
+	                Annotation[] as=m.getAnnotations();
+	                for (Annotation a : as) {
+	                    //用二元操作符判断a是否是Description的实例
+	                    if (a instanceof Description) {
+	                        Description d=(Description) a;
+	                        System.out.println(d.desc());
+	                    }
+	                }
+	            }
+	            
+	            
 	        } catch (ClassNotFoundException e) {
 	            e.printStackTrace();
 	        }
