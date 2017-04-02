@@ -78,66 +78,39 @@ public class CovarianceTest {
 		System.out.println(coVariantSum(myDoubles)); 
 	}
 	
-	abstract class Animal{
-		protected String name;
-		public Animal(String name){
-			this.name = name;
-		}
-		abstract protected void shout();
+	private static void fillDogList(List<? super ToyDog> dogList) {
 	}
 	
-	class Dog extends Animal{
-
-		public Dog(String name) {
-			super(name);
-		}
-
-		@Override
-		protected void shout() {
-			System.out.println("Wang");
-		}
+	private static void superTest(){
+		List<ToyDog> toyDog = new ArrayList<ToyDog>();
+		List<Dog> dog = new ArrayList<Dog>();
+		List<Animal> animal = new ArrayList<Animal>();
+		List<Object> object = new ArrayList<Object>();
+		List<Cat> cat = new ArrayList<Cat>();
+		
+		fillDogList(toyDog);
+		fillDogList(dog);
+		fillDogList(animal);
+		fillDogList(object);
+		fillDogList(cat);
 	}
 	
-	class ToyDog extends Dog{
-
-		public ToyDog(String name) {
-			super(name);
+	private static void copyTest(){
+		List<ToyDog> src = new ArrayList<ToyDog>();
+		src.add(new ToyDog("Jerry1"));
+		src.add(new ToyDog("Jerry2"));
+		
+		List<Dog> dest = new ArrayList<Dog>();
+		java.util.Collections.copy(dest, src);
+		for( int i = 0; i < dest.size(); i++){
+			dest.get(i).shout();
 		}
-
-		@Override
-		protected void shout() {
-			System.out.println("...Wang...");
-		}
-	}
-	
-	class Cat extends Animal{
-
-		public Cat(String name) {
-			super(name);
-		}
-		@Override
-		protected void shout() {
-			System.out.println("Miao");
-		}
-	}
-	
-	private static void fillDogList(List<? super Dog> list){
-		list.add(new Dog("Jerry"));
-		list.add(new ToyDog("ToyJerry"));
-		list.add(new Cat("i042416"));
+		
+		
 	}
 	public static void main(String[] args) {
 		// sumTest();
 		coVariantTest();	
-		
-		List<Number> list = new ArrayList<Number>();
-		fillArrayList(list);
-		for( int i = 0; i < list.size(); i++){
-			System.out.println("index: " + i + " [super] element: " + list.get(i));
-		}
+		copyTest();
 	}
-	
-	
-	
-
 }
