@@ -11,7 +11,7 @@ public class ExceptionForQuiz<T extends Exception> {
 		try {
 			new ExceptionForQuiz<RuntimeException>()
 					.pleaseThrow(new SQLException());
-		} catch (final Exception ex) {
+		} catch (final SQLException ex) {
 			System.out.println("Jerry print, the exception class: " + ex.getClass().getSimpleName());			
 			ex.printStackTrace();
 		}
