@@ -1,5 +1,5 @@
 package lsp;
-
+  
 class Rectangle2 {
 	protected int width;
 	protected int height;
@@ -14,7 +14,6 @@ class Rectangle2 {
 	protected void setHeight(int height){
 		this.height = height;
 	}
-	
 }
 
 class Square2 extends Rectangle2{
@@ -23,24 +22,24 @@ class Square2 extends Rectangle2{
 	protected void setWidth(int width){
 		this.width = this.height = width;
 	}
-	
 
 	@Override 
 	protected void setHeight(int height){
 		this.height = this.width = height;
 	}
-	
-	public int getCircle(){
-		// return some value
-		return 0; 
-	}
 }
 
 class RectangleTest2{
 	public static void main(String[] arg){
+		
+		Rectangle2 rectangle = new Rectangle2();
+		rectangle.setHeight(4);
+		rectangle.setWidth(3);
+		System.out.println(rectangle.getArea());
+		
 		Square2 square = new Square2();
-		square.setWidth(5);
+		square.setHeight(4);
+		square.setWidth(3);
 		System.out.println(square.getArea());
 	}
-	
 }

@@ -14,17 +14,13 @@ class Rectangle {
 }
 
 class Square extends Rectangle{
-	public int getCircle(){
-		// return some value
-		return 0; 
-	}
 }
 
 class RectangleTest{
 	public static void main(String[] arg){
-		Square square = new Square();
-		square.setSize(5, 3);
-		System.out.println(square.getArea());
+		Rectangle rectangle = new Rectangle();
+		rectangle.setSize(5, 3);
+		System.out.println(rectangle.getArea());
 	}
 	
 }

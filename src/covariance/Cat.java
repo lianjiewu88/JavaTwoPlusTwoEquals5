@@ -7,6 +7,6 @@ public class Cat extends Animal{
 	}
 	@Override
 	protected void shout() {
-		System.out.println("Miao");
+		System.out.println("Miao, I am: " + this.name);
 	}
 }

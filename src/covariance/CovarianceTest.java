@@ -79,6 +79,9 @@ public class CovarianceTest {
 	}
 	
 	private static void fillDogList(List<? super ToyDog> dogList) {
+		dogList.add(new ToyDog("Jerry"));
+		
+		ToyDog dog = (ToyDog) dogList.get(0);
 	}
 	
 	private static void superTest(){
@@ -92,7 +95,7 @@ public class CovarianceTest {
 		fillDogList(dog);
 		fillDogList(animal);
 		fillDogList(object);
-		fillDogList(cat);
+		// fillDogList(cat);
 	}
 	
 	private static void copyTest(){
@@ -100,17 +103,16 @@ public class CovarianceTest {
 		src.add(new ToyDog("Jerry1"));
 		src.add(new ToyDog("Jerry2"));
 		
-		List<Dog> dest = new ArrayList<Dog>();
+		List<Cat> dest = new ArrayList(Arrays.asList( new Object[src.size()])); 
 		java.util.Collections.copy(dest, src);
 		for( int i = 0; i < dest.size(); i++){
 			dest.get(i).shout();
 		}
-		
-		
 	}
 	public static void main(String[] args) {
 		// sumTest();
-		coVariantTest();	
+		// coVariantTest();	
 		copyTest();
+		superTest();
 	}
 }

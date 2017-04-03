@@ -8,6 +8,6 @@ public class ToyDog extends Dog{
 
 	@Override
 	protected void shout() {
-		System.out.println("...Wang...");
+		System.out.println("I am toyDog: " + this.name);
 	}
 }
