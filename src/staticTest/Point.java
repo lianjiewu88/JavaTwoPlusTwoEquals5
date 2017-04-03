@@ -19,6 +19,15 @@ public class Point {
 	public static void main(String[] arg){
 		Point a = new Point(1,2);
 		Class class1 = a.getClass();
+		try {
+			Field countField = class1.getDeclaredField("count");
+		} catch (NoSuchFieldException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SecurityException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Field[] field = class1.getDeclaredFields();
 		for( int i = 0 ; i < field.length; i++){
 			Field each = field[i];
