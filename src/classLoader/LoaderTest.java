@@ -1,6 +1,7 @@
 package classLoader;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 /*
  * file:/C:/Program%20Files/Java/jdk1.8.0_60/jre/lib/resources.jar
@@ -27,6 +28,17 @@ public class LoaderTest {
 		    loader = loader.getParent();    //获得父类加载器的引用
 		}
 		System.out.println(loader);
+		
+		ArrayList<String> a = new ArrayList<String>();
+		ArrayList<Integer> b = new ArrayList<Integer>();
+		System.out.println(a.getClass() == b.getClass());
+		
+		System.out.println(a.getClass().isPrimitive());
+		
+		int ab = 5;
+		Integer abc = new Integer(ab);
+		System.out.println(abc);
+		
 
 	}
 
