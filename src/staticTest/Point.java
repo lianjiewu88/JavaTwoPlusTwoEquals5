@@ -12,40 +12,30 @@ public class Point {
 		count++;
 	}
 	
-	public static void print(){
-		System.out.println("Total count: " + count);
+	private static void accessStaticPrivate(Point point){
+		Class classObject = point.getClass();
+		try {
+			Field countField = classObject.getDeclaredField("count");
+			System.out.println("count: " + countField.get(point));
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+				| IllegalAccessException e1 ) {
+			e1.printStackTrace();
+		} 
 	}
 	
 	public static void main(String[] arg){
+		
+		System.setSecurityManager(new SecurityManager());
 		Point a = new Point(1,2);
-		Class class1 = a.getClass();
-		try {
-			Field countField = class1.getDeclaredField("count");
-		} catch (NoSuchFieldException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Field[] field = class1.getDeclaredFields();
-		for( int i = 0 ; i < field.length; i++){
-			Field each = field[i];
-			try {
-				System.out.println(each.get(a));
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+		accessStaticPrivate(a);
+		
 		Point b = new Point(1,3);
+		accessStaticPrivate(b);
+		
 		Point c = new Point(1,4);
+		accessStaticPrivate(c);
+		
 		Point d = new Point(1,5);
-		Point.print();
+		accessStaticPrivate(d);
 	}
-	
 }
