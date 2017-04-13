@@ -112,7 +112,18 @@ public class CovarianceTest {
 	public static void main(String[] args) {
 		// sumTest();
 		// coVariantTest();	
-		copyTest();
-		superTest();
+		// copyTest();
+		// superTest();
+		List<Dog> dog = new ArrayList<Dog>();
+		
+		forABAP(dog);
+		
+		List<Cat> cat = new ArrayList<Cat>();
+		
+		forABAP(cat);
+	}
+	
+	private static void forABAP(List<? extends Dog> list){
+		Dog dog = list.get(0);
 	}
 }
