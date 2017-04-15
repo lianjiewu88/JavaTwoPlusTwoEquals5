@@ -118,12 +118,16 @@ public class CovarianceTest {
 		
 		forABAP(dog);
 		
+		List<ToyDog> toyDog = new ArrayList<ToyDog>();
+		
+		forABAP(toyDog);
+		
 		List<Cat> cat = new ArrayList<Cat>();
 		
 		forABAP(cat);
 	}
 	
-	private static void forABAP(List<? extends Dog> list){
+	private static void forABAPer(List<? extends Dog> list){
 		Dog dog = list.get(0);
 	}
 }
