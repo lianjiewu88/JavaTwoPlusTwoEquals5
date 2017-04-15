@@ -110,24 +110,20 @@ public class CovarianceTest {
 		}
 	}
 	public static void main(String[] args) {
-		// sumTest();
-		// coVariantTest();	
-		// copyTest();
-		// superTest();
-		List<Dog> dog = new ArrayList<Dog>();
+		List<Dog> dogContainer = new ArrayList<Dog>();
 		
-		forABAP(dog);
+		forABAPer(dogContainer);
 		
-		List<ToyDog> toyDog = new ArrayList<ToyDog>();
+		List<ToyDog> toyDogContainer = new ArrayList<ToyDog>();
 		
-		forABAP(toyDog);
+		forABAPer(toyDogContainer);
 		
-		List<Cat> cat = new ArrayList<Cat>();
+		List<Cat> catContainer = new ArrayList<Cat>();
 		
-		forABAP(cat);
+		forABAPer(catContainer);
 	}
 	
-	private static void forABAPer(List<? extends Dog> list){
-		Dog dog = list.get(0);
+	private static void forABAPer(List<? extends Dog> container){
+		// do something for this container
 	}
 }
