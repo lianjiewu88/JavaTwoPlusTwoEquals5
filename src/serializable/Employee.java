@@ -3,12 +3,14 @@ package serializable;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Employee implements Serializable{
-    private String name;
+public class Employee // { 
+implements Serializable{
+
+	private static final long serialVersionUID = 32660034130636461L;
+	private String name;
     private String id;
     private Date birthday;
     private transient String gender;
-    // private static final long serialVersionUID = -6849794470754667710L;
  
     public String getName() {
         return name;
@@ -23,6 +25,7 @@ public class Employee implements Serializable{
     }
     
     public void setID(String id){
+    	System.out.println("Set id called: " + id);
     	this.id = id;
     }
     public Date getBirthday() {
