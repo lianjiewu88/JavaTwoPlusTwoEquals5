@@ -6,9 +6,6 @@ public final class ProductOwner {
 		this.name = name;
 	}
 	
-	public ProductOwner(){
-		
-	}
 	public void defineBackLog(){
 		System.out.println("PO: " + name + " defines Backlog.");
 	}
