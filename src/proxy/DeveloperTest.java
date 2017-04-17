@@ -4,6 +4,8 @@ public class DeveloperTest {
 
 	public static void main(String[] args) {
 		
+		System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles","true");
+		
 		IDeveloper jerry = new Developer("Jerry");
 		ITester sara = new Tester("Sara");
 		
