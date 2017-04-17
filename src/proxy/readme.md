@@ -1,0 +1,1 @@
+For my SCN blog [Various Proxy Design Pattern implementation variants in Java and ABAP](https://blogs.sap.com/2017/04/17/various-proxy-design-pattern-implementation-variants-in-java-and-abap/) written on 2017-04-17 14:39PM.
