@@ -2,7 +2,7 @@ package eventlistener;
 
 import java.util.EventObject;
 
-public class SwitchEvent extends EventObject {
+public class SwitchEvent extends EventObject implements cloneable {
 
     private String switchState = "";
 
