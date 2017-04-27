@@ -89,19 +89,43 @@ public class BitTest {
 		}
 		return ones;
 	}
+	
+	public static int compare(int a, int b){
+		
+		int diff = a ^ b;
+		System.out.println("First result after XOR: " + diff);
+		if( diff == 0)
+			return 0;
+		diff |= diff >> 1;
+		System.out.println("Diff after >>1: " + diff);
+		  diff |= diff >> 2;
+		  diff |= diff >> 4;
+		  diff |= diff >> 8;
+		  diff |= diff >> 16;
+		  diff ^= diff >> 1;
+		  int result = ( a & diff );
+		  System.out.println("result?: " + result);
+		  return ( result > 0) ? 1 : -1;
+	}
+	
 	public static void main(String[] args) {
 		// int a[] = {1,1,2,2,5,4,4};
 		// System.out.println("Twice: " + twiceNumber(a));
-		int a[] = {1,999,1,1,2,2,2,4,4,4,6,6,6};
-		int index = ThirdNumber(a);
-		System.out.println("Index: " + index); // 5 , 第0位和第2位为1，所以为5
+		// int a[] = {1,999,1,1,2,2,2,4,4,4,6,6,6};
+		// int index = ThirdNumber(a);
+		// System.out.println("Index: " + index); // 5 , 第0位和第2位为1，所以为5
 		/*
 		System.out.println("Third: " + a[index]);
 		
 		index = test3(a);
 		System.out.println("Index: " + index);
 		System.out.println("Third: " + a[index]); */
-		System.out.println("fourth:" + test4(a));
+		//System.out.println("fourth:" + test4(a));
+		
+		System.out.println("Sort test");
+		System.out.println(compare(3,2));
+		//System.out.println(compare(3,3));
+		//System.out.println(compare(3,4));
 		
 	}
 }
