@@ -93,19 +93,24 @@ public class BitTest {
 	public static int compare(int a, int b){
 		
 		int diff = a ^ b;
-		System.out.println("First result after XOR: " + diff);
 		if( diff == 0)
 			return 0;
-		diff |= diff >> 1;
-		System.out.println("Diff after >>1: " + diff);
+		diff = diff | ( diff >> 1 );
 		  diff |= diff >> 2;
 		  diff |= diff >> 4;
 		  diff |= diff >> 8;
 		  diff |= diff >> 16;
 		  diff ^= diff >> 1;
-		  int result = ( a & diff );
-		  System.out.println("result?: " + result);
-		  return ( result > 0) ? 1 : -1;
+		  return  ( (a & diff) == 0 )  ? -1 : 1;
+	}
+	
+	private static void unitTest(){
+		System.out.println(compare(1,2));
+		System.out.println(compare(3,2));
+		System.out.println(compare(300,2));
+		System.out.println(compare(3000,2));
+		System.out.println(compare(3000,3000));
+		System.out.println(compare(3000,3001));
 	}
 	
 	public static void main(String[] args) {
@@ -122,10 +127,7 @@ public class BitTest {
 		System.out.println("Third: " + a[index]); */
 		//System.out.println("fourth:" + test4(a));
 		
-		System.out.println("Sort test");
-		System.out.println(compare(3,2));
-		//System.out.println(compare(3,3));
-		//System.out.println(compare(3,4));
+		unitTest();
 		
 	}
 }
