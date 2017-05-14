@@ -2,6 +2,7 @@ package corresponding;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.function.Function;
 
 public class CL_JAVA_CORRESPONDING {
 	private List<?> source;
@@ -37,22 +38,32 @@ public class CL_JAVA_CORRESPONDING {
 	
 	private void map(List<?> source, List<?> dest, CL_MAPPING map){
 		for( int i = 0; i < source.size(); i++)
-			mapEach(source.get(i), dest.get(i), map.getSrc(), map.getTarget());
+			mapEach(source.get(i), dest.get(i), map);
 	}
 	
-	private void mapEach(Object source, Object target, String sourceField, String targetField){   
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void mapEach(Object source, Object target, CL_MAPPING map){   
 
         Class<?> sourceClass = source.getClass();  
         Class<?> targetClass = target.getClass();
-        
+        String sourceField = map.getSrc();
+        String targetField = map.getTarget();
+        Function function = map.getFunction();
 		try {
 			Field srcField = sourceClass.getDeclaredField(sourceField);
 			srcField.setAccessible(true);
 	        Object srcValue = srcField.get(source);
+	        Object newValue = srcValue;
 	        
 	        Field destField = targetClass.getDeclaredField(targetField);
 	        destField.setAccessible(true);
-	        destField.set(target, srcValue);
+	        
+	        if( function != null){
+	        	 newValue = function.apply(srcValue);
+	        }
+	        destField.set(target, newValue);
+	        
+
 		} catch (NoSuchFieldException | IllegalArgumentException | SecurityException
 				| IllegalAccessException e) {
 			e.printStackTrace();

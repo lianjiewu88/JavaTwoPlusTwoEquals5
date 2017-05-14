@@ -2,6 +2,7 @@ package corresponding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class CorrespondingTest {
 
@@ -17,12 +18,15 @@ public class CorrespondingTest {
 		preSales.add(new PreSales("Tom"));
 		
 		CL_MAPPING[] mapping = new CL_MAPPING[2];
-		mapping[0] = new CL_MAPPING("focusLanguage", "focusArea");
-		mapping[1] = new CL_MAPPING("salary", "salaryPlusBonus");
+		
+		mapping[0] = new CL_MAPPING("focusLanguage", "focusArea", null);
+		Function<Integer, Integer> salaryDouble = e -> e * 2;
+		mapping[1] = new CL_MAPPING("salary", "salaryPlusBonus", salaryDouble);
 		
 		CL_JAVA_CORRESPONDING mappingExecutor = CL_JAVA_CORRESPONDING.CREATE(developers, preSales, mapping);
 		List<PreSales> mappedPresales = (List<PreSales>) mappingExecutor.execute();
 		mappedPresales.forEach(System.out::println);
+		
 	}
 
 }
