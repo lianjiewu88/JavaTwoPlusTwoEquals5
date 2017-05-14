@@ -11,7 +11,12 @@ public class PreSales {
 		this.name = name;
 	}
 	
-	public PreSales(){
-		
+	public PreSales(String name){
+		this.name = name;
+	}
+	
+	public String toString(){
+		return "Presales: " + this.name + " focusArea: " + this.focusArea + " salaryPlusBonus: " + 
+	         this.salaryPlusBonus;
 	}
 }
