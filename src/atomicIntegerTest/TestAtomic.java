@@ -34,11 +34,12 @@ public class TestAtomic {
 	    @Override
 	    public void run() {        
 	      int v = out.inc();        
+	      // System.out.println("Value after inc: " + v + " Thread id: " + Thread.currentThread().getId());
 	      while (v < TARGET_COUNT) {
 	            v = out.inc();
 	      }        
 	      long endTime = System.currentTimeMillis();
-	      System.out.println("SyncThread spend:" + (endTime - startTime) + "ms" + ", v=" + v);
+	      System.out.println("SyncThread spend:" + (endTime - startTime) + "ms" + ", v=" + v + " Thread id: " + Thread.currentThread().getId());
 	    }
 	}
 
@@ -48,14 +49,14 @@ public class TestAtomic {
 	    public AtomicThread(long startTime) {        
 	       this.startTime = startTime;
 	    }    
-	    @Override
+	    @Override 
 	    public void run() {        
 	       int v = acount.incrementAndGet();        
 	       while (v < TARGET_COUNT) {
 	            v = acount.incrementAndGet();
 	        }        
 	        long endTime = System.currentTimeMillis();
-	        System.out.println("AtomicThread spend:" + (endTime - startTime) + "ms" + ", v=" + v);
+	        System.out.println("AtomicThread spend:" + (endTime - startTime) + "ms" + ", v=" + v + " Thread id: " + Thread.currentThread().getId());
 	    }
 	}
 
@@ -67,7 +68,7 @@ public class TestAtomic {
 	    for (int i = 0; i < TASK_COUNT; i++) {
 	        exe.submit(sync);
 	    }
-	    Thread.sleep(3000);
+	    Thread.sleep(1000);
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class TestAtomic {
 	    for (int i = 0; i < TASK_COUNT; i++) {
 	        exe.submit(atomic);
 	    }
-	    Thread.sleep(3000);
+	    Thread.sleep(1000);
 	}
 	}
 
