@@ -3,6 +3,8 @@ package aop;
 import java.util.logging.Level;
 import com.sun.istack.internal.logging.Logger;
 
+// Jerry 2017-05-19 9:18AM - this is a bad design
+// Technical stuff ( logging ) and business logic are mixed!!
 public abstract class BaseCommand {
 
 	public void execute(){
