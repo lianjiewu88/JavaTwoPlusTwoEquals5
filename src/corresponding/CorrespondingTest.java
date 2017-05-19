@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public class CorrespondingTest {
-
 	
 	@SuppressWarnings({ "unused", "unchecked" })
 	public static void main(String[] args) {
@@ -20,6 +19,7 @@ public class CorrespondingTest {
 		CL_MAPPING[] mapping = new CL_MAPPING[2];
 		
 		mapping[0] = new CL_MAPPING("focusLanguage", "focusArea", null);
+		
 		Function<Integer, Integer> salaryDouble = e -> e * 2;
 		mapping[1] = new CL_MAPPING("salary", "salaryPlusBonus", salaryDouble);
 		

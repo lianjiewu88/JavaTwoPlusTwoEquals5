@@ -61,9 +61,7 @@ public class CL_JAVA_CORRESPONDING {
 	        if( function != null){
 	        	 newValue = function.apply(srcValue);
 	        }
-	        destField.set(target, newValue);
-	        
-
+	        destField.set(target, newValue);      
 		} catch (NoSuchFieldException | IllegalArgumentException | SecurityException
 				| IllegalAccessException e) {
 			e.printStackTrace();
