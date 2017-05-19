@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ArrayTest {
 
+	@SuppressWarnings("unused")
 	private static void asListTest(){
 		String[] a = {"A", "B"};
 		List<String> list = Arrays.asList(a);

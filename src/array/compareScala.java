@@ -6,11 +6,11 @@ public class compareScala {
 		// Compiles but fails at runtime
 		/*
 		 * Exception in thread "main" java.lang.ArrayStoreException: java.lang.Object
-	at array.compareScala.test(compareScala.java:8)
-	at array.compareScala.main(compareScala.java:31)
+	              at array.compareScala.test(compareScala.java:8)
+	              at array.compareScala.main(compareScala.java:31)
 		 */
 		Object[] arrrrr = new String[1];
-		arrrrr[0] = new Object();
+		// arrrrr[0] = new Object();
 		 
 		// This works
 		Object[] arrrr2 = new Integer[1];
