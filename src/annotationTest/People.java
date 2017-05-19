@@ -1,4 +1,4 @@
-package AnnotationTest;
+package annotationTest;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ public class People {
 	public static void main(String[] arg){
 	        try {
 	            // 使用类加载器加载类
-	            Class c = Class.forName("AnnotationTest.People");
+	            Class c = Class.forName("annotationTest.People");
 	            // 找到类上面的注解
 	            boolean isExist = c.isAnnotationPresent(Description.class);
 	            // 上面的这个方法是用这个类来判断这个类是否存在Description这样的一个注解

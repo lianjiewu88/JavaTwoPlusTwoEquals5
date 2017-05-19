@@ -1,4 +1,4 @@
-package AnnotationTest;
+package annotationTest;
 
 public class AnnotationExample {
     @Override

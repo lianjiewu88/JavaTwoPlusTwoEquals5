@@ -18,7 +18,8 @@ public class ArrayTest {
 		 * Exception in thread "main" java.lang.UnsupportedOperationException
 	at java.util.AbstractList.add(Unknown Source)
 	at java.util.AbstractList.add(Unknown Source) 
-	Arrays.asList() 会返回一个ArrayList，这是Arrays里内嵌的一个私有静态类，而并不是java.util.ArrayList类java.util.Arrays.ArrayList 有set(), get(), contains()方法，但并支持添加元素，所以大小是固定的，想要创建一个真正的ArrayList，你应该：
+	Arrays.asList() 会返回一个ArrayList，这是Arrays里内嵌的一个私有静态类，而并不是java.util.ArrayList类java.util.Arrays.ArrayList 有set(), get(), contains()方法，
+	但并支持添加元素，所以大小是固定的，想要创建一个真正的ArrayList，你应该：
 ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 		 */
 	}
@@ -42,7 +43,7 @@ ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 		list.forEach(System.out::println);
 	}
 	public static void main(String[] args) {
-		// asListTest();
+	    // asListTest();
 		removeInLoop();
 		String[] a = {"A", "B"};
 		// internal implementation: return new ArrayList<>(a);
@@ -52,5 +53,6 @@ ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 		System.out.println(list1);
 		System.out.println(list2);
 		System.out.println(list3);
+		System.out.println(list1.getClass().getCanonicalName());
 	}
 }
