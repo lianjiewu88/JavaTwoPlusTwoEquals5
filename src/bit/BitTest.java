@@ -2,6 +2,10 @@ package bit;
 
 public class BitTest {
 
+	private static int add(int number){
+		number = number + 1;
+		return number;
+	}
 	public static void test1() {
 		int mask;
 		for(int i = 0; i < 32; i++) {
@@ -114,6 +118,8 @@ public class BitTest {
 	}
 	
 	public static void main(String[] args) {
+		
+		System.out.println("Add: " + add(6));
 		// int a[] = {1,1,2,2,5,4,4};
 		// System.out.println("Twice: " + twiceNumber(a));
 		// int a[] = {1,999,1,1,2,2,2,4,4,4,6,6,6};

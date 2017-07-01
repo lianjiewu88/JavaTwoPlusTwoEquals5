@@ -28,8 +28,8 @@ ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(arr));
 	private static void removeInLoop() {
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c", "d"));
 
-		/* ConcurrentModificationException
-		for (String s : list) {
+		// ConcurrentModificationException
+		/*for (String s : list) {
 		    if (s.equals("a"))
 		        list.remove(s);
 		}*/
