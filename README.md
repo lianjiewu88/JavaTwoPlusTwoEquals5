@@ -20,3 +20,11 @@ https://github.com/HalfStackDeveloper/ClassReader
 # 2017-03-28 11：20PM
 no commit yesterday
 
+# 2017-07-01 8:07AM - Xun's house
+
+## Created by Jerry Wang, last modified on Sep 08, 2015
+
+* Eclipse local workspace: C:\MyProgram\Eclipse\workspace\.metadata\.plugins\org.eclipse.wst.server.core
+
+* [Technical details of serve modules without publishing in Eclipse WTP and Tomcat?
+](https://stackoverflow.com/questions/15575302/technical-details-of-serve-modules-without-publishing-in-eclipse-wtp-and-tomcat)
