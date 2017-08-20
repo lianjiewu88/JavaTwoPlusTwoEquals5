@@ -28,3 +28,7 @@ no commit yesterday
 
 * [Technical details of serve modules without publishing in Eclipse WTP and Tomcat?
 ](https://stackoverflow.com/questions/15575302/technical-details-of-serve-modules-without-publishing-in-eclipse-wtp-and-tomcat)
+
+# 2017-08-20 10:10AM
+
+Java中传参都是值传递，如果是基本类型，就是对值的拷贝，如果是对象，就是对引用地址的拷贝。
