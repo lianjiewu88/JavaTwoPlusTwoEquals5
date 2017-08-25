@@ -36,14 +36,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TicketCreationRunner implements Runnable{
+public class TicketCreationRunner implements Runnable {
 
 	private final String SERVICEURL = "https://qxl-cust233.dev.sapbydesign.com/sap/c4c/odata/v1/c4codata/ServiceRequestCollection";
 	private HttpClient m_httpClient;
 	private RequestConfig mConfig;
 	private String boundary = "batch_" + UUID.randomUUID().toString();
 
-	private String getXSRFToken(){
+	private String getXSRFToken() {
 		final HttpGet get = new HttpGet(SERVICEURL);
 		get.setHeader("Authorization", "Basic V0FOR0pFUlJZNjI4MTg6U2FwdGVzdDE=");
 		get.setHeader("X-CSRF-Token", "Fetch");
@@ -52,7 +52,8 @@ public class TicketCreationRunner implements Runnable{
 		HttpResponse response;
 		try {
 			response = getHttpClient().execute(get);
-			String xSRFToken = response.getFirstHeader("X-CSRF-Token").getValue();
+			String xSRFToken = response.getFirstHeader("X-CSRF-Token")
+					.getValue();
 			System.out.println("XSRF Token got: " + xSRFToken);
 			return xSRFToken;
 		} catch (ClientProtocolException e) {
@@ -62,30 +63,31 @@ public class TicketCreationRunner implements Runnable{
 		}
 		return null;
 	}
-	
-	public TicketCreationRunner(){
+
+	public TicketCreationRunner() {
 		HttpHost proxy = new HttpHost("proxy.wdf.sap.corp", 8080, "http");
 		mConfig = RequestConfig.custom().setProxy(proxy).build();
 	}
-	
+
 	private HttpClient getHttpClient() {
 		if (this.m_httpClient == null) {
 			this.m_httpClient = HttpClientBuilder.create().build();
 		}
 		return this.m_httpClient;
 	}
-	
+
 	private HttpResponse executeBatchCall(String serviceUrl, final String body)
 			throws ClientProtocolException, IOException {
-		final HttpPost post = new HttpPost(URI.create("https://qxl-cust233.dev.sapbydesign.com/sap/c4c/odata/v1/c4codata/$batch"));
+		final HttpPost post = new HttpPost(
+				URI.create("https://qxl-cust233.dev.sapbydesign.com/sap/c4c/odata/v1/c4codata/$batch"));
 		post.setHeader("Content-Type", "multipart/mixed;boundary=" + boundary);
-		post.setHeader("Authorization", "Basic V0FOR0pFUlJZNjI4MTg6U2FwdGVzdDE=");
+		post.setHeader("Authorization",
+				"Basic V0FOR0pFUlJZNjI4MTg6U2FwdGVzdDE=");
 		post.setHeader("X-CSRF-Token", getXSRFToken());
 		HttpEntity entity = new StringEntity(body);
 
 		post.setEntity(entity);
 		post.setConfig(mConfig);
-
 
 		HttpResponse response = getHttpClient().execute(post);
 
@@ -94,16 +96,15 @@ public class TicketCreationRunner implements Runnable{
 
 		return response;
 	}
-	
+
 	public String serializeTicketDeepInsert(Ticket t)
 			throws EntityProviderException, IOException, Exception {
 
-		// Input fields Priority, ProductID, IssueCategory, Name & customer
-		// note
 		Map<String, Object> prop = new HashMap<String, Object>();
 
 		if (t.getIssuePriority() != null) {
-			prop.put("ServicePriorityCode", t.getIssuePriority().getPriorityCode());
+			prop.put("ServicePriorityCode", t.getIssuePriority()
+					.getPriorityCode());
 		}
 
 		if (!StringUtils.isBlank(t.getProductId())) {
@@ -117,23 +118,24 @@ public class TicketCreationRunner implements Runnable{
 		if (!StringUtils.isBlank(t.getIssueCategory())) {
 			prop.put("ServiceIssueCategoryID", t.getIssueCategory());
 		}
-		
+
 		Map<String, Object> propNotes = new HashMap<String, Object>();
-		/*if (t.getNotes() != null) {
-			propNotes.put("Text", t.getNotes().get(0).getNoteDescription());
-			propNotes.put("TypeCode", t.getNotes().get(0).getNoteType().getTypeCode()); // Incident description
-			ArrayList<Map<String, Object>> arrayMap = new ArrayList<Map<String, Object>>();
-			arrayMap.add(propNotes);
-			prop.put("ServiceRequestDescription", arrayMap);
-		}*/
+		/*
+		 * if (t.getNotes() != null) { propNotes.put("Text",
+		 * t.getNotes().get(0).getNoteDescription()); propNotes.put("TypeCode",
+		 * t.getNotes().get(0).getNoteType().getTypeCode()); // Incident
+		 * description ArrayList<Map<String, Object>> arrayMap = new
+		 * ArrayList<Map<String, Object>>(); arrayMap.add(propNotes);
+		 * prop.put("ServiceRequestDescription", arrayMap); }
+		 */
 
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(prop);
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	private void createTicket(Ticket ticket){
+	private void createTicket(Ticket ticket) {
 		List<BatchPart> batchParts = new ArrayList<BatchPart>();
 
 		BatchChangeSet changeSet = BatchChangeSet.newBuilder().build();
@@ -144,15 +146,16 @@ public class TicketCreationRunner implements Runnable{
 		changeSetHeaders.put("Content-ID", contentId);
 		changeSetHeaders.put("Accept", "application/json");
 
-		String uriTicket = new StringBuilder("ServiceRequestCollection").toString();
+		String uriTicket = new StringBuilder("ServiceRequestCollection")
+				.toString();
 
 		BatchChangeSetPart changeRequestTicket = null;
 		try {
 			String bodyString = serializeTicketDeepInsert(ticket);
 			System.out.println("Body String: " + bodyString);
-			changeRequestTicket = BatchChangeSetPart
-					.method("POST").uri(uriTicket).body(bodyString)
-					.headers(changeSetHeaders).contentId(contentId).build();
+			changeRequestTicket = BatchChangeSetPart.method("POST")
+					.uri(uriTicket).body(bodyString).headers(changeSetHeaders)
+					.contentId(contentId).build();
 		} catch (EntityProviderException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -205,7 +208,7 @@ public class TicketCreationRunner implements Runnable{
 		}
 		String contentType = batchResponse.getFirstHeader(
 				HttpHeaders.CONTENT_TYPE).getValue();
-		
+
 		String response = null;
 		try {
 			response = IOUtils.toString(responseBody);
@@ -216,48 +219,47 @@ public class TicketCreationRunner implements Runnable{
 		// Process the batch response to get the ticket key
 		List<BatchSingleResponse> responses = null;
 		try {
-			responses = EntityProvider
-					.parseBatchResponse(IOUtils.toInputStream(response),
-							contentType);
+			responses = EntityProvider.parseBatchResponse(
+					IOUtils.toInputStream(response), contentType);
 		} catch (BatchException e) {
 			e.printStackTrace();
 		}
 		for (BatchSingleResponse rsp : responses) {
 			// Look for only created entries
-			System.out.println("Single Response status code => " + rsp.getStatusCode());
+			System.out.println("Single Response status code => "
+					+ rsp.getStatusCode());
 			System.out.println("Single response: " + rsp.getBody());
-			if (Integer.parseInt(rsp.getStatusCode()) == 201 ) { 
+			if (Integer.parseInt(rsp.getStatusCode()) == 201) {
 
 				String locationUrl = rsp.getHeader("location");
 				if (!StringUtils.isBlank(locationUrl)) {
-					String ticketUUID = StringUtils.substringBetween(locationUrl,
-							"'");
+					String ticketUUID = StringUtils.substringBetween(
+							locationUrl, "'");
 					System.out.println(ticketUUID);
 				}
 			}
 		}
 	}
-	
-	
-    @Override
-	public void run(){
-    	Ticket ticket = new Ticket();
-        //ticket.setIssueCategory("CA_199");
-        //ticket.setProductId("P400101");
-        ticket.setName("Testing ticket creation via OData");
-        ticket.setIssuePriority(IssuePriority.HIGH);
-        
-        /*// Add an incident description
-        Note incDesc = new Note();
-        incDesc.setNoteType(NoteType.INC_DESC);
-        incDesc.setNoteDescription("Incident description for ticket creation via OData");
-        
-        List<Note> incDescList = new ArrayList<Note>();
-        incDescList.add(incDesc);
-        
-        newTicket.setNotes(incDescList); */
-        
-    	this.createTicket(ticket);
-	}    	
-}
 
+	@Override
+	public void run() {
+		Ticket ticket = new Ticket();
+		// ticket.setIssueCategory("CA_199");
+		// ticket.setProductId("P400101");
+		ticket.setName("Testing ticket creation via OData");
+		ticket.setIssuePriority(IssuePriority.HIGH);
+
+		/*
+		 * // Add an incident description Note incDesc = new Note();
+		 * incDesc.setNoteType(NoteType.INC_DESC); incDesc.setNoteDescription(
+		 * "Incident description for ticket creation via OData");
+		 * 
+		 * List<Note> incDescList = new ArrayList<Note>();
+		 * incDescList.add(incDesc);
+		 * 
+		 * newTicket.setNotes(incDescList);
+		 */
+
+		this.createTicket(ticket);
+	}
+}
