@@ -8,6 +8,13 @@ public class TicketName {
 		this.languageCode = code;
 	}
 	
+	public String getContent(){
+		return this.content;
+	}
+	
+	public String getLanguageCode(){
+		return this.languageCode;
+	}
 	public void setContent(String name){
 		this.content = name;
 	}
