@@ -17,7 +17,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class QueryRunner implements Runnable{
 
-	private final ConcurrentHashMap<String, AtomicLong> wc = null ;
 	private final String SERVICEURL = "https://qxl-cust233.dev.sapbydesign.com/sap/c4c/odata/v1/c4codata/AccountCollection/?$search='Wang'";
 	HttpClient m_httpClient;
 
