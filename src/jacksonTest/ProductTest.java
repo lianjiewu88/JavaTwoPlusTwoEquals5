@@ -7,6 +7,12 @@ public class ProductTest {
     private int productId;
     private String productName;
     private BrandName brandName;
+    
+    public ProductTest(int id, String Name, BrandName brandName){
+    	this.productId = id;
+    	this.productName = Name;
+    	this.brandName = brandName;
+    }
 
     @JsonProperty("id") // this should match the attribute in JSON file
     public int getProductId() {

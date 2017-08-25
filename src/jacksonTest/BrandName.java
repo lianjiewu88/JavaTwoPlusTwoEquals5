@@ -9,6 +9,12 @@ public class BrandName {
     public Integer getId() {
         return id2;
     }
+    
+    public BrandName(Integer id, String content){
+    	this.id2 = id;
+    	this.content = content;
+    	
+    }
 // Exception in thread "main" com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "id" (class jacksonTest.BrandName), not marked as ignorable (2 known properties: , "pp", "content"])
         
 //    public void setPP(Integer id) {
@@ -25,8 +31,4 @@ public class BrandName {
     public String toString() {
         return "BrandName [id=" + id2 + ", content=" + content + "]";
     }
-
-
-
-
 }
