@@ -53,6 +53,7 @@ public class TicketCreationRunner implements Runnable{
 		try {
 			response = getHttpClient().execute(get);
 			String xSRFToken = response.getFirstHeader("X-CSRF-Token").getValue();
+			System.out.println("XSRF Token got: " + xSRFToken);
 			return xSRFToken;
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -244,8 +245,8 @@ public class TicketCreationRunner implements Runnable{
     @Override
 	public void run(){
     	Ticket ticket = new Ticket();
-        ticket.setIssueCategory("CA_199");
-        ticket.setProductId("P400101");
+        //ticket.setIssueCategory("CA_199");
+        //ticket.setProductId("P400101");
         ticket.setName("Testing ticket creation via OData");
         ticket.setIssuePriority(IssuePriority.HIGH);
         
