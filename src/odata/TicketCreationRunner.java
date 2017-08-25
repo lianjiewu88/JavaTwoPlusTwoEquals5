@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import odata.model.IssuePriority;
 import odata.model.Ticket;
+import odata.model.TicketName;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -34,6 +35,7 @@ import org.apache.olingo.odata2.api.ep.EntityProviderException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TicketCreationRunner implements Runnable {
@@ -97,41 +99,12 @@ public class TicketCreationRunner implements Runnable {
 		return response;
 	}
 
-	public String serializeTicketDeepInsert(Ticket t)
-			throws EntityProviderException, IOException, Exception {
-
-		Map<String, Object> prop = new HashMap<String, Object>();
-
-		if (t.getIssuePriority() != null) {
-			prop.put("ServicePriorityCode", t.getIssuePriority()
-					.getPriorityCode());
-		}
-
-		if (!StringUtils.isBlank(t.getProductId())) {
-			prop.put("ProductID", t.getProductId());
-		}
-
-		if (!StringUtils.isBlank(t.getName())) {
-			prop.put("Name", t.getName());
-		}
-
-		if (!StringUtils.isBlank(t.getIssueCategory())) {
-			prop.put("ServiceIssueCategoryID", t.getIssueCategory());
-		}
-
-		Map<String, Object> propNotes = new HashMap<String, Object>();
-		/*
-		 * if (t.getNotes() != null) { propNotes.put("Text",
-		 * t.getNotes().get(0).getNoteDescription()); propNotes.put("TypeCode",
-		 * t.getNotes().get(0).getNoteType().getTypeCode()); // Incident
-		 * description ArrayList<Map<String, Object>> arrayMap = new
-		 * ArrayList<Map<String, Object>>(); arrayMap.add(propNotes);
-		 * prop.put("ServiceRequestDescription", arrayMap); }
-		 */
-
+	public String serializeTicketDeepInsert(Ticket t) throws JsonProcessingException{
 		ObjectMapper mapper = new ObjectMapper();
-
-		return mapper.writeValueAsString(prop);
+		
+		String jsonInString = mapper.writeValueAsString(t);
+		System.out.println("JSON: " + jsonInString);
+		return jsonInString;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -156,8 +129,6 @@ public class TicketCreationRunner implements Runnable {
 			changeRequestTicket = BatchChangeSetPart.method("POST")
 					.uri(uriTicket).body(bodyString).headers(changeSetHeaders)
 					.contentId(contentId).build();
-		} catch (EntityProviderException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -177,8 +148,6 @@ public class TicketCreationRunner implements Runnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
-		System.out.println("$batch request : ");
 
 		String serviceUrl = SERVICEURL;
 
@@ -243,22 +212,9 @@ public class TicketCreationRunner implements Runnable {
 
 	@Override
 	public void run() {
-		Ticket ticket = new Ticket();
-		// ticket.setIssueCategory("CA_199");
-		// ticket.setProductId("P400101");
-		ticket.setName("Testing ticket creation via OData");
-		ticket.setIssuePriority(IssuePriority.HIGH);
-
-		/*
-		 * // Add an incident description Note incDesc = new Note();
-		 * incDesc.setNoteType(NoteType.INC_DESC); incDesc.setNoteDescription(
-		 * "Incident description for ticket creation via OData");
-		 * 
-		 * List<Note> incDescList = new ArrayList<Note>();
-		 * incDescList.add(incDesc);
-		 * 
-		 * newTicket.setNotes(incDescList);
-		 */
+		TicketName name = new TicketName("Testing ticket creation via OData", "EN");
+		
+		Ticket ticket = new Ticket(name, "3");
 
 		this.createTicket(ticket);
 	}
