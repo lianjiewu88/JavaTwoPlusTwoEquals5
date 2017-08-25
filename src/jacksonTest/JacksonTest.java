@@ -8,9 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JacksonTest {
 
-    public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
+	private static void string2Object() throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper objectMapper = new ObjectMapper();
         String DATA = "{\r\n" + 
                 "  \"id\": 123,\r\n" + 
                 "  \"name\": \"The Best Product\",\r\n" + 
@@ -22,7 +21,9 @@ public class JacksonTest {
 
         ProductTest productTest = objectMapper.readValue(DATA, ProductTest.class);
         System.out.println(productTest.toString());
-
+	}
+    public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
+    	string2Object();
     }
 
 }

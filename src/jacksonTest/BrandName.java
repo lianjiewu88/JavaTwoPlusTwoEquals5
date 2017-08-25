@@ -1,14 +1,16 @@
 package jacksonTest;
 
 public class BrandName {
-
-    private Integer id;
+// Jerry 2017-08-25 9:19PM: after I change id to id2, the deserialization from string
+// to object can still work, which proves that the conversion is not done 
+// based on ATTRIBUTE NAME
+    private Integer id2; 
     private String content;
     public Integer getId() {
-        return id;
+        return id2;
     }
     public void setId(Integer id) {
-        this.id = id;
+        this.id2 = id;
     }
     public String getcontent() {
         return content;
@@ -18,7 +20,7 @@ public class BrandName {
     }
     @Override
     public String toString() {
-        return "BrandName [id=" + id + ", content=" + content + "]";
+        return "BrandName [id=" + id2 + ", content=" + content + "]";
     }
 
 

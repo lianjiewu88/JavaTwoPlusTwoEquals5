@@ -8,7 +8,7 @@ public class ProductTest {
     private String productName;
     private BrandName brandName;
 
-    @JsonProperty("id")
+    @JsonProperty("id") // this should match the attribute in JSON file
     public int getProductId() {
         return productId;
     }
