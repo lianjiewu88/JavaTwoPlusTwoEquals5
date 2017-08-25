@@ -20,5 +20,8 @@
 	<classpathentry kind="lib" path="lib/olingo-odata2-api-2.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/olingo-odata2-core-2.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
