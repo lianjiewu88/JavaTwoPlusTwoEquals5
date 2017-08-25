@@ -77,7 +77,7 @@ public class TicketCreationRunner implements Runnable{
 	
 	private HttpResponse executeBatchCall(String serviceUrl, final String body)
 			throws ClientProtocolException, IOException {
-		final HttpPost post = new HttpPost(URI.create(serviceUrl + "/$batch"));
+		final HttpPost post = new HttpPost(URI.create("https://qxl-cust233.dev.sapbydesign.com/sap/c4c/odata/v1/c4codata/$batch"));
 		post.setHeader("Content-Type", "multipart/mixed;boundary=" + boundary);
 		post.setHeader("Authorization", "Basic V0FOR0pFUlJZNjI4MTg6U2FwdGVzdDE=");
 		post.setHeader("X-CSRF-Token", getXSRFToken());
@@ -148,9 +148,10 @@ public class TicketCreationRunner implements Runnable{
 
 		BatchChangeSetPart changeRequestTicket = null;
 		try {
+			String bodyString = serializeTicketDeepInsert(ticket);
+			System.out.println("Body String: " + bodyString);
 			changeRequestTicket = BatchChangeSetPart
-					.method("POST").uri(uriTicket)
-					.body(serializeTicketDeepInsert(ticket))
+					.method("POST").uri(uriTicket).body(bodyString)
 					.headers(changeSetHeaders).contentId(contentId).build();
 		} catch (EntityProviderException e) {
 			e.printStackTrace();
@@ -171,7 +172,6 @@ public class TicketCreationRunner implements Runnable{
 		try {
 			payload = IOUtils.toString(body);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -199,10 +199,8 @@ public class TicketCreationRunner implements Runnable{
 		try {
 			responseBody = batchResponse.getEntity().getContent();
 		} catch (UnsupportedOperationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String contentType = batchResponse.getFirstHeader(
@@ -212,7 +210,6 @@ public class TicketCreationRunner implements Runnable{
 		try {
 			response = IOUtils.toString(responseBody);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -223,12 +220,12 @@ public class TicketCreationRunner implements Runnable{
 					.parseBatchResponse(IOUtils.toInputStream(response),
 							contentType);
 		} catch (BatchException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (BatchSingleResponse rsp : responses) {
 			// Look for only created entries
 			System.out.println("Single Response status code => " + rsp.getStatusCode());
+			System.out.println("Single response: " + rsp.getBody());
 			if (Integer.parseInt(rsp.getStatusCode()) == 201 ) { 
 
 				String locationUrl = rsp.getHeader("location");

@@ -22,6 +22,6 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-annotations-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-core-2.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-databind-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.2.2.jar" sourcepath="C:/Users/i042416/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.2.2/jackson-databind-2.2.2-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
