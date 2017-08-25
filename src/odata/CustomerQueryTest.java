@@ -1,6 +1,11 @@
 package odata;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -9,6 +14,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import sun.misc.IOUtils;
 
 public class CustomerQueryTest {
 
@@ -34,14 +41,13 @@ public class CustomerQueryTest {
 
 		get.setConfig(config);
 
-		// System.out.println("Executing request " + request.getRequestLine() +
-		// " to " + target + " via " + proxy);
-
-		// CloseableHttpResponse response = httpclient.execute(target, request);
-
 		HttpResponse response = getHttpClient().execute(get);
 
-		System.out.println("response: " + response.getEntity().getContent());
+		InputStream stream = response.getEntity().getContent();
+		String result = new BufferedReader(new InputStreamReader(stream)).lines()
+				   .parallel().collect(Collectors.joining("\n"));
+		
+		System.out.println("response: " + result );
 
 	}
 
