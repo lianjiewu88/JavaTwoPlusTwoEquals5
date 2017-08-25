@@ -48,6 +48,7 @@ public class QueryRunner implements Runnable{
 					   .parallel().collect(Collectors.joining("\n"));
 			System.out.println("response length from Thread " + Thread.currentThread().getName() + " -> "  + result.length() );
 			ThreadExecutionRecord.recordEndTimestamp(Thread.currentThread().getName());
+			stream.close();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException | UnsupportedOperationException e) {
