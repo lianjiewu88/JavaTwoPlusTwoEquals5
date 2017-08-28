@@ -38,6 +38,6 @@ public class ThreadExecutionRecord {
 			total += response;
 			System.out.println("Thread: " + key + " Response Time: " + response);
 		}
-		System.out.println("Average: " + total / mRecord.size());
+		System.out.println("Average ResponseTime: " + total / mRecord.size());
 	}
 }

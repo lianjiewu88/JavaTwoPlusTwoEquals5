@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import odata.model.IssuePriority;
 import odata.model.Ticket;
 import odata.model.TicketName;
 
@@ -31,7 +30,6 @@ import org.apache.olingo.odata2.api.client.batch.BatchChangeSetPart;
 import org.apache.olingo.odata2.api.client.batch.BatchPart;
 import org.apache.olingo.odata2.api.client.batch.BatchSingleResponse;
 import org.apache.olingo.odata2.api.ep.EntityProvider;
-import org.apache.olingo.odata2.api.ep.EntityProviderException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -154,6 +152,7 @@ public class TicketCreationRunner implements Runnable {
 		HttpResponse batchResponse = null;
 		try {
 			batchResponse = executeBatchCall(serviceUrl, payload);
+			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -175,6 +174,7 @@ public class TicketCreationRunner implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ThreadExecutionRecord.recordEndTimestamp(Thread.currentThread().getName());
 		String contentType = batchResponse.getFirstHeader(
 				HttpHeaders.CONTENT_TYPE).getValue();
 
@@ -212,7 +212,8 @@ public class TicketCreationRunner implements Runnable {
 
 	@Override
 	public void run() {
-		TicketName name = new TicketName("Testing ticket creation via OData", "EN");
+		String postfix = UUID.randomUUID().toString();
+		TicketName name = new TicketName("Jerry OData Ticket:" + postfix, "EN");
 		
 		Ticket ticket = new Ticket(name, "3");
 

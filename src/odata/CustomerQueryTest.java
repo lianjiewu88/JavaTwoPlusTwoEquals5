@@ -3,7 +3,7 @@ package odata;
 
 public class CustomerQueryTest {
 
-	private final int THREAD_COUNT = 3;
+	private final int THREAD_COUNT = 100;
 	
 	private void test() {
 		Thread[] tasks = new Thread[THREAD_COUNT]; 

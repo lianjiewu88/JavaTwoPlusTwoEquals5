@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -45,7 +43,7 @@ public class QueryRunner implements Runnable{
 			InputStream stream = response.getEntity().getContent();
 			String result = new BufferedReader(new InputStreamReader(stream)).lines()
 					   .parallel().collect(Collectors.joining("\n"));
-			System.out.println("response length from Thread " + Thread.currentThread().getName() + " -> "  + result.length() );
+			// System.out.println("response length from Thread " + Thread.currentThread().getName() + " -> "  + result.length() );
 			ThreadExecutionRecord.recordEndTimestamp(Thread.currentThread().getName());
 			stream.close();
 		} catch (ClientProtocolException e) {
