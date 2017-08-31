@@ -7,6 +7,14 @@ import java.util.List;
 
 public class GenericTest {
 
+	public static final List<String> INDEX_FILE_NAMES = new ArrayList<String>() {
+
+        {
+            add("index.html");
+            add("index.htm");
+        }
+    };
+    
 	public static <T> T requireNonNull(T obj) {
 		  if (obj == null) {
 		    throw new NullPointerException();
@@ -40,6 +48,8 @@ public class GenericTest {
 	
 	public static void main(String[] args) {
 		
+		GenericTest a = new GenericTest();
+		System.out.println("Size: " + a.INDEX_FILE_NAMES.size());
 		// HashMap<String, String> cookies = new HashMap<String, String>();
 		foo2("Test");
 		String a = "a";
