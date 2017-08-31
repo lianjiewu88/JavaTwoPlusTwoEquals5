@@ -40,6 +40,7 @@ public class GenericTest {
 	
 	public static void main(String[] args) {
 		
+		// HashMap<String, String> cookies = new HashMap<String, String>();
 		foo2("Test");
 		String a = "a";
 		
