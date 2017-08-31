@@ -48,8 +48,8 @@ public class GenericTest {
 	
 	public static void main(String[] args) {
 		
-		GenericTest a = new GenericTest();
-		System.out.println("Size: " + a.INDEX_FILE_NAMES.size());
+		GenericTest b = new GenericTest();
+		System.out.println("Size: " + b.INDEX_FILE_NAMES.size());
 		// HashMap<String, String> cookies = new HashMap<String, String>();
 		foo2("Test");
 		String a = "a";
