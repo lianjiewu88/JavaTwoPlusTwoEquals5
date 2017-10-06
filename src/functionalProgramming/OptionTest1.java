@@ -1,6 +1,7 @@
 package functionalProgramming;
 
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 // from www.rowkey.me/blog/2017/08/18/lift-functions/
 /*Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。
@@ -28,6 +29,15 @@ public class OptionTest1 {
 	public Optional<Double> divideFirstTwo2(JerryNumberProvider numberProvider, JerryMath math) {
 	    return numberProvider.getNumber().flatMap(first -> numberProvider.getNumber()
 	                                     .map(second -> math.divide(first, second)));
+	}
+	
+	/* 
+	 * 先调用第一个Optional的flatMap，再在lambda中调用第二个Optional的map，进一步可以抽取出一个提升方法：
+	 */
+	public interface Optionals {
+	    static <R, T, Z> BiFunction<Optional<T>, Optional<R>, Optional<Z>> lift(BiFunction<? super T, ? super R, ? extends Z> function) {
+	        return (left, right) -> left.flatMap(leftVal -> right.map(rightVal -> function.apply(leftVal, rightVal)));
+	    }
 	}
 	
 	public static void main(String[] args) {
