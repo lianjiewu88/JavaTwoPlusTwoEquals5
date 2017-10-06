@@ -43,7 +43,12 @@ public class OptionTest1 {
 	}
 	
 	/*
-	 * 如上，可知这个方法提升能够提升任何具有两个Optional参数、一个Optional结果的函数，使得被提升的函数具有Optional的一个特性：如果一个参数是空的，那么结果就是空的。如果JDK抽取flatMap和map到一个公共接口，如Monad，那么我们可以为Java Monad的每一个实例(Stream、Optional、自己的实现类)实现一个公共的提升函数。但现实是我们不得不为每一个实例都复制粘贴上面的代码。最终的divideFirstTwo代码如下：
+	 * 如上，可知这个方法提升能够提升任何具有两个Optional参数、一个Optional结果的函数，
+	 * 使得被提升的函数具有Optional的一个特性：如果一个参数是空的，那么结果就是空的。
+	 * 如果JDK抽取flatMap和map到一个公共接口，如Monad，那么我们可以为Java Monad的每一个实例
+	 * (Stream、Optional、自己的实现类)实现一个公共的提升函数。
+	 * 但现实是我们不得不为每一个实例都复制粘贴上面的代码。
+	 * 最终的divideFirstTwo代码如下：
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
