@@ -2,6 +2,8 @@ package functionalProgramming;
 
 import java.util.Optional;
 
+// from www.rowkey.me/blog/2017/08/18/lift-functions/
+
 public class OptionTest1 {
 
 	public Optional<Double> divideFirstTwo(JerryNumberProvider numberProvider, JerryMath math) {
