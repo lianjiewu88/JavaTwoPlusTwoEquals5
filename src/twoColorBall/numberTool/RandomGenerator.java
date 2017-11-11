@@ -1,4 +1,4 @@
-package Tool;
+package twoColorBall.numberTool;
 
 import java.sql.Timestamp;
 import java.util.Random;

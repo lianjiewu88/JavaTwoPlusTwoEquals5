@@ -1,8 +1,12 @@
+package twoColorBall;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 import java.util.Map.Entry;
+
+import twoColorBall.numberTool.RandomGenerator;
 
 
 /* example: 13 occurs 15 time
@@ -216,7 +220,7 @@ public class OccuranceForEachNumber
 		}
 		SortedOccuranceInstance OccuranceFieldList = sorted.elementAt(index);
 		int size = OccuranceFieldList.getNumberListwithSameOccurance().size();
-		int random = Tool.RandomGenerator.getRandom(size);
+		int random = RandomGenerator.getRandom(size);
 		return OccuranceFieldList.getNumberListwithSameOccurance().elementAt(random);
 	}
 	

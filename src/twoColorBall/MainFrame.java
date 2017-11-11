@@ -1,4 +1,5 @@
-import com.sun.jndi.url.ldaps.ldapsURLContextFactory;
+package twoColorBall;
+
 
 public class MainFrame
 {

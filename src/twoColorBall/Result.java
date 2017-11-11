@@ -1,3 +1,5 @@
+package twoColorBall;
+
 public class Result
 {
 	private int[] Highest;
