@@ -25,5 +25,13 @@
 	<classpathentry kind="lib" path="lib/jackson-databind-2.2.2.jar" sourcepath="C:/Users/i042416/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.2.2/jackson-databind-2.2.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/qrCode/Qrcode.jar"/>
 	<classpathentry kind="lib" path="lib/qrCode/unqrcode.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/faat_service_center.zip"/>
+	<classpathentry kind="lib" path="lib/fluent-hc-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-cache-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.3.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
