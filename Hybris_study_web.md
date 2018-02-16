@@ -52,4 +52,4 @@ public final static String _TYPECODE = "PageTemplate";
 
 public static final String CATALOGVERSION = "catalogVersion";
 ```
-
+6. debug: yacceleratorstorefront
