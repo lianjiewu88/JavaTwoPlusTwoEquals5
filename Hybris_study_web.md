@@ -57,3 +57,5 @@ public static final String CATALOGVERSION = "catalogVersion";
 by default any files named essentialdata*.impex and projectdata*.impex that reside in <extension>/resources/impex will be imported during essential and project data creation  
     
 6. debug: yacceleratorstorefront
+
+[hybris new data model讲解](http://blog.csdn.net/tanrunfang/article/details/50524322)
