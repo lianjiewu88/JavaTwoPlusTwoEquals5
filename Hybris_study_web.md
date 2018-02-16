@@ -8,3 +8,6 @@ All extensions **of the platform** are included into the build process by defaul
 * solr 商品搜索
 
 [解读Hybris自带的拦截器框架的使用方法和配置文件](http://www.ku2n.com/ku2n/index.php?c=read&id=1364&page=2)
+
+addon 是hybris插件的概念。 其实就是普通的java工程,不过需要执行下列语句将addon导入你的商城网站项目下。
+> ant addoninstall -Daddonnames="weixinpay" -DaddonStorefront.yacceleratorstorefront="xxxstorefront"
