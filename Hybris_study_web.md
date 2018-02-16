@@ -35,6 +35,7 @@ Person{
 ```sql
 INSERT_UPDATE House;id[unique=true];owner(id[unique=true],name);address
 ```
+Jerry: impex里只能看到attribute name，看不到attribute data type
 
 在对照页面模板的impex文件时，发现TypeCode，Attribute在hybris并没有相应的java文件和属性对应，而是impex文件里对应的TypeCode在Hybris系统里对应一个编译后生成的Model文件，Hybris在生成的java文件通过一些属性和方法使impex文件TypeCode，Attributes与Mode文件里的属性对应。
 e.g:
