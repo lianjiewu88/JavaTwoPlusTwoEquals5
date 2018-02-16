@@ -68,3 +68,5 @@ itemtype code=Stadium generate=true autocreate=true
 * autocreate=true indicates that Stadium is a new type
 * generate=true creates required sourcecode (not the model class) for the type
 * persistence type=property - Defines how item are stored. property reflects the normal persistent behaviour
+
+当我们改变了数据模型（通过更改items.xml文件），我们必须update System，将更改的内容同步到数据库中，type definitions should involve type system localization
