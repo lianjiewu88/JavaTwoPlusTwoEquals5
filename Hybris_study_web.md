@@ -67,3 +67,4 @@ itemtype code=Stadium generate=true autocreate=true
 * defines a new type Stadium which implicitly extends from GenericItem
 * autocreate=true indicates that Stadium is a new type
 * generate=true creates required sourcecode (not the model class) for the type
+* persistence type=property - Defines how item are stored. property reflects the normal persistent behaviour
