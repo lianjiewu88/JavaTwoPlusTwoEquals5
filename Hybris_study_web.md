@@ -3,4 +3,6 @@ All extensions **of the platform** are included into the build process by defaul
 * spring-security（整体的用户权限之类验证，webservice,登录之类的）
 * spring-integration(omsats, datahub)
 * jmx(监控)
-* zk （各个cockpit backoffice底层）
+* zk(各个cockpit backoffice底层)
+* velocity 邮件内容产生使用的技术(VelocityTemplateRenderer), oauth2 手机 外部调用，webservice验证
+* solr 商品搜索
