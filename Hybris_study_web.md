@@ -11,3 +11,6 @@ All extensions **of the platform** are included into the build process by defaul
 
 addon 是hybris插件的概念。 其实就是普通的java工程,不过需要执行下列语句将addon导入你的商城网站项目下。
 > ant addoninstall -Daddonnames="weixinpay" -DaddonStorefront.yacceleratorstorefront="xxxstorefront"
+
+@Resource   //如果将该注释应用于一个字段或方法，那么初始化应用程序组件时容器（Spring）将把所请求资源的一个实例注入其中。
+private StadiumDAO stadiumDAO
