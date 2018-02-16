@@ -36,4 +36,20 @@ Person{
 INSERT_UPDATE House;id[unique=true];owner(id[unique=true],name);address
 ```
 
+在对照页面模板的impex文件时，发现TypeCode，Attribute在hybris并没有相应的java文件和属性对应，而是impex文件里对应的TypeCode在Hybris系统里对应一个编译后生成的Model文件，Hybris在生成的java文件通过一些属性和方法使impex文件TypeCode，Attributes与Mode文件里的属性对应。
+e.g:
+```sql
+INSERT_UPDATE
+ PageTemplate;catalogVersion(catalog(id[default=hybrisContentCatalog]),version[default=Online])[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+```
+
+PageTemplate对应一个编译后生成的PageTemplateModel
+
+PageTemplateModel.java里有如下代码
+
+```java
+public final static String _TYPECODE = "PageTemplate";
+
+public static final String CATALOGVERSION = "catalogVersion";
+```
 
