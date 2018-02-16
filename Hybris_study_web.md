@@ -59,3 +59,11 @@ by default any files named essentialdata*.impex and projectdata*.impex that resi
 6. debug: yacceleratorstorefront
 
 [hybris new data model讲解](http://blog.csdn.net/tanrunfang/article/details/50524322)
+
+```sql
+itemtype code=Stadium generate=true autocreate=true
+```
+
+* defines a new type Stadium which implicitly extends from GenericItem
+* autocreate=true indicates that Stadium is a new type
+* generate=true creates required sourcecode (not the model class) for the type
