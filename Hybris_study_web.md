@@ -18,3 +18,4 @@
 private StadiumDAO stadiumDAO
 
 5. Impex是基于java Model的一种面向对象的数据操作手段
+[原文链接](http://blog.csdn.net/tanrunfang/article/details/50518415)
