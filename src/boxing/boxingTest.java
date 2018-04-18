@@ -31,7 +31,19 @@ public class boxingTest {
 		compare();
 	}
 	
+	private static void getCallstack(){
+	    StackTraceElement stack[] = Thread.currentThread().getStackTrace();  
+
+	    System.out.println("Callstack test");
+        for(int i = 0; i < stack.length; i++){
+        	System.out.println("Jerry:" + stack[i].getClassName() + ":" + stack[i].getMethodName() + "-----");
+        }
+	}
+	
 	public static void compare() {
+		getCallstack();
+
+		System.exit(-1);
 		//before autoboxing
 
 		Integer iObject = Integer.valueOf(3);
@@ -40,7 +52,9 @@ public class boxingTest {
 		//after java5
 
 		Integer iObject2 = 3;//autobxing - primitive to wrapper conversion
-		int iPrimitive2 = iObject2;//unboxing - object to primitive conversion
+		//unboxing - object to primitive conversion
+	    int iPrimitive2 = iObject2;
+		
 		
 		/* 另一个需要避免的问题就是混乱使用对象和原始数据值，一个具体的例子就是当我们在一个原始数据值与一个对象进行比较时，
 		 * 如果这个对象没有进行初始化或者为Null，在自动拆箱过程中obj.xxxValue，会抛出NullPointerException,如下面的代码
@@ -51,6 +65,5 @@ public class boxingTest {
 		if( count <= 0) {
 		    System.out.println("Count is not started yet");
 		}
-
 	}
 }
