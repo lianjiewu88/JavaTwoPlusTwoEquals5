@@ -1,6 +1,8 @@
 package boxing;
 
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class boxingTest {
 	
@@ -8,7 +10,11 @@ public class boxingTest {
 	
 	public static void main(String[] arg) {
 
-		/*ArrayList<Integer> intList = new ArrayList<Integer>();
+		ArrayList<Integer> intList = new ArrayList<Integer>();
+		
+		java.util.ArrayList<Integer> intList2 = new java.util.ArrayList<Integer>();
+		
+		intList2.add(2);
 
 		intList.add(1); //autoboxing - primitive to object
 		intList.add(2);//autoboxing
@@ -21,7 +27,7 @@ public class boxingTest {
 		int local = intLocal.get();// unboxing in Java
 		System.out.println(local);
 		
-		String a = "1" + "2" + "3";*/
+		String a = "1" + "2" + "3";
 		compare();
 	}
 	
