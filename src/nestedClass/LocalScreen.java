@@ -4,13 +4,9 @@ public class LocalScreen {
     public void method() {
         new Runnable() {
               public void run() {
-                    // Prints "An anonymous Runnable" 
                    System.out.println(this.toString());
-                    // Prints "A LocalScreen object" 
                    System.out.println(LocalScreen.this.toString()); 
-                   
-                   // Won't compile! 'this' is a Runnable! //onMake(this); 
-                   // Compiles! Refers to enclosing object onMake(LocalScreen.this); 
+
                    onMake(LocalScreen.this);
               } 
               
