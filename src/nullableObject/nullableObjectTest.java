@@ -2,7 +2,35 @@ package nullableObject;
 
 import java.util.Objects;
 
+class Outer {
+    Nested nested;
+    Nested getNested() {
+        return nested;
+    }
+}
+class Nested {
+    Inner inner;
+    Inner getInner() {
+        return inner;
+    }
+}
+class Inner {
+    String foo = "Jerry";
+    String getFoo() {
+        return foo;
+    }
+}
+
+
+
 public class nullableObjectTest {
+	
+	public void test1(){
+		Outer outer = new Outer();
+		if (outer != null && outer.nested != null && outer.nested.inner != null) {
+		    System.out.println(outer.nested.inner.foo);
+		}
+	}
 
 	private String name = null;
 	
@@ -20,7 +48,9 @@ public class nullableObjectTest {
 	
 	public static void main(String[] args) {
 		nullableObjectTest tool = new nullableObjectTest();
-		tool.addToSegment(null);
+		// tool.addToSegment(null);
+		
+		tool.test1();
 	}
 
 }
