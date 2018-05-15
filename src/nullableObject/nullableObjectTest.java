@@ -1,11 +1,16 @@
 package nullableObject;
 
 import java.util.Objects;
+import java.util.Optional;
 
 class Outer {
     Nested nested;
     Nested getNested() {
         return nested;
+    }
+    
+    public Outer(){
+    	// nested = new Nested();
     }
 }
 class Nested {
@@ -13,7 +18,12 @@ class Nested {
     Inner getInner() {
         return inner;
     }
+    
+    public Nested() {
+    	// inner = new Inner();
+    }
 }
+
 class Inner {
     String foo = "Jerry";
     String getFoo() {
@@ -30,6 +40,11 @@ public class nullableObjectTest {
 		if (outer != null && outer.nested != null && outer.nested.inner != null) {
 		    System.out.println(outer.nested.inner.foo);
 		}
+	}
+	
+	public void test2(){
+		Optional.of(new Outer()).map(Outer::getNested).map(Nested::getInner).map(Inner::getFoo)
+			.ifPresent(System.out::println);
 	}
 
 	private String name = null;
@@ -51,6 +66,7 @@ public class nullableObjectTest {
 		// tool.addToSegment(null);
 		
 		tool.test1();
+		tool.test2();
 	}
 
 }
