@@ -127,8 +127,7 @@ public class GitTool {
 		}
 		pageContent = pageContent.replaceAll("MoON1igHt", "fill=\"#eeeeee\"");
 		
-		// write content to output html file, here I set it to Desktop, here I am the user "Administrator" on Windows7
-		String outputFileName = "C:/Users/Administrator/Desktop/" + username + "-" + words + ".html";
+		String outputFileName = "‪C:\\temp\\" + username + "-" + words + ".html";
 		try (
 				OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(outputFileName), "utf-8");
 				) {
