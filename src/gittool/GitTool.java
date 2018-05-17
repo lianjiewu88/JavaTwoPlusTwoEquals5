@@ -1,13 +1,12 @@
 package gittool;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// https://github.com/moonlightpoet/FunGithub
 public class GitTool {
 	
 	private static Map<String, Word> wordMap = new HashMap<String, Word>();
@@ -25,7 +25,7 @@ public class GitTool {
 	
 	public static void main(String[] args) {
 		// System.err.println("usage : <username> <words>");
-		solve("i042416", "JERRY");
+		solve("i042416", "123");
 	}
 	
 	public static void solve(String username, String words) {
@@ -127,20 +127,46 @@ public class GitTool {
 		}
 		pageContent = pageContent.replaceAll("MoON1igHt", "fill=\"#eeeeee\"");
 		
-		String outputFileName = "‪C:\\temp\\" + username + "-" + words + ".html";
-		try (
+		String outputFileName = "‪C:\\1.html";
+		/*try (
 				OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(outputFileName), "utf-8");
 				) {
 			osw.write(pageContent);
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			e.printStackTrace();
+			return;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+			return;
+		}*/
+		
+		createFile(pageContent);
 		
 		System.out.println(username + "-" + words + ".html successifully generated at desktop!");
 	}
 	
+	
+	static private void createFile(String fileContent){
+		File file = new File("C:\\temp\\1.html");
+		
+	    FileOutputStream out = null;
+	    try {
+	        if (!file.exists()) {
+	            file.createNewFile();
+	        }
+
+	        //创建文件输出流
+	        out = new FileOutputStream(file);
+	        //将字符串转化为字节
+	        byte[] byteArr = fileContent.getBytes();
+	        out.write(byteArr);
+	        out.close();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 	static class Word {
 		
 		private String c;
