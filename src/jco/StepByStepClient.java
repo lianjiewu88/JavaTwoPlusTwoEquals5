@@ -13,6 +13,8 @@ import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoField;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoFunctionTemplate;
+import com.sap.conn.jco.JCoParameterList;
+import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
 import com.sap.conn.jco.JCoTable;
 import com.sap.conn.jco.ext.DestinationDataProvider;
@@ -46,9 +48,25 @@ public class StepByStepClient
     	JCoDestination destination = null;
 		try {
 			destination = JCoDestinationManager.getDestination(DESTINATION_NAME);
-			System.out.println("Attributes:");
-	        System.out.println(destination.getAttributes());
-	        System.out.println();
+			JCoRepository repo = destination.getRepository();
+    		JCoFunction stfcConnection = repo.getFunction("ZDIS_GET_UPSELL_MATERIALS");
+
+    		JCoParameterList imports = stfcConnection.getImportParameterList();
+        
+    		String customerID = "1000040";
+    		String materialID = "11";
+
+    		imports.setValue("IV_CUSTOMER_ID", customerID);
+    		imports.setValue("IV_MATERIAL_ID", materialID);
+
+    		stfcConnection.execute(destination);
+        
+    		JCoParameterList exports = stfcConnection.getExportParameterList();
+    		
+    		// int result = exports.getInt("EV_RESULT");
+    	    int abapDuration = exports.getInt("EV_DURATION");
+    	    System.out.println("ABAP duration: " + abapDuration);
+    	    
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
