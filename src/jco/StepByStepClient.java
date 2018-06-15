@@ -1,3 +1,5 @@
+package jco;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Properties;
@@ -25,11 +27,11 @@ public class StepByStepClient
 	
     static private Properties prepareProperty(){
         Properties connectProperties = new Properties();
-        connectProperties.setProperty(DestinationDataProvider.JCO_ASHOST, "ls4065");
-        connectProperties.setProperty(DestinationDataProvider.JCO_SYSNR,  "85");
-        connectProperties.setProperty(DestinationDataProvider.JCO_CLIENT, "800");
-        connectProperties.setProperty(DestinationDataProvider.JCO_USER,   "homofarber");
-        connectProperties.setProperty(DestinationDataProvider.JCO_PASSWD, "laska");
+        connectProperties.setProperty(DestinationDataProvider.JCO_ASHOST, "ldcixcd.wdf.sap.corp");
+        connectProperties.setProperty(DestinationDataProvider.JCO_SYSNR,  "00");
+        connectProperties.setProperty(DestinationDataProvider.JCO_CLIENT, "111");
+        connectProperties.setProperty(DestinationDataProvider.JCO_USER,   "WANGJER");
+        connectProperties.setProperty(DestinationDataProvider.JCO_PASSWD, "Saptest1");
         connectProperties.setProperty(DestinationDataProvider.JCO_LANG,   "en");
         createDestinationDataFile(DESTINATION_NAME, connectProperties);
         connectProperties.setProperty(DestinationDataProvider.JCO_POOL_CAPACITY, "3");
@@ -38,8 +40,20 @@ public class StepByStepClient
         return connectProperties;
     }
     
-    static public void main() {
-    	createDestinationDataFile(DESTINATION_NAME, prepareProperty);
+    static public void main(String[] arg) {
+    	createDestinationDataFile(DESTINATION_NAME, prepareProperty());
+    	
+    	JCoDestination destination = null;
+		try {
+			destination = JCoDestinationManager.getDestination(DESTINATION_NAME);
+			System.out.println("Attributes:");
+	        System.out.println(destination.getAttributes());
+	        System.out.println();
+		} catch (JCoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
     
     static private void createDestinationDataFile(String destinationName, Properties connectProperties)
