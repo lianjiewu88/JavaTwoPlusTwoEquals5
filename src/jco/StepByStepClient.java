@@ -65,7 +65,18 @@ public class StepByStepClient
     		
     		// int result = exports.getInt("EV_RESULT");
     	    int abapDuration = exports.getInt("EV_DURATION");
+    	    
+    	    JCoTable codes = exports.getTable("ET_MATERIALS");
+    	    
+    	    int row = codes.getNumRows();
+    	    System.out.println("Total rows: " + row);
+    	    
     	    System.out.println("ABAP duration: " + abapDuration);
+    	    
+    	    for( int i = 0; i < row; i++){
+    	    	codes.setRow(i);
+                System.out.println(codes.getString("MATERIAL_ID") + '\t' + codes.getString("MATERIAL_TEXT"));
+    	    }
     	    
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
