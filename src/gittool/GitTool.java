@@ -25,7 +25,7 @@ public class GitTool {
 	
 	public static void main(String[] args) {
 		// System.err.println("usage : <username> <words>");
-		solve("i042416", "123");
+		solve("i042416", "ILOVEYOU");
 	}
 	
 	public static void solve(String username, String words) {
