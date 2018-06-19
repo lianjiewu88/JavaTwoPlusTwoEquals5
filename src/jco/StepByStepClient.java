@@ -26,6 +26,8 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
 public class StepByStepClient
 {
 	static String DESTINATION_NAME = "ABAP_AS_WITHOUT_POOL";
+	static public final String ABAP_DURATION = "abapLayerDuration";
+	static public final String UPSELL_PRODUCT = "upsellProducts";
 	
     static private Properties prepareProperty(){
         Properties connectProperties = new Properties();
@@ -66,6 +68,11 @@ public class StepByStepClient
     		// int result = exports.getInt("EV_RESULT");
     	    int abapDuration = exports.getInt("EV_DURATION");
     	    
+    	    StringBuilder sb = new StringBuilder();
+    	    sb.append("{ \"" + ABAP_DURATION + "\": " + abapDuration + ",");
+    	    
+    	    sb.append("\"" + UPSELL_PRODUCT + "\":[");
+    	    
     	    JCoTable codes = exports.getTable("ET_MATERIALS");
     	    
     	    int row = codes.getNumRows();
@@ -77,6 +84,8 @@ public class StepByStepClient
     	    	codes.setRow(i);
                 System.out.println(codes.getString("MATERIAL_ID") + '\t' + codes.getString("MATERIAL_TEXT"));
     	    }
+    	    
+    	    System.out.println("Final json: " + sb.toString());
     	    
 		} catch (JCoException e) {
 			// TODO Auto-generated catch block
