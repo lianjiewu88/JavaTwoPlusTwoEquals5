@@ -3,19 +3,12 @@ package jco;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
-
-import com.sap.conn.jco.AbapException;
-import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
-import com.sap.conn.jco.JCoField;
 import com.sap.conn.jco.JCoFunction;
-import com.sap.conn.jco.JCoFunctionTemplate;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoRepository;
-import com.sap.conn.jco.JCoStructure;
 import com.sap.conn.jco.JCoTable;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
@@ -28,6 +21,8 @@ public class StepByStepClient
 	static String DESTINATION_NAME = "ABAP_AS_WITHOUT_POOL";
 	static public final String ABAP_DURATION = "abapLayerDuration";
 	static public final String UPSELL_PRODUCT = "upsellProducts";
+	static public final String PRODUCT_ID = "productID";
+	static public final String PRODUCT_TEXT = "productText";
 	
     static private Properties prepareProperty(){
         Properties connectProperties = new Properties();
@@ -83,7 +78,16 @@ public class StepByStepClient
     	    for( int i = 0; i < row; i++){
     	    	codes.setRow(i);
                 System.out.println(codes.getString("MATERIAL_ID") + '\t' + codes.getString("MATERIAL_TEXT"));
+                sb.append("{\"" + PRODUCT_ID + "\":" + codes.getString("MATERIAL_ID") + ","
+                		+ "\"" + PRODUCT_TEXT + "\":\"" + codes.getString("MATERIAL_TEXT") + "\"");
+                if( i < row - 1){
+                	sb.append("},");
+                }
+                else{
+                	sb.append("}");
+                }
     	    }
+    	    sb.append("]}");
     	    
     	    System.out.println("Final json: " + sb.toString());
     	    
