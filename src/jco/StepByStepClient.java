@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Base64;
 import java.util.Properties;
 
 import sun.misc.BASE64Decoder;
@@ -148,17 +149,25 @@ public class StepByStepClient
     		System.out.println("Size: " + is.available());
     		byte[] bytes = new byte[is.available()];
     		is.read(bytes);
+    		
+    		String asB64 = Base64.getEncoder().encodeToString(bytes);
+    		System.out.println("as: " + asB64);
+    		
+    		byte[] asBytes = Base64.getDecoder().decode(asB64);
+    		
 			OutputStream output = new FileOutputStream(file);
 
 			BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
 
-			bufferedOutput.write(bytes);
+			bufferedOutput.write(asBytes);
+			
 			bufferedOutput.close();
+			is.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+     }
     
     static private void getUpsellProductTest(){
     	JCoDestination destination = null;
