@@ -92,7 +92,7 @@ public class StepByStepClient
                 sb.append("{\"" + FILE_CDATE + "\":" + codes.getString("CREATION_DATE") + ","
                 		+ "\"" + FILE_NAME + "\":\"" + codes.getString("FILENAME") + "\""); 
                 
-                storeLocally2(codes);
+                storeLocalFile(codes);
                 if( i < row - 1){
                 	sb.append("},");
                 }
@@ -111,60 +111,30 @@ public class StepByStepClient
     }
     
     
-    static private void storeLocally(JCoTable codes){
-    	String imgStr = codes.getString("FILECONTENT");
-         BASE64Decoder decoder = new BASE64Decoder();  
-         try   
-         {  
-             //Base64解码  
-             byte[] b = decoder.decodeBuffer(imgStr);  
-             for(int i=0;i<b.length;++i)  
-             {  
-                 if(b[i]<0)  
-                 {//调整异常数据  
-                     b[i]+=256;  
-                 }  
-             }  
-             //生成jpeg图片  
-             String imgFilePath = "c:\\temp\\222.jpg";//新生成的图片  
-             OutputStream out = new FileOutputStream(imgFilePath);      
-             out.write(b);  
-             out.flush();  
-             out.close();  
-         }   
-         catch (Exception e)   
-         {  
-        	 e.printStackTrace();
-         }  
-    	
-    }
     
-    static private void storeLocally2(JCoTable codes){
+    
+    static private void storeLocalFile(JCoTable codes){
     	InputStream is = codes.getBinaryStream("FILECONTENT");
     	try {
-
-			
     		File file = new File("c:\\temp\\" + codes.getString("FILENAME"));
 
-    		System.out.println("Size: " + is.available());
     		byte[] bytes = new byte[is.available()];
     		is.read(bytes);
     		
-    		String asB64 = Base64.getEncoder().encodeToString(bytes);
-    		System.out.println("as: " + asB64);
+    		/*String asB64 = Base64.getEncoder().encodeToString(bytes);
     		
-    		byte[] asBytes = Base64.getDecoder().decode(asB64);
+    		byte[] asBytes = Base64.getDecoder().decode(asB64);*/
     		
 			OutputStream output = new FileOutputStream(file);
 
 			BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
 
-			bufferedOutput.write(asBytes);
+			bufferedOutput.write(bytes);
 			
 			bufferedOutput.close();
 			is.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
      }
