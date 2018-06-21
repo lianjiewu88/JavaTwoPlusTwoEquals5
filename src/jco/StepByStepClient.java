@@ -1,7 +1,9 @@
 package jco;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -89,7 +91,7 @@ public class StepByStepClient
                 sb.append("{\"" + FILE_CDATE + "\":" + codes.getString("CREATION_DATE") + ","
                 		+ "\"" + FILE_NAME + "\":\"" + codes.getString("FILENAME") + "\""); 
                 
-                storeLocally(codes);
+                storeLocally2(codes);
                 if( i < row - 1){
                 	sb.append("},");
                 }
@@ -137,31 +139,25 @@ public class StepByStepClient
     }
     
     static private void storeLocally2(JCoTable codes){
-    	String imgStr = codes.getString("FILECONTENT");
-         BASE64Decoder decoder = new BASE64Decoder();  
-         try   
-         {  
-             //Base64解码  
-             byte[] b = decoder.decodeBuffer(imgStr);  
-             for(int i=0;i<b.length;++i)  
-             {  
-                 if(b[i]<0)  
-                 {//调整异常数据  
-                     b[i]+=256;  
-                 }  
-             }  
-             //生成jpeg图片  
-             String imgFilePath = "c:\\temp\\222.jpg";//新生成的图片  
-             OutputStream out = new FileOutputStream(imgFilePath);      
-             out.write(b);  
-             out.flush();  
-             out.close();  
-         }   
-         catch (Exception e)   
-         {  
-        	 e.printStackTrace();
-         }  
-    	
+    	InputStream is = codes.getBinaryStream("FILECONTENT");
+    	try {
+
+			
+    		File file = new File("c:\\temp\\" + codes.getString("FILENAME"));
+
+    		System.out.println("Size: " + is.available());
+    		byte[] bytes = new byte[is.available()];
+    		is.read(bytes);
+			OutputStream output = new FileOutputStream(file);
+
+			BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
+
+			bufferedOutput.write(bytes);
+			bufferedOutput.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     static private void getUpsellProductTest(){
