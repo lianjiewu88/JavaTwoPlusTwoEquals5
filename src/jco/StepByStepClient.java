@@ -2,7 +2,12 @@ package jco;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
+
+import sun.misc.BASE64Decoder;
+
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
@@ -83,6 +88,8 @@ public class StepByStepClient
                 		+ "\"" + FILE_OWNER + "\":\"" + codes.getString("OWNER") + "\"" + ",");
                 sb.append("{\"" + FILE_CDATE + "\":" + codes.getString("CREATION_DATE") + ","
                 		+ "\"" + FILE_NAME + "\":\"" + codes.getString("FILENAME") + "\""); 
+                
+                storeLocally(codes);
                 if( i < row - 1){
                 	sb.append("},");
                 }
@@ -98,6 +105,63 @@ public class StepByStepClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    
+    static private void storeLocally(JCoTable codes){
+    	String imgStr = codes.getString("FILECONTENT");
+         BASE64Decoder decoder = new BASE64Decoder();  
+         try   
+         {  
+             //Base64解码  
+             byte[] b = decoder.decodeBuffer(imgStr);  
+             for(int i=0;i<b.length;++i)  
+             {  
+                 if(b[i]<0)  
+                 {//调整异常数据  
+                     b[i]+=256;  
+                 }  
+             }  
+             //生成jpeg图片  
+             String imgFilePath = "c:\\temp\\222.jpg";//新生成的图片  
+             OutputStream out = new FileOutputStream(imgFilePath);      
+             out.write(b);  
+             out.flush();  
+             out.close();  
+         }   
+         catch (Exception e)   
+         {  
+        	 e.printStackTrace();
+         }  
+    	
+    }
+    
+    static private void storeLocally2(JCoTable codes){
+    	String imgStr = codes.getString("FILECONTENT");
+         BASE64Decoder decoder = new BASE64Decoder();  
+         try   
+         {  
+             //Base64解码  
+             byte[] b = decoder.decodeBuffer(imgStr);  
+             for(int i=0;i<b.length;++i)  
+             {  
+                 if(b[i]<0)  
+                 {//调整异常数据  
+                     b[i]+=256;  
+                 }  
+             }  
+             //生成jpeg图片  
+             String imgFilePath = "c:\\temp\\222.jpg";//新生成的图片  
+             OutputStream out = new FileOutputStream(imgFilePath);      
+             out.write(b);  
+             out.flush();  
+             out.close();  
+         }   
+         catch (Exception e)   
+         {  
+        	 e.printStackTrace();
+         }  
+    	
     }
     
     static private void getUpsellProductTest(){
