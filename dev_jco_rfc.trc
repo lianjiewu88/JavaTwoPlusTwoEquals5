@@ -1,0 +1,6 @@
+
+**** Error file opened at 20180621 120212 China Standard Time Rel. 3.0.18 (2018-03-23) [721.1016]
+Error:  >Thu Jun 21 12:02:12,195<    >RfcGetException rc (7) message: Type conflict when calling function module SCMS_BASE64_ENCODE.
+<RfcGetException
+
+
