@@ -16,10 +16,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 public class OPSystemConnectivity
 {
 	static public void main(String[] arg){
-		final HttpGet get = new HttpGet("https://my306768.vlab.sapbydesign.com/sap/c4c/dis?sap-client=004");
+		final HttpGet get = new HttpGet("https://my306768.vlab.sapbydesign.com/sap/c4c/dis?ticketid=70714");
 		HttpClient httpClient = HttpClientBuilder.create().build();
 
-		String raw = "WANGJERRYE7000198:Sap12345";
+		String raw = "Crmops:Ondemand1";
         String encoded = Base64.encodeBase64String(raw.getBytes());
         get.setHeader("Authorization", "Basic " + encoded);
         
