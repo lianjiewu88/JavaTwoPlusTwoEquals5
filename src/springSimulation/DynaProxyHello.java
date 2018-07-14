@@ -43,10 +43,10 @@ public class DynaProxyHello implements InvocationHandler {
 		return result;
 	}
 
-	static public void main(String[] arg) {
+	/*static public void main(String[] arg) {
 		DynaProxyHello helloproxy = new DynaProxyHello();
 		Helloimplements hello = new Helloimplements();
 		IHello ihello = (IHello) helloproxy.bind(hello);
 		ihello.sayHello("Jerry");
-	}
+	}*/
 }
