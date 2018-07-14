@@ -42,6 +42,11 @@ public class DynaProxyHello implements InvocationHandler {
 		// 返回方法返回值给调用者
 		return result;
 	}
+	
+	static public void main(String[] arg) {
+		Helloimplements hello = new Helloimplements();
+		hello.sayHello("Jerry");
+	}
 
 	/*static public void main(String[] arg) {
 		DynaProxyHello helloproxy = new DynaProxyHello();
