@@ -1,5 +1,10 @@
 package integerTest;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryManagerMXBean;
+import java.lang.management.OperatingSystemMXBean;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 
 public class IntegerCompare {
@@ -17,7 +22,7 @@ public class IntegerCompare {
 		return System.currentTimeMillis() - start;
 	}
 	
-	private static final int NUM = 10000;
+	private static final int NUM = 1;
 	private static int calc1(){
 		Integer result = 0;
 		for( Integer i = 0; i < NUM; i++){
@@ -50,9 +55,20 @@ public class IntegerCompare {
 		}
 		System.out.println("Calc2 time: " + end());
 		
-		Properties a = System.getProperties();
+		Properties properties = System.getProperties();
 		
-		Object ab = 2;
-		Object b = 1;
+		int size = properties.size();
+		System.out.println("Size: " + size);
+		
+		Enumeration<Object> keys =  properties.keys();
+		
+		int index = 0;
+		while ( keys.hasMoreElements() ){
+			Object obj = keys.nextElement();
+			System.out.println();
+			System.out.println("The [" + index + "] key: " + obj);
+			index++;
+			System.out.println("Value: " + properties.getProperty((String) obj) );
+		}
 	}
 }
