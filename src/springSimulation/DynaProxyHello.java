@@ -30,28 +30,29 @@ public class DynaProxyHello implements InvocationHandler {
 			throws Throwable {
 		Object result = null;
 		try {
-			System.out.println("Jerry adds log before method call...");
-
+			String originalName = method.getName();
+			System.out.println("original method name: " + originalName);
+			if( originalName.equals("sayHello")){
+				System.out.println("日志记录策略A...");
+			}
+			else if( originalName.equals("sayGoodBye")){
+				System.out.println("日志记录策略B...");
+			}
 			// JVM通过这条语句执行原来的方法(反射机制)
 			result = method.invoke(this.delegate, args);
-			// 执行原来的方法之后记录日志
-			System.out.println("Jerry adds log after method call...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 返回方法返回值给调用者
 		return result;
 	}
 	
-	static public void main(String[] arg) {
-		Helloimplements hello = new Helloimplements();
-		hello.sayHello("Jerry");
-	}
 
-	/*static public void main(String[] arg) {
+	static public void main(String[] arg) {
 		DynaProxyHello helloproxy = new DynaProxyHello();
 		Helloimplements hello = new Helloimplements();
 		IHello ihello = (IHello) helloproxy.bind(hello);
 		ihello.sayHello("Jerry");
-	}*/
+		
+		ihello.sayGoogBye("Jerry");
+	}
 }

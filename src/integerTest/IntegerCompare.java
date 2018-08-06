@@ -1,5 +1,7 @@
 package integerTest;
 
+import java.util.Properties;
+
 public class IntegerCompare {
 
 	private static long start;
@@ -47,5 +49,10 @@ public class IntegerCompare {
 			calc2();
 		}
 		System.out.println("Calc2 time: " + end());
+		
+		Properties a = System.getProperties();
+		
+		Object ab = 2;
+		Object b = 1;
 	}
 }

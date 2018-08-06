@@ -15,8 +15,5 @@ public class IntegerTest {
 	public static void main(String[] args) throws Exception {
 		doSomethingMagic();
 		System.out.printf("2 + 2 = %d", 2 + 2);
-		
-		int a = 1;
-		long b = a;
 	}
 }
