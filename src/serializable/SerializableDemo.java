@@ -31,6 +31,8 @@ public class SerializableDemo {
 				e.printStackTrace();
 			}
 		}
+		
+		
 		File file = new File("tempFile");
 		ObjectInputStream ois = null;
 		try {
