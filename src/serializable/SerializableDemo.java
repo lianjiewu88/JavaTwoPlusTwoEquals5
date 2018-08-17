@@ -20,7 +20,7 @@ public class SerializableDemo {
 
 		ObjectOutputStream oos = null;
 		try {
-			oos = new ObjectOutputStream(new FileOutputStream("tempFile"));
+			oos = new ObjectOutputStream(new FileOutputStream("c:\\temp\\tempFile"));
 			oos.writeObject(jerry);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -33,7 +33,7 @@ public class SerializableDemo {
 		}
 		
 		
-		File file = new File("tempFile");
+		File file = new File("c:\\temp\\tempFile");
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(file));
