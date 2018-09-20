@@ -20,6 +20,18 @@ public class EnginnerProxy implements InvocationHandler
             throws Throwable
     {
         System.out.println("Enginner writes document");
+        String methodName = method.getName();
+        switch( methodName){
+             case "write": 
+            	 System.out.println("write method is called");
+            	 break;
+             case "read":
+            	 System.out.println("read method is called");
+            	 break;
+             default:
+            	 System.out.println("Invalid method! valid methods are 'write' or 'read'!");
+            	 return null;
+        }
         Object res = method.invoke(obj, args);
         return res;
     }
