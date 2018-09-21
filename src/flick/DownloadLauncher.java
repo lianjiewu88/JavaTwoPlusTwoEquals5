@@ -9,6 +9,7 @@ public class DownloadLauncher {
 	static final public String PREFIX = "http://d2vvqvds83fsd.cloudfront.net/vin02/vsmedia/_definst_/smil:event/18/36/06/3/rt/1/resources/180919_PID_Intelligent_Enterprise_Gruenewald_720p-5F92.smil/media_b433000_";
 	static final public String POSTFIX = ".ts";
 	static final public String LOCALPATH = "c:\\temp\\";
+	static final public String MERGED = "merged.avi";
 	
 	public static void main(String[] args) {
 		ExecutorService executor = Executors.newFixedThreadPool(1);
