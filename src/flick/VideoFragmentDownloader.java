@@ -1,16 +1,12 @@
 package flick;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class VideoFragmentDownloader  implements Runnable{
 
@@ -20,10 +16,10 @@ public class VideoFragmentDownloader  implements Runnable{
 		this.mTask = url;
 	}
 	
-	private void download(String url){
+	private void download(){
 		URL task = null;
 		String path = "C:\\temp\\1.ts";
-		
+		String url = this.mTask;
 		try 
 		{
 			task = new URL(url);
@@ -53,14 +49,10 @@ public class VideoFragmentDownloader  implements Runnable{
 		}
 		
 	}
-	public static void main(String[] args) {
-		download("http://d2vvqvds83fsd.cloudfront.net/vin02/vsmedia/_definst_/smil:event/18/36/06/3/rt/1/resources/180919_PID_Intelligent_Enterprise_Gruenewald_720p-5F92.smil/media_b433000_1.ts");
 
-	}
 	@Override
 	public void run() {
-		
-		
+		this.download();
 	}
 
 }
