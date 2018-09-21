@@ -12,9 +12,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class VideoFragmentDownloader {
+public class VideoFragmentDownloader  implements Runnable{
 
-	private static void download(String url){
+	private String mTask;
+	
+	public  VideoFragmentDownloader(String url){
+		this.mTask = url;
+	}
+	
+	private void download(String url){
 		URL task = null;
 		String path = "C:\\temp\\1.ts";
 		
@@ -50,6 +56,11 @@ public class VideoFragmentDownloader {
 	public static void main(String[] args) {
 		download("http://d2vvqvds83fsd.cloudfront.net/vin02/vsmedia/_definst_/smil:event/18/36/06/3/rt/1/resources/180919_PID_Intelligent_Enterprise_Gruenewald_720p-5F92.smil/media_b433000_1.ts");
 
+	}
+	@Override
+	public void run() {
+		
+		
 	}
 
 }
