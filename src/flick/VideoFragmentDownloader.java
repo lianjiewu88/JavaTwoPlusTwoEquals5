@@ -11,14 +11,17 @@ import java.net.URL;
 public class VideoFragmentDownloader  implements Runnable{
 
 	private String mTask;
+	private int mIndex;
 	
-	public  VideoFragmentDownloader(String url){
+	public  VideoFragmentDownloader(String url, int index){
 		this.mTask = url;
+		this.mIndex = index;
 	}
 	
 	private void download(){
 		URL task = null;
-		String path = "C:\\temp\\1.ts";
+		String path = DownloadLauncher.LOCALPATH + this.mIndex + 
+				DownloadLauncher.POSTFIX;
 		String url = this.mTask;
 		try 
 		{
@@ -37,7 +40,7 @@ public class VideoFragmentDownloader  implements Runnable{
             fileOutputStream.write(output.toByteArray());
             dataInputStream.close();
             fileOutputStream.close();
-            System.out.println("File downloaded ok");
+            System.out.println("File: " + this.mIndex + " downloaded ok");
 		}
 		catch (MalformedURLException e) 
 		{
