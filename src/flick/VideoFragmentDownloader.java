@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class VideoFragmentDownloader  implements Runnable{
-
 	private String mTask;
 	private int mIndex;
 	
@@ -23,8 +22,7 @@ public class VideoFragmentDownloader  implements Runnable{
 		String path = DownloadLauncher.LOCALPATH + this.mIndex + 
 				DownloadLauncher.POSTFIX;
 		String url = this.mTask;
-		try 
-		{
+		try {
 			task = new URL(url);
 			DataInputStream dataInputStream = new DataInputStream(task.openStream());
 			 
@@ -42,12 +40,10 @@ public class VideoFragmentDownloader  implements Runnable{
             fileOutputStream.close();
             System.out.println("File: " + this.mIndex + " downloaded ok");
 		}
-		catch (MalformedURLException e) 
-		{
+		catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		catch (IOException e) 
-		{
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
