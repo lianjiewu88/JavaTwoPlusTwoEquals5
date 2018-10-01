@@ -12,6 +12,10 @@ public class ListSort {
 		}
 	}
 	
+	private static void newprint(List<String> list){
+		list.forEach(System.out::println);
+	}
+	
 	private static void normalSort(){
 		
 		List<String> list = (List) Arrays.asList("2", "3", "1", "4");
@@ -35,7 +39,15 @@ public class ListSort {
 		print(list);
 	}
 	
+	private static void java8sort2(){
+		
+		List<String> list = (List) Arrays.asList("2", "3", "1", "4");
+
+		list.sort(Comparator.comparing(Integer::valueOf));
+		newprint(list);
+	}
+
 	public static void main(String[] args) {
-		java8sort();
+		java8sort2();
 	}
 }
