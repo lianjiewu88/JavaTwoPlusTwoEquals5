@@ -27,7 +27,15 @@ public class ListSort {
 		print(list);
 	}
 	
+	private static void java8sort(){
+		
+		List<String> list = (List) Arrays.asList("2", "3", "1", "4");
+
+		list.sort((String o1, String o2) -> Integer.valueOf(o1) - Integer.valueOf(o2));
+		print(list);
+	}
+	
 	public static void main(String[] args) {
-		normalSort();
+		java8sort();
 	}
 }
