@@ -1,5 +1,6 @@
 package youdao;
 
+import org.json.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,7 +22,15 @@ public class YoudaoNote {
 	            HttpResponse response = client.execute(get);
 	            HttpEntity entity = response.getEntity();
 	            String result = EntityUtils.toString(entity, "UTF-8");
-	            System.out.print(result);
+	            JSONObject obj = new JSONObject(result);
+	            
+	            String title = obj.get("tl").toString();
+	            // System.out.println("title: " + title);
+	            
+	            String content = obj.get("content").toString();
+	            System.out.println("content: " + content);
+	            
+	            
 	             
 	        } catch (Exception e){
 	        	e.printStackTrace();
