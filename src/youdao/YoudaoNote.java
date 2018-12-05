@@ -35,11 +35,11 @@ public class YoudaoNote {
 	            
 	            mTitle = obj.get("tl").toString();
 	            String content = obj.get("content").toString();
-	            System.out.println("content: " + content);
+	            // System.out.println("content: " + content);
 	            
 	            Matcher m = Pattern.compile("src\\s*=\\s*\"?(.*?)(\"|>|\\s+)").matcher(content);
 	            while (m.find()) {
-	                    System.out.println(m.group(1));
+	                    // System.out.println(m.group(1));
 	                    DownloadTask task = new DownloadTask(m.group(1), index++);
 	                    resultPic.add(task);
 	            }
@@ -54,7 +54,7 @@ public class YoudaoNote {
 			System.out.println("No picture to download!");
 			return;
 		}
-		
+		System.out.println("Total pic to be downloaded: " + task.size());
 		ExecutorService executor = Executors.newFixedThreadPool(10);
 		
 		for( int i = 0; i < task.size(); i++){
