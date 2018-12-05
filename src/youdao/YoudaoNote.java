@@ -20,6 +20,13 @@ import org.apache.http.util.EntityUtils;
 public class YoudaoNote {
 
 	private static String mTitle = null;
+	private static final String PREFIX = "C:\\Users\\i042416\\Pictures\\";
+	
+	private static void createFolder(String title){
+		DownloadTask.FOLDER = PREFIX + title;
+		File file = new File( DownloadTask.FOLDER);
+		file.mkdir();
+	}
 	
 	private static List<DownloadTask> getPicUrlList(String formattedUrl){
 		HttpClient client = HttpClients.createDefault();
@@ -34,6 +41,7 @@ public class YoudaoNote {
 	            JSONObject obj = new JSONObject(result);
 	            
 	            mTitle = obj.get("tl").toString();
+	            createFolder(mTitle);
 	            String content = obj.get("content").toString();
 	            // System.out.println("content: " + content);
 	            

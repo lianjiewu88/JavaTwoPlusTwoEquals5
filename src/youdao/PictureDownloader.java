@@ -23,9 +23,10 @@ public class PictureDownloader implements Runnable {
             url = new URL(this.mUrl);
             DataInputStream dataInputStream = new DataInputStream(url.openStream());
 
-            String imageName =  "C:\\Users\\i042416\\Pictures\\clipboard" +
-             ++this.index + ".png";
+            String imageName =  DownloadTask.FOLDER +
+            		"\\clipboard" + ++this.index + ".png";
 
+            System.out.println("file name: " + imageName);
             FileOutputStream fileOutputStream = new FileOutputStream(new File(imageName));
             ByteArrayOutputStream output = new ByteArrayOutputStream();
 
