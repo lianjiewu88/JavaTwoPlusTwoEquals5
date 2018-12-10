@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class Merger {
 
+	private static final int START = 1;
 	private static void run() throws IOException{
 		
 		FileInputStream in = null;
@@ -14,7 +15,7 @@ public class Merger {
 		
 		FileOutputStream out = new FileOutputStream(destFile,true);
 		
-		for( int i = 0; i <= DownloadLauncher.LAST; i++){
+		for( int i = START; i <= DownloadLauncher.LAST; i++){
 			byte[] buf = new byte[1024];
 			int len = 0;
 			String sourceFile = DownloadLauncher.LOCALPATH + i + 
