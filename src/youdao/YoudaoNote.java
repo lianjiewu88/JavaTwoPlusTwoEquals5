@@ -79,7 +79,7 @@ public class YoudaoNote {
 	
 	public static void main(String[] args) {
 		
-		String guid ="b650f9ab2789623e504a40d4e6d25ad3";
+		String guid ="3e460c304b5e7afc7f2099be5059a6cf";
 		
 		String urlStr = "http://note.youdao.com/yws/public/note/"
 				+ guid + "?keyfrom=public";
