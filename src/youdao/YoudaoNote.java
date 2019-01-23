@@ -79,10 +79,12 @@ public class YoudaoNote {
 	
 	public static void main(String[] args) {
 		
-		String guid ="3e460c304b5e7afc7f2099be5059a6cf";
-		
+		String main ="41b4c7bd84f4589c8ad1441eba2408c1";
+		String adhoc = "f06ca2b152ed16fb4d9fbfa754453feb";
 		String urlStr = "http://note.youdao.com/yws/public/note/"
-				+ guid + "?keyfrom=public";
+				    // + adhoc
+				    + main
+				+ "?keyfrom=public";
 		
 		System.out.println(urlStr);
 		List<DownloadTask> task = getPicUrlList(urlStr);

@@ -2,7 +2,7 @@ package odata;
 
 public class TicketCreationTest {
 
-	private final int THREAD_COUNT = 3;
+	private final int THREAD_COUNT = 1;
 	
 	private void test() {
 		Thread[] tasks = new Thread[THREAD_COUNT]; 
