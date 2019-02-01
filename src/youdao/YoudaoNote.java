@@ -80,10 +80,10 @@ public class YoudaoNote {
 	public static void main(String[] args) {
 		
 		String main ="41b4c7bd84f4589c8ad1441eba2408c1";
-		String adhoc = "f06ca2b152ed16fb4d9fbfa754453feb";
+		String adhoc = "24b223ba96281fecae00e11e07156f3f";
 		String urlStr = "http://note.youdao.com/yws/public/note/"
 				    // + adhoc
-				    + main
+				     + main
 				+ "?keyfrom=public";
 		
 		System.out.println(urlStr);
